@@ -49,4 +49,6 @@ export class TabListTextsService {
   public COMPANY_MASTER_1: string = "New Company";
   public JOURNAL_AUTO_APPROVER_0: string = "List of Rules";
   public JOURNAL_AUTO_APPROVER_1: string = "New/Edit Rule";
+  public SCHEDULER_RUN_GRAPH_0: string = "Journal Run Status Count in Month";
+  public SCHEDULER_RUN_GRAPH_1: string = "WD Wise Status in Month";
 }

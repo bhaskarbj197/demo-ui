@@ -67,6 +67,7 @@ export class DocEvidenceComponent implements OnInit, OnChanges {
             docEvidence.comments = fileList[index].warning;
             this.docEvidenceList.push(docEvidence);
           }
+          this.docEvidenceList = this.generalUtility.getSortedArray(this.docEvidenceList, "fileName");
         }
     }, err => {
       this.isLoading = false;

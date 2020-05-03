@@ -23,7 +23,7 @@
                         <app-table-no-records [list]="docEvidenceList"></app-table-no-records>
                         <div class="table bg-white cu-tbl">
                             <div  class="cu-tbody">                                
-                                <div class="cu-tr" *ngFor="let doc of docEvidenceList | orderBy: 'asc' : 'fileName'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-tr" *ngFor="let doc of docEvidenceList; let odd=odd;" [ngClass]="{'odd-row': odd}">
                                     <div class="cu-td w-40" scope="row">{{doc.fileName}}</div>
                                     <div class="cu-td w-10 center-icon">
                                         <app-icon-button faIcon="fa-file-excel-o" (btnClick)="onFileDownloadClick('original', doc.fileName)" 

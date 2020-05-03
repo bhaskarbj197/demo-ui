@@ -53,7 +53,8 @@ export class ValidationResultsComponent implements OnInit {
     this.isLoading = true;
     this.businessLoaderService.advisorValidationResultBusinessService.getValidationResultAsync(this.journalInfo.id, this.journalInfo.runDateSelected).subscribe(response => {
       if(response.body){
-        this.validationResults = this.businessLoaderService.advisorValidationResultBusinessService.getValidationResult(response.body);
+        this.validationResults = this.generalUtility.getSortedArray(
+          this.businessLoaderService.advisorValidationResultBusinessService.getValidationResult(response.body), "validationNo");
         if(this.validationResults && this.validationResults.length > 0){
           this.journalGraphs.validationStatus.labels = ["OK", "Error"];
           this.journalGraphs.validationStatus.data.push(this.validationResults.filter(v => v.isSuccess).length);

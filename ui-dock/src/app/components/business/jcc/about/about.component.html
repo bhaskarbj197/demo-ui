@@ -12,8 +12,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <app-textbox ctrlId="txtAbount_name" label="Name" placeholder="Name" 
-                                    [isReadOnly]="isViewOnly || aboutDetails.journalInfo.id !== 0" [(model)]="aboutDetails.journalInfo.name" 
-                                    minLabelLen="140px" isRequired="true" ariaLabel="Journal Name"
+                                    [isReadOnly]="isJournalNameEditable()"  
+                                    minLabelLen="140px" isRequired="true" ariaLabel="Journal Name" [(model)]="aboutDetails.journalInfo.name"
                                     [isSubmit]="isFormSubmitted" backLabel="Non Editable" isBackLabelInfoOnly="true"></app-textbox>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <app-combobox ctrlId="cmbAbount_superuser" label="Administrator" placeholder="Select administrator" 
-                                    [isDisabled]="isViewOnly" [list]="superUserList| orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                    [isDisabled]="isViewOnly" [list]="superUserList" key="id" value="nameEmail" 
                                     [(model)]="aboutDetails.workflow.superuser" minLabelLen="140px" ariaLabel="Select Administrator"
                                     isRequired="true" [isSubmit]="isFormSubmitted" keyCustomType="true"></app-combobox>
                             </div>
@@ -66,7 +66,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <app-combobox ctrlId="cmbAbount_approver" label="Approver" placeholder="Select approver" 
-                                    [isDisabled]="isViewOnly" [list]="approverList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                    [isDisabled]="isViewOnly" [list]="approverList" key="id" value="nameEmail" 
                                     [(model)]="aboutDetails.workflow.approver" minLabelLen="140px" ariaLabel="Select Approver"
                                     isRequired="true" [isSubmit]="isFormSubmitted" keyCustomType="true"></app-combobox>
                             </div>
@@ -74,7 +74,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <app-combobox ctrlId="cmbAbount_reviewer" label="Reviewer" placeholder="Select reviewer" 
-                                    [isDisabled]="isViewOnly" [list]="reviewerList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                    [isDisabled]="isViewOnly" [list]="reviewerList" key="id" value="nameEmail" 
                                     [(model)]="aboutDetails.workflow.reviewer" minLabelLen="140px" ariaLabel="Select Reviewer"
                                     isRequired="true" [isSubmit]="isFormSubmitted" keyCustomType="true"></app-combobox>
                             </div>

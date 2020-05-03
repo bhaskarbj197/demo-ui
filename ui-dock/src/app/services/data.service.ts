@@ -32,6 +32,7 @@ export class DataService {
   inputSources: Array<TreeNodeModel> = [];
   stepIdForData: number;
   journalViewMode: string;
+  isJournalCopy: boolean = false;
   runDate: string;
   stepColumnsSelected: Array<StepColumnsSelectedModel>;
   headerMenu: Array<HeaderMenuModel> = new Array<HeaderMenuModel>();

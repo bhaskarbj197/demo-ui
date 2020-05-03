@@ -140,19 +140,21 @@ export class AboutComponent implements OnInit {
         this.businessLoaderService.userBusinessService.getUserListByRoleNameFromKeycloakAsync(code).subscribe(resp => {
           if(resp.body && resp.body.users){
             if(resp.body.users[code]){
+              var userList: Array<UserPartialModel> = new Array<UserPartialModel>();
               for(var index=0; index<resp.body.users[code].length; index++){
                 var user: UserPartialModel = new UserPartialModel();
                 user.id = resp.body.users[code][index].id;
                 user.nameEmail = (resp.body.users[code][index].firstName ? resp.body.users[code][index].firstName : "") + " " + 
                   (resp.body.users[code][index].lastName ? resp.body.users[code][index].lastName : "") +
                   (resp.body.users[code][index].email ? (" (" + resp.body.users[code][index].email  + ")") : "");
-                if(roleName === this.constantLoaderService.userTypesService.USER_REVIEWER){
-                  this.reviewerList.push(user);
-                } else if(roleName === this.constantLoaderService.userTypesService.USER_APPROVER){
-                  this.approverList.push(user);
-                } else {
-                  this.superUserList.push(user);
-                }
+                userList.push(user);
+              }
+              if(roleName === this.constantLoaderService.userTypesService.USER_REVIEWER){
+                this.reviewerList = this.generalUtility.getSortedArray(userList, "nameEmail");
+              } else if(roleName === this.constantLoaderService.userTypesService.USER_APPROVER) {
+                this.approverList = this.generalUtility.getSortedArray(userList, "nameEmail");
+              } else {
+                this.superUserList = this.generalUtility.getSortedArray(userList, "nameEmail");
               }
             }
           }
@@ -173,17 +175,19 @@ export class AboutComponent implements OnInit {
         roleId = roleList.find(r => r.name.trim().toLowerCase() === role.trim().toLowerCase()).id;
         this.businessLoaderService.userBusinessService.getUserListByRoleIdAsync(roleId).subscribe(resp => {
           if(resp.body){
+            var userList: Array<UserPartialModel> = new Array<UserPartialModel>();
             for(var index=0; index<resp.body.length; index++){
               var user: UserPartialModel = new UserPartialModel();
               user.id = resp.body[index].userId;
               user.nameEmail = resp.body[index].firstName + " " + resp.body[index].lastName + " (" + resp.body[index].email + ")";
-              if(role === this.constantLoaderService.userTypesService.USER_REVIEWER){
-                this.reviewerList.push(user);
-              } else if(role === this.constantLoaderService.userTypesService.USER_APPROVER){
-                this.approverList.push(user);
-              } else {
-                this.superUserList.push(user);
-              }
+              userList.push(user);
+            }
+            if(role === this.constantLoaderService.userTypesService.USER_REVIEWER){
+              this.reviewerList = this.generalUtility.getSortedArray(userList, "nameEmail");
+            } else if(role === this.constantLoaderService.userTypesService.USER_APPROVER) {
+              this.approverList = this.generalUtility.getSortedArray(userList, "nameEmail");
+            } else {
+              this.superUserList = this.generalUtility.getSortedArray(userList, "nameEmail");
             }
           }
         }, error => {
@@ -314,5 +318,12 @@ export class AboutComponent implements OnInit {
 
   onReversalChanged(){
     this.aboutDetails.journalInfo.isReversal = !this.aboutDetails.journalInfo.isReversal;
+  }
+
+  isJournalNameEditable(): boolean{
+    if(this.dataService.isJournalCopy){
+      return false;
+    }
+    return (this.isViewOnly || this.aboutDetails.journalInfo.id !== 0);
   }
 }

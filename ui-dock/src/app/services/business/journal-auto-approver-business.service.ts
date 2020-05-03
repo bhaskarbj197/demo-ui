@@ -56,11 +56,22 @@ export class JournalAutoApproverBusinessService {
         }
       }
     }
-    request.action = ruleModel.action;
+    request.action = {
+      code: ruleModel.action.code,
+      value: ruleModel.action.value
+    };
     request.actionReviewer2 = ruleModel.actionReviewer2;
     request.comments += " | Action: " + ruleModel.action.value;
     request.isException = ruleModel.isException;
-    request.exception = ruleModel.isException ? ruleModel.exception : null;
+    if(ruleModel.isException){
+      request.exception = ruleModel.exception;
+      request.exception.action = {
+        code: ruleModel.exception.action.code,
+        value: ruleModel.exception.action.value
+      };
+    } else {
+      request.exception = null;
+    }
     if(ruleModel.isException){
       if(ruleModel.exception.group1){
         request.comments += " | Exception: (#)" + ruleModel.exception.group1.groupName + " = " + ruleModel.exception.group1.element + "; ";

@@ -18,7 +18,8 @@ export class DateConverterPipe implements PipeTransform {
   constructor(public datepipe: DatePipe,
     private handlerLoaderService: HandlerLoaderService){}
 
-  transform(value: number|string, isTimeNeeded: boolean = true, isValueInMS: boolean = false): any {
+  transform(value: number|string, isTimeNeeded: boolean = true, isValueInMS: boolean = false, 
+    isShowOnlyTime: boolean = false): any {
     if(value === null || value === undefined){
       return value;
     }
@@ -27,6 +28,9 @@ export class DateConverterPipe implements PipeTransform {
     }
     if(!isValueInMS){
       value = value * 1000;
+    }
+    if(isShowOnlyTime){
+      return !value ? "" : this.handlerLoaderService.momentDateHandlerService.getDateStringFormatInOnlyTime(value);
     }
     if(!isTimeNeeded){
       return !value ? "" : this.handlerLoaderService.momentDateHandlerService.getDateStringFormatInDdmmyyyy(value);

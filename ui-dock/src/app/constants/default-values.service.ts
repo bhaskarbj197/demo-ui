@@ -96,4 +96,5 @@ export class DefaultValuesService {
     {key: "decimalPlace", value: "Decimal Place", prfx: false, chr: false, mLen: false, dPlc: true}];
   public ALL_OPTION_FOR_COMBO: string = "All";
   public NO_RECORDS_IN_TABLE: string = "No Records";
+  public SCHEDULER_HISTORY_MONTH_LIST: Array<object> = [{ key: 0, value: "Current Month" }, { key: 1, value: "Previous Month" }];
 }

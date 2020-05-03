@@ -49,7 +49,7 @@
         <div class="table bg-white cu-tbl">
             <app-loader [isLoading]="isLoading"></app-loader>
             <div  class="cu-tbody">
-                <div class="cu-tr" *ngFor="let validation of validationResults | orderBy: 'asc' : 'validationNo'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                <div class="cu-tr" *ngFor="let validation of validationResults; let odd=odd;" [ngClass]="{'odd-row': odd}">
                     <div class="cu-th w-10 text-center" scope="row">{{validation.validationNo}}</div>
                     <div class="cu-td w-20">{{validation.category}}</div>
                     <div class="cu-td w-60">{{validation.description}}</div>

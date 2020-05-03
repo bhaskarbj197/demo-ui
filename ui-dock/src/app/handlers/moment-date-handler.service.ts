@@ -54,6 +54,10 @@ export class MomentDateHandlerService {
     return moment(value).format("DD-MM-YYYY");
   }
 
+  getDateStringFormatInOnlyTime(value: string|number){
+    return moment(value).format("hh:mm:ss");
+  }
+
   getDaysToCompleteMonth(dateString: string): Array<number> {
     var days: Array<number> = [];
     if(dateString){

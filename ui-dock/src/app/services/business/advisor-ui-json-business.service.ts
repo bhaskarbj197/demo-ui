@@ -11,13 +11,16 @@ import { UiJsonDataService } from '../../services/data/ui-json-data.service';
 import { TreeNodeModel } from '../../models/treeNode.model';
 import { DataService } from '../data.service';
 import { FolderTypes } from 'src/app/enums/folderTypes';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdvisorUiJsonBusinessService {
 
-  constructor(private uiJsonDataService: UiJsonDataService, private dataService: DataService) { }
+  constructor(private uiJsonDataService: UiJsonDataService, 
+    private dataService: DataService,
+    private generalUtility: GeneralUtility) { }
 
   private createTreeNode(jsonTree: any, isAdhoc: boolean = false): TreeNodeModel{
     var node = new TreeNodeModel();
@@ -46,6 +49,7 @@ export class AdvisorUiJsonBusinessService {
     }
     node.isWithoutJournalId = true;
     node.isAllChildrenOpenInSamePage = (jsonTree.isAllChildrenOpenInSamePage === undefined) ? false : jsonTree.isAllChildrenOpenInSamePage;
+    node.children = this.generalUtility.getSortedArray(node.children, "seq");
     return node;
   }
 
@@ -72,6 +76,7 @@ export class AdvisorUiJsonBusinessService {
         }
       }
     }
+    treeNodes = this.generalUtility.getSortedArray(treeNodes, "seq");
     return treeNodes;
   }
 }

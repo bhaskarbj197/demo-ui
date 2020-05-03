@@ -14,6 +14,7 @@ import { UiJsonDataService } from './../data/ui-json-data.service';
 import { AnomalyInputLogsModel, AnomalyInputLogsDataModel } from '../../models/anomalyInputLogs.model';
 import { AnomalyProcessLogsModel, AnomalyProcessLogsDataModel } from '../../models/anomalyProcessLogs.model';
 import { journalIdType } from '../types';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ import { journalIdType } from '../types';
 export class AdvisorAnomalyBusinessService {
 
   constructor(private advisorAnomalyDataService: AdvisorAnomalyDataService,
-    private uiJsonDataService: UiJsonDataService) { }
+    private uiJsonDataService: UiJsonDataService,
+    private generalUtility: GeneralUtility) { }
 
   getJournalInputLogDataAnomalyAsync(journalId: journalIdType, runDate: string): Observable<HttpResponse<any>>{
     var request = {
@@ -55,6 +57,7 @@ export class AdvisorAnomalyBusinessService {
           anomalyInputLogsData.source = response.anomalyData[index].source;
           anomalyInputLogs.records.splice(0, 0, anomalyInputLogsData);
         }
+        anomalyInputLogs.records = this.generalUtility.getSortedArray(anomalyInputLogs.records, "inputNo");
       }
     }
     return anomalyInputLogs;
@@ -94,6 +97,7 @@ export class AdvisorAnomalyBusinessService {
           anomalyProcessLogsData.stepNo = response.anomalyData[index].stepNo;
           anomalyProcessLogs.records.splice(0, 0, anomalyProcessLogsData);
         }
+        anomalyProcessLogs.records = this.generalUtility.getSortedArray(anomalyProcessLogs.records, "inputNo");
       }
     }
     return anomalyProcessLogs;

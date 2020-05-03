@@ -21,11 +21,11 @@ export class GroupMasterBusinessService {
   constructor(private groupMasterData: GroupMasterDataService,
     private dataService: DataService) { }
 
-  addNewGroupMasterAsync(requestBody): Observable<HttpResponse<any>> {
+  addNewGroupMasterAsync(requestBody: any): Observable<HttpResponse<any>> {
     return this.groupMasterData.addNewGroupMasterAsync(requestBody)
   }
 
-  updateGroupMasterAsync(requestBody): Observable<HttpResponse<any>> {
+  updateGroupMasterAsync(requestBody: any): Observable<HttpResponse<any>> {
     return this.groupMasterData.updateGroupMasterAsync(requestBody)
   }
 
@@ -37,5 +37,13 @@ export class GroupMasterBusinessService {
 
   deleteGroupMasterAsync(request: any): Observable<HttpResponse<any>> {
     return this.groupMasterData.deleteGroupMasterAsync(request);
+  }
+
+  updateGroupActivenessAsync(grpId: number, isActive: boolean): Observable<HttpResponse<any>> {
+    var request: any = {
+      groupId: grpId,
+      isActive: isActive
+    };
+    return this.groupMasterData.updateGroupActivenessAsync(request);
   }
 }

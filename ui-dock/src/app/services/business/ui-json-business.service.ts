@@ -15,6 +15,7 @@ import { ProcessStepModel } from 'src/app/models/processStep.model';
 import { ConstantLoaderService } from '../../loaders/constant-loader.service';
 import { HeaderMenuModel } from '../../models/headerMenu.model';
 import { DataService } from '../../services/data.service';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class UiJsonBusinessService {
 
   constructor(private uiJsonDataService: UiJsonDataService,
     private constantLoaderService: ConstantLoaderService,
-    private dataService: DataService) { }
+    private dataService: DataService,
+    private generalUtility: GeneralUtility) { }
 
   private jsonTemplate = this.uiJsonDataService.getStaticTreeStructure();
   private jsonItem : any;
@@ -101,8 +103,10 @@ export class UiJsonBusinessService {
           treeNode.children.push(childNode);
         }
       }
+      treeNode.children = this.generalUtility.getSortedArray(treeNode.children, "seq");
       treeModel.push(treeNode);
     }
+    treeModel = this.generalUtility.getSortedArray(treeModel, "seq");
     return treeModel;
   }
 

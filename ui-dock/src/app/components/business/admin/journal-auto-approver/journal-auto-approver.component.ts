@@ -17,6 +17,7 @@ import { RolePartialModel } from 'src/app/models/role.model';
 import { UserPartialModel } from 'src/app/models/user.model';
 import { GroupMasterModel } from 'src/app/models/groupMaster.model';
 import { HandlerLoaderService } from 'src/app/loaders/handler-loader.service';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Component({
   selector: 'app-journal-auto-approver',
@@ -30,7 +31,8 @@ export class JournalAutoApproverComponent implements OnInit {
   constructor(private constantLoaderService: ConstantLoaderService,
     private businessLoaderService: BusinessLoaderService,
     private enumLoaderService: EnumLoaderService,
-    private handlerLoaderService: HandlerLoaderService) { }
+    private handlerLoaderService: HandlerLoaderService,
+    private generalUtility: GeneralUtility) { }
 
   isLoading: boolean = false;
   tabList: Array<string> = [this.constantLoaderService.tabListTextsService.JOURNAL_AUTO_APPROVER_0, 
@@ -94,6 +96,10 @@ export class JournalAutoApproverComponent implements OnInit {
   private setExceptionActionValue(){
     if(this.actionList.findIndex(a => a.isShowInExceptionArea) >= 0){
       this.ruleModel.exception.action.code = this.actionList.find(a => a.isShowInExceptionArea).code;
+      this.ruleModel.exception.action.value = this.actionList.find(a => a.isShowInExceptionArea).value;
+      this.ruleModel.exception.action.isReview2ListShow = this.actionList.find(a => a.isShowInExceptionArea).isReview2ListShow;
+      this.ruleModel.exception.action.isShowInActionArea = this.actionList.find(a => a.isShowInExceptionArea).isShowInActionArea;
+      this.ruleModel.exception.action.isShowInExceptionArea = this.actionList.find(a => a.isShowInExceptionArea).isShowInExceptionArea;
     }
   }
 
@@ -124,6 +130,7 @@ export class JournalAutoApproverComponent implements OnInit {
   }
 
   private loadReviewerList(){
+    this.reviewerList = new Array<UserPartialModel>();
     this.businessLoaderService.roleBusinessService.getRoleListAsync().subscribe(res => {
       if(res.body){
         var roleList: Array<RolePartialModel> = this.businessLoaderService.roleBusinessService.getRoleList(res.body);
@@ -131,12 +138,14 @@ export class JournalAutoApproverComponent implements OnInit {
         roleId = roleList.find(r => r.name.trim().toLowerCase() === this.constantLoaderService.userTypesService.USER_REVIEWER.trim().toLowerCase()).id;
         this.businessLoaderService.userBusinessService.getUserListByRoleIdAsync(roleId).subscribe(resp => {
           if(resp.body){
+            var list: Array<UserPartialModel> = new Array<UserPartialModel>();
             for(var index=0; index<resp.body.length; index++){
               var user: UserPartialModel = new UserPartialModel();
               user.id = resp.body[index].userId;
               user.nameEmail = resp.body[index].firstName + " " + resp.body[index].lastName + " (" + resp.body[index].email + ")";
-              this.reviewerList.push(user);
+              list.push(user);
             }
+            this.reviewerList = this.generalUtility.getSortedArray(list, "nameEmail");
           }
         }, error => {
           this.handlerLoaderService.errorHandlerService.handleError(error);
@@ -185,6 +194,7 @@ export class JournalAutoApproverComponent implements OnInit {
       this.isLoading = false;
     }, err => {
       this.isLoading = false;
+      this.handlerLoaderService.errorHandlerService.handleError(err);
     });
   }
 
@@ -274,6 +284,7 @@ export class JournalAutoApproverComponent implements OnInit {
       if(this.groupList.length>0){
         this.ruleModel.exception.group1.element = obj.item.name;
         this.ruleModel.exception.group1.groupName = this.groupList[0].name;
+        this.ruleModel.exception.group2.element = "";
       }
     }
   }
@@ -283,6 +294,7 @@ export class JournalAutoApproverComponent implements OnInit {
       if(this.groupList.length>1){
         this.ruleModel.exception.group2.element = obj.item.name;
         this.ruleModel.exception.group2.groupName = this.groupList[1].name;
+        this.ruleModel.exception.group1.element = "";
       }
     }
   }

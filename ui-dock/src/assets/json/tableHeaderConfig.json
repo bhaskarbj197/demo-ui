@@ -600,5 +600,59 @@
 				"linkedProperty": "message"
 			}
 		]
+	},
+	{
+		"code": "scheduleRunHistoryList",
+		"itemPerPage": 12,
+		"columns": [
+			{				
+				"value":"Journal Id",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "jId"
+			},
+			{				
+				"value":"Run date",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "rundate"
+			},
+			{				
+				"value":"Start",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": false,
+				"linkedProperty": "starttime"
+			},
+			{				
+				"value":"End",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "endtime"
+			},
+			{				
+				"value":"Status",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": false,
+				"linkedProperty": "status"
+			},
+			{				
+				"value":"",
+				"css":"",
+				"isCenter": true,
+				"width": 5,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
 	}
 ]

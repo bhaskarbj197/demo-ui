@@ -9,6 +9,7 @@ export class OutputHeaderTemplateModel {
     label: string;
     typ: string;
     mappingCol: string;
+    colLabel: string;
     staticValue: string;
 
     constructor(seq: number = 0) {
@@ -16,6 +17,7 @@ export class OutputHeaderTemplateModel {
         this.label = "";
         this.typ = "";
         this.mappingCol = "";
+        this.colLabel = "";
         this.staticValue = "";
     }
 }
@@ -23,9 +25,23 @@ export class OutputHeaderTemplateModel {
 export class OutputHeaderTemplateTypeModel {
     code: string;
     value: string;
+    mappingColumns: Array<OutputHeaderMappingColumnmsModel> = [];
 
-    constructor(code: string = "", value: string = "") {
+    constructor(code: string = "", value: string = "", mappingColumns: Array<any> = []) {
         this.code = code;
         this.value = value;
+        this.mappingColumns = mappingColumns;
+    }
+}
+
+export class OutputHeaderMappingColumnmsModel {
+    colLabel: string;
+    mappingCol: string;
+    mappingType: string;
+
+    constructor(colLabel: string = "", mappingCol: string = "", mappingType: string = "") {
+        this.colLabel = colLabel;
+        this.mappingCol = mappingCol;
+        this.mappingType = mappingType;
     }
 }

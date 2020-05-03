@@ -10,8 +10,8 @@ import { Injectable } from '@angular/core';
 import { UiJsonDataService } from '../../services/data/ui-json-data.service';
 import { TreeNodeModel } from '../../models/treeNode.model';
 import { UserInfoListItemModel } from 'src/app/models/userInfoListItem.model';
-import { DataService } from '../data.service';
 import { ConstantLoaderService } from 'src/app/loaders/constant-loader.service';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,8 @@ import { ConstantLoaderService } from 'src/app/loaders/constant-loader.service';
 export class UserUiJsonBusinessService {
 
   constructor(private uiJsonDataService: UiJsonDataService,
-    private dataService: DataService,
-    private constantLoaderService: ConstantLoaderService) { }
+    private constantLoaderService: ConstantLoaderService,
+    private generalUtility: GeneralUtility) { }
 
   private createTreeNode(jsonTree: any): TreeNodeModel{
     var node = new TreeNodeModel();
@@ -41,6 +41,7 @@ export class UserUiJsonBusinessService {
     }
     node.isAllChildrenOpenInSamePage = false;
     node.isWithoutJournalId = true;
+    node.children = this.generalUtility.getSortedArray(node.children, "seq");
     return node;
   }
 
@@ -59,6 +60,7 @@ export class UserUiJsonBusinessService {
         }
       }
     }
+    treeNodes = this.generalUtility.getSortedArray(treeNodes, "seq");
     return treeNodes;
   }
 

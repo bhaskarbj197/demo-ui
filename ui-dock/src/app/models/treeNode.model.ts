@@ -25,7 +25,7 @@ export class TreeNodeModel {
     fields?: Array<FieldModel>;
     isMasterFile?: boolean;
     isAllChildrenOpenInSamePage?: boolean;
-    dangerCount?: boolean;
+    dangerCount?: number;
     roleCode?: string;
     countPropertyName?: string;
     anomalyCount?: number;

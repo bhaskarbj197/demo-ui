@@ -18,3 +18,8 @@
     max-height: 58vh;
     @extend .table-data-area;
 }
+
+.excep-help-txt{
+    font-style: italic;
+    @extend .font-stndrd;
+}

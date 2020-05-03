@@ -25,6 +25,7 @@ import userLeftTree from '../../../assets/json/userLeftTree.json';
 import termsConditions from '../../../assets/json/termsConditions.json';
 import reportLeftTree from '../../../assets/json/reportLeftTree.json';
 import journalAutoApproverRuleAction from '../../../assets/json/journalAutoApproverRuleAction.json';
+import scheduleRunSteps from '../../../assets/json/scheduleRunSteps.json';
 
 @Injectable({
   providedIn: 'root'
@@ -103,5 +104,9 @@ export class UiJsonDataService {
 
   getJournalAutoApproverRuleActions(){
     return journalAutoApproverRuleAction;
+  }
+
+  getScheduleRunSteps(){
+    return scheduleRunSteps;
   }
 }

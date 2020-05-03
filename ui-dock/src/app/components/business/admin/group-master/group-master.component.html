@@ -47,6 +47,13 @@
         </div>
         <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
             <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <span class="font-stndrd">
+                            <strong>Maximum, {{maxActiveGroups}} groups can be active.</strong>
+                        </span>
+                    </div>
+                </div>
                 <div class="table table-bordered bg-white cu-tbl only-head">
                     <div class="cu-thead">
                         <div class="cu-tr">
@@ -56,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tbl-area">
+                <div class="table-area">
                     <app-table-no-records [list]="groupMasterList"></app-table-no-records>
                     <div class="table table-bordered bg-white cu-tbl">
                         <div class="cu-tbody form-group row">
@@ -64,8 +71,8 @@
                                 <div class="cu-td w-30" scope="row">{{grp.name}}</div>
                                 <div class="cu-td w-30">{{grp.elementsToDisplay}}</div>
                                 <div class="cu-td w-15 center-icon"  *ngIf="gmDeleteIndex !== gIndex">
-                                    <app-icon-button [faIcon]="getLockIcon(grp)" tooltipText="Active/Inactive" 
-                                        ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button [faIcon]="getLockIcon(grp)" tooltipText="Active/Inactive" (btnClick)="onChangeActivenessClick(grp)"
+                                        ariaLabel="Active or Inactive" [isDisabled]="isInactiveBtnDisabled(grp)"></app-icon-button>&nbsp;
                                     <app-icon-button faIcon="fa-edit" tooltipText="Edit Group" (btnClick)="onEditGroupMasterClick(grp)" 
                                         ariaLabel="Edit Group"></app-icon-button>&nbsp;
                                     <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteGroupMasterClick(grp, gIndex)" 
