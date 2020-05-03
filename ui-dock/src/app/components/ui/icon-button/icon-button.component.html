@@ -1,0 +1,16 @@
+<button name="{{ctrlId}}" id="{{ctrlId}}" class="btn-no-show" (click)="onButtonClick($event)" [disabled]="isDisabled" 
+    [hidden]="isHide" [tooltip]="tooltipText" show-delay="500" role="button"
+    *ngIf="tooltipText !== '' && !isBlocked" [ngStyle]="{float: getDynamicCss()}"
+    [attr.aria-label]="ariaLabel">
+    <i class="cu-fa fa" [ngClass]="getDynamicClass()" aria-hidden="true"></i>
+</button>
+<button name="{{ctrlId}}" id="{{ctrlId}}" class="btn-no-show" (click)="onButtonClick($event)" [disabled]="isDisabled" 
+    [hidden]="isHide" *ngIf="tooltipText === '' && !isBlocked" role="button"
+    [ngStyle]="{float: getDynamicCss()}" [attr.aria-label]="ariaLabel">
+    <i class="cu-fa fa" [ngClass]="getDynamicClass()" aria-hidden="true"></i>
+</button>
+<button name="{{ctrlId}}" id="{{ctrlId}}" class="btn-no-show cursor-not-allowed" [disabled]="true" [hidden]="isHide" 
+    *ngIf="isBlocked" [ngStyle]="{float: getDynamicCss()}" role="button"
+    [attr.aria-label]="ariaLabel">
+    <i class="cu-fa not-allowed-icon fa" [ngClass]="getDynamicClass()" aria-hidden="true"></i>
+</button>

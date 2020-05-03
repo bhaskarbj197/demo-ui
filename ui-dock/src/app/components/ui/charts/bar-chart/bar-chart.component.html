@@ -1,0 +1,73 @@
+<div class="title-div text-center" *ngIf="isTitleShow"
+    [ngClass]="{'title-chld-div-lrg': isCorrectSize('LARGE'), 'title-chld-div-xs': isCorrectSize('XSMALL')}">
+    {{title}}
+</div>
+<div class="chart" *ngIf="isCorrectSize('XSMALL')">
+    <canvas baseChart
+        height="190"
+        width="220"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="barChartColors"
+        [chartType]="barChartType"
+        (chartClick)="onChartClicked($event)">
+    </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('SMALL')">
+    <canvas baseChart
+        height="220"
+        width="250"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="barChartColors"
+        [chartType]="barChartType"
+        (chartClick)="onChartClicked($event)">
+    </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('LARGE')">
+    <canvas baseChart
+        height="450"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="barChartColors"
+        [chartType]="barChartType"
+        (chartClick)="onChartClicked($event)">
+    </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('HOME')">
+    <canvas baseChart
+        height="220"
+        width="190"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="barChartColors"
+        [chartType]="barChartType"
+        (chartClick)="onChartClicked($event)">
+    </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('HOME1')">
+        <canvas baseChart
+            height="300"
+            width="190"
+            [datasets]="data"
+            [labels]="labels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="isLegendShow"
+            [colors]="barChartColors"
+            [chartType]="barChartType"
+            (chartClick)="onChartClicked($event)">
+        </canvas>
+    </div>

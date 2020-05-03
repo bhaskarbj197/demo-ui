@@ -1,0 +1,44 @@
+@import './defaultValues';
+@import './common';
+
+.stp-cls{
+  height: 40px;
+  line-height: 40px;
+  @extend .font-stndrd;
+  font-size: 1.2rem;
+}
+
+.step-brdr-lft{
+  @extend .stp-cls;
+  border-radius: 10px 0 0 10px;
+  border: solid 1px;
+}
+
+.step-brdr-mdl{
+  @extend .stp-cls;
+  border: solid 1px;
+}
+
+.step-brdr-rgt{
+  @extend .stp-cls;
+  border-radius: 0 10px 10px 0;
+  border: solid 1px;
+}
+
+.fut-step{
+  border-color: $tbl-border-color;
+  background-color: $tbl-border-color;
+  color: #000000;
+}
+
+.cur-step{
+  border-color: $pass-box-color;
+  color: $success-box-text-color;
+  font-weight: bold;
+}
+
+.pas-step{
+  border-color: $pass-box-color;
+  background-color: $pass-box-color;
+  color: #000000;
+}

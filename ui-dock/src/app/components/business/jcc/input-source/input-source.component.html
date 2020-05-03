@@ -1,0 +1,244 @@
+<div class="px-2 py-1 jcc-section-header">
+    <app-main-area-header [headerName]="heading" [isSaveHide]="true" [isRunHide]="true"></app-main-area-header>
+</div>
+<div class="pt-1 pl-3 pr-2 row">
+    <app-loader [isLoading]="isFileInfoLoading"></app-loader>
+    <div class="col container-fluid" *ngIf="inputSourceNode.fields" [hidden]="showExtractComparison">
+        <app-navbar ctrlId="inputSourceTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            [hidden]="'jcc' | roleAction: 'inputSource' : 'fileUpload'"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]" [hidden]="'jcc' | roleAction: 'inputSource' : 'fileUpload'">
+            <div class="col">
+                <div class="row" *ngFor="let field of inputSourceNode.fields">
+                    <div class="col">
+                        <app-textbox ctrlId="txtInputSource_{{field.fieldCode}}" label="{{field.fieldName}}" placeholder="{{field.placeHolder}}" 
+                            [isReadOnly]="field.isDisabled || isViewOnly || this.extractPdfEnabled" *ngIf="field.typ === 'text' && field.visibility"
+                            backLabelIcon="{{field.fieldBackLabelIcon}}" (backLabelClick)="onExtractInputClick()" ariaLabel="{{field.placeHolder}}"
+                            [(model)]="field.value" [isRequired]="field.isRequired" minLabelLen="125px" [isSubmit]="isFormSubmitted"></app-textbox>
+        
+                        <app-textarea ctrlId="txtInputSource_{{field.fieldCode}}" label="{{field.fieldName}}" placeholder="{{field.placeHolder}}" 
+                            [isReadOnly]="field.isDisabled || isViewOnly" *ngIf="field.typ === 'textarea' && field.visibility" ariaLabel="{{field.placeHolder}}"
+                            [(model)]="field.value" minLabelLen="125px" [isRequired]="field.isRequired" [isSubmit]="isFormSubmitted"></app-textarea>
+        
+                        <app-combobox ctrlId="cmbInputSource_{{field.fieldCode}}" label="{{field.fieldName}}" placeholder="Select" 
+                            [isDisabled]="field.isDisabled || isViewOnly || this.extractPdfEnabled" [list]="field.list" key="code" value="val"
+                            *ngIf="field.typ === 'drop' && field.visibility" [(model)]="field.value" minLabelLen="125px" ariaLabel="Select {{field.placeHolder}}"
+                            [isRequired]="field.isRequired" [isSubmit]="isFormSubmitted" (valueChange)="onComboboxValueChanged($event, field)"></app-combobox>
+                         
+                        <app-checkbox ctrlId="chkInputSource_{{field.fieldCode}}" label="{{field.fieldName}}" (valueChange)="onInputSourceChkValueChanged(field)"
+                            *ngIf="field.typ === 'chk' && field.visibility" [isDisabled]="this.extractPdfEnabled || isViewOnly"></app-checkbox>
+                        
+                        <app-file-uploader *ngIf="field.typ === 'upload' && field.visibility" ctrlId="txtSampleFileUpload_{{field.fieldCode}}" label="{{field.fieldName}}" 
+                            [isDisabled]="field.isDisabled || isViewOnly || this.extractPdfEnabled" minLabelLen="125px"
+                            (uploadFile) = "onUploadFile($event)" acceptedFormat="{{acceptedFileTypes}}"></app-file-uploader>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- <div class="row" *ngIf="selectedLocationType === 'upload'">
+                    <div class="col">
+                        <app-file-uploader ctrlId="txtFileUpload_inputSource" [isDisabled]="isViewOnly || extractPdfEnabled" 
+                            (uploadFile) = "onUploadFile($event)" acceptedFormat=".csv,.xlsx,.xls,.pdf,.PDF"></app-file-uploader>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-8 mt-3" *ngIf="extractPdfEnabled">
+                        <app-button value="Extract PDF and compare" faIcon="fa-file-pdf-o" type="FACEBOOK" isFloatRight="true" 
+                            (btnClick)="onExtractPDFClick()" [isDisabled]="!extractPdfEnabled" ariaLabel="Extract PDF and compare"></app-button>
+                        <app-button value="Cancel" faIcon="fa-times" type="YOUTUBE" (btnClick)="onCancelSetClick()"
+                            ariaLabel="Cancel extract PDF and compare"></app-button>
+                    </div>
+                </div>
+                <div class="row" *ngIf="selectedLocationType === 'shared'">
+                    <div class="col">
+                        <app-textbox ctrlId="txtSourceLocation" label="Source Location" placeholder="Source Location" 
+                            backLabelIcon="fa fa-share-square-o" (backLabelClick)="onExtractInputClick()"
+                            [(model)]="sourceLocationModel" minLabelLen="125px" ariaLabel="Source Location"></app-textbox>
+                    </div>
+                </div>
+                <!-- <div class="row" *ngIf="selectedLocationType === 'email'">
+                    <div class="col">
+                        <app-textbox ctrlId="txtEmailServer" label="Email server" placeholder="Enter mail server" 
+                            backLabelIcon="fa fa-share-square-o" 
+                            [(model)]="mailServer" minLabelLen="125px"></app-textbox>
+                    </div>
+                </div> -->
+                <div class="row" *ngIf="selectedLocationType === 'sap'">
+                    <div class="col">
+                        <div class="tbl-area">
+                            <div class="table table-bordered bg-white cu-tbl">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th w-45 no-border" scope="col">Parameter</div>
+                                        <div class="cu-th w-40 no-border" scope="col">Value</div>
+                                        <div class="cu-th w-15 no-border center-icon" scope="col">
+                                            <app-button value="New" faIcon="fa-plus" [isSmall]="true" type="TUMBLR" ariaLabel="Add new"
+                                                [isFloatRight]="true" (btnClick)="onNewParameterValueSetForSapClick()"></app-button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let field of sapFieldList; let i = index;">
+                                        <div class="cu-td w-45">
+                                            <app-combobox ctrlId="cmbSapParameter_{{i}}" label="" placeholder="Select Parameter" [(model)]="field.parameter"
+                                                [list]="sapFieldParameterList" fixedLen="280px" key="code" value="val" ariaLabel="Select Parameter"></app-combobox>
+                                        </div>
+                                        <div class="cu-td w-40">
+                                            <app-textbox ctrlId="txtSapValue_{{i}}" placeholder="Value" fixedLen="280px" 
+                                                [(model)]="field.value" ariaLabel="value"></app-textbox>
+                                        </div>
+                                        <div class="cu-td w-15 center-icon">
+                                            <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteParameterValueSetForSapClick(i)" 
+                                                tooltipText="Delete" ariaLabel="Delete"></app-icon-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-button value="Extract from SAP" faIcon="fa-podcast" type="TUMBLR" ariaLabel="Extract from SAP"
+                            [isFloatRight]="true" (btnClick)="onExtractFromSapClick()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row modify-file-content-div" [hidden]="modifyInputFileInfo.displayStatus === 'hide'" 
+                    [@modifyInputFileContentView]="modifyInputFileInfo.displayStatus">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header card-header-cu">
+                                Data Clean Up - <strong>{{modifyInputFileInfo.fileName}}</strong>
+                            </div>
+                            <div class="card-body card-body-cu">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <app-combobox ctrlId="cmbInputFileModification" label="Type" placeholder="Select" [list]="modifyFileContentTypes" 
+                                            [(model)]="modifyInputFileInfo.type" [isRequired]="modifyInputFileInfo.fileName != null" 
+                                            (valueChange)="onModifyFileContentTypeChanged($event)"
+                                            [isSubmit]="isFormSubmitted" ariaLabel="Select file content type"></app-combobox>
+                                    </div>
+                                    <div class="col-2"> 
+                                        <app-number-textbox ctrlId="txtNumberInputSourceModifyStart" label="{{(modifyInputFileInfo.type === 'header') ? 'Row #' : 'Start'}}"
+                                            [(model)]="modifyInputFileInfo.start" ariaLabel="Data clean up - start row"></app-number-textbox>
+                                    </div>
+                                    <div class="col-2">
+                                        <app-number-textbox ctrlId="txtNumberInputSourceModifyEnd" label="End" *ngIf="modifyInputFileInfo.type !== 'header'"
+                                            [(model)]="modifyInputFileInfo.end" ariaLabel="Data clean up - end row"></app-number-textbox>
+                                    </div>
+                                    <div class="col">
+                                        <app-button value="Save" faIcon="fa-check" type="SPOTIFY" 
+                                            (btnClick)="onClearInputFileContentClick()" ariaLabel="Data clean up save"></app-button>&nbsp;&nbsp;
+                                        <app-button value="Cancel" faIcon="fa-times" type="YOUTUBE" 
+                                            (btnClick)="onCancelClearClick()" ariaLabel="Data clean up - cancel"></app-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table table-bordered bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-33 no-border" scope="col">Source Name</div>
+                            <div class="cu-th w-10 no-border" scope="col">Source Type</div>
+                            <div class="cu-th w-12 no-border" scope="col">Location Type</div>
+                            <div class="cu-th w-17 no-border" scope="col">Source Location</div>
+                            <div class="cu-th w-15 no-border" scope="col">Source Contact</div>
+                            <div class="cu-th w-13 no-border text-center" scope="col">Action</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-area" [ngClass]="{'tbl-area-m': modifyInputFileInfo.displayStatus === 'show'}">
+                    <div class="table table-bordered bg-white cu-tbl">
+                        <div class="cu-tbody form-group row">
+                            <div class="cu-tr" *ngFor="let fileInfo of fileList; let fIndex = index">
+                                <div class="cu-td w-33" scope="row" [ngClass]="{'master-text': fileInfo.isMaster != null && fileInfo.isMaster.value}">
+                                    {{fileInfo.sourceName.value}}
+                                    <span class="master-span" [ngClass]="'MASTER_SOURCE_FILE_INDICATOR' | defaultConstantValueConverter" 
+                                        *ngIf="fileInfo.isMaster.value"></span>
+                                </div>
+                                <div class="cu-td w-10">{{fileInfo.sourceType.value}}</div>
+                                <div class="cu-td w-12">{{fileInfo.locationType.value}}</div>
+                                <div class="cu-td w-17">{{fileInfo.sourceLocation.value}}</div>
+                                <div class="cu-td w-15">{{fileInfo.sourceContact.value}}</div>
+                                <div class="cu-td w-13 center-icon" *ngIf="fileDeletingName !== fileInfo.sourceName.value">
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteInputFileClick(fileInfo)" 
+                                        [isDisabled]="isDeleteBtnDisabled(fileInfo)" tooltipText="Delete File" ariaLabel="Delete input file"
+                                        [isBlocked]="'jcc' | roleAction: 'inputSource' : 'fileDelete'"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa fa-cube" (btnClick)="onModifyInputFileClick(fileInfo)"
+                                        [isDisabled]="isClearBtnDisabled(fileInfo)" tooltipText="Modify File" ariaLabel="Data clean up of input file"
+                                        [isBlocked]="'jcc' | roleAction: 'inputSource' : 'dataCleanUp'"></app-icon-button>
+                                </div> 
+                                <div class="cu-td w-13 center-icon del-row" *ngIf="fileDeletingName === fileInfo.sourceName.value">
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteInputFileClick(fileInfo, true, fIndex)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteInputFileClick(fileInfo, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col container-fluid" *ngIf="showExtractComparison">
+        <div class="row">
+            <div class="col p-2">
+                <div class="row">
+                    <div class="col">
+                        <app-checkbox ctrlId="chkPdfExtractorTab" label="Type-1 Extractor" (valueChange)="onPdfExtractorClick()"
+                            [category]="'TICK_CROSS' | enumValueConverter: 'checkboxCategries'" [(model)]="categoryTypes.tabula"
+                            [isChecked]="categoryTypes.tabula"></app-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="tbl-area1">
+                            <div class="table bg-white cu-tbl">
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let row of extractResultData_Tabula.data.fileData" 
+                                        [hidden]="extractResultData_Tabula.data==undefined || extractResultData_Tabula.data.length == 0">
+                                        <div class="cu-td master-span w-10" *ngFor="let value of row; let i=index" scope="row">{{value}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col p-2">
+                <div class="row">
+                    <div class="col">
+                        <app-checkbox ctrlId="chkPdfExtractorCam" label="Type-2 Extractor" (valueChange)="onPdfExtractorClick()"
+                            [category]="'TICK_CROSS' | enumValueConverter: 'checkboxCategries'" [(model)]="categoryTypes.camelot"
+                            [isChecked]="categoryTypes.camelot"></app-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="tbl-area1">
+                            <div class="table bg-white cu-tbl">
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let row of extractResultData_Camelot.data.fileData" [hidden]="extractResultData_Camelot.data==undefined 
+                                        || extractResultData_Camelot.data.fileData==undefined || extractResultData_Camelot.data.fileData.length == 0">
+                                        <div class="cu-td master-span w-10" *ngFor="let value of row; let i=index" scope="row">{{value}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8"></div>
+            <div class="col-4">
+                <app-button value="Set PDF Extractor" faIcon="fa-thumbs-o-up" type="FACEBOOK" isFloatRight="true" 
+                    (btnClick)="onSetPdfExtractorClick()" ariaLabel="Set PDF extractor"></app-button>
+                <app-button value="Cancel" faIcon="fa-times" type="YOUTUBE" 
+                    (btnClick)="onCancelSetClick()" ariaLabel="Cancel PDF extractor"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

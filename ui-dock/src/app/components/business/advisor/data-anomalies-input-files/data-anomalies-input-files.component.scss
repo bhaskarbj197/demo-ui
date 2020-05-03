@@ -1,0 +1,31 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.table-area{
+    max-height: 480px;
+    height: 480px;
+    overflow-x: auto;
+    overflow-y: auto;
+    width: 80vw;
+}
+
+.header-span{
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.head-text{
+    font-size: 0.9rem;
+}
+
+.graph-show{
+    width: 90%;
+    height: 500px;
+    padding-top: 10px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+}
+
+.btn-dnwld{
+    margin-right: 20px;
+}

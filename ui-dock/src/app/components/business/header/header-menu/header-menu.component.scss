@@ -1,0 +1,26 @@
+@import '../../../../style/common';
+
+.item{
+    cursor: pointer;
+    outline: none !important;
+    font-family: $font-family;
+    font-size: 0.9rem;
+    color: white !important;
+}
+
+.item:hover{
+    color: orange !important;
+}
+
+.item-n{
+    cursor: default;
+    outline: none !important;
+}
+
+.active, .active:hover{
+    color: orange !important;
+}
+
+.min-h-hdr{
+    min-height: 38px;
+}

@@ -1,0 +1,33 @@
+<main role="main" class="h-100 container-fluid p-0">
+    <div class="h-100 row no-gutters">
+        <div class="col-2 bg-menu border-right border-secondary full-h">
+            <app-loader [isLoading]="isTreeLoading"></app-loader>
+            <app-tree-view [nodes]="treeNodes" [isJournalListComboShowing]="true" [journalList]="journalList" [journalListBackInfo]="journalListBackLblInfo"
+                (nodeClick)="onLeftMenuNodeClick($event)" [journalIdSelectedForAdvisor]="journalId" (journalIdChange)="onJournalIdChanged($event)"
+                [runStatus]="journalDateRunStatus" [runDateList]="runDateList" [runDateSelectedForAdvisor]="runDateSelectedForAdvisor"
+                (runDateChange)="onRunDateChanged($event)"></app-tree-view>
+        </div>
+        <div class="col">
+            <div class="row div-container">
+                <div class="col">
+                    <app-validation-results *ngIf="mainWindow === 'validationResults'" [heading]="mainWindowHeading" [journalInfo]="journalReqObject"></app-validation-results>
+                    <app-profit-and-loss *ngIf="mainWindow === 'profitLoss'" [heading]="mainWindowHeading" [journalInfo]="journalShortInfo"></app-profit-and-loss>
+                    <app-doc-evidence *ngIf="mainWindow === 'documentaryEvidence'" [heading]="mainWindowHeading" 
+                        [childWindowCode]="childWindowCode" [journalInfo]="journalReqObject"></app-doc-evidence>
+                    <app-data-anomalies-input-logs *ngIf="mainWindow === 'inputLogs'" [heading]="mainWindowHeading"
+                        [journalInfo]="journalReqObject"></app-data-anomalies-input-logs>
+                    <app-data-anomalies-processed-logs *ngIf="mainWindow === 'processedLogs'" [heading]="mainWindowHeading"
+                        [journalInfo]="journalReqObject"></app-data-anomalies-processed-logs>
+                    <app-balance-sheet *ngIf="mainWindow === 'balanceSheet'" [heading]="mainWindowHeading"></app-balance-sheet>
+                    <app-data-anomalies-input-files *ngIf="mainWindow === 'dataAnomalies'" [heading]="mainWindowHeading"
+                    [journalInfo]="journalReqObject"></app-data-anomalies-input-files>
+                    <app-output-result *ngIf="mainWindow === 'outputResult'" [heading]="mainWindowHeading" 
+                        [journalInfo]="journalReqObject"></app-output-result>
+                    <app-supporting-docs *ngIf="mainWindow === 'supportingDocs'" [heading]="mainWindowHeading" isAdvisor="true"
+                        [journalInfo]="journalReqObject"></app-supporting-docs>
+                    <app-comments *ngIf="mainWindow === 'comments'" [heading]="mainWindowHeading" isAdvisor="true"></app-comments>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

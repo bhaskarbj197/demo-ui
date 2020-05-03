@@ -1,0 +1,70 @@
+<ul class="ml-2 navbar-nav chat-ul border border-dark pointer" (clickOutside)="onClickedOutside()">
+    <li class="nav-item li-chat" (click)="onLiveChatClick(true)">
+        <span class="nav-link item span-chat">Live Chat</span>
+    </li>
+    <li class="nav-item li-chat-icon" (click)="onLiveChatClick(true)">
+        <span class="nav-link item span-chat">
+            <app-icon-button faIcon="fa-comments-o" ctrlId="btnCloseChat" ariaLabel="Click to close chat"></app-icon-button>
+        </span>
+    </li>
+    <div class="border border-dark rounded-bottom border-top-0 chat-vid" [hidden]="!isLiveChatShow">
+        <div class="row">
+            <div class="col chat-div-header" (click)="onLiveChatClick(false)">
+                <div class="chat-body-header-text"><span class="nav-link item span-chat">Live Chat</span></div>
+                <div class="chat-body-header-icon">
+                    <app-icon-button faIcon="fa-comments-o" ctrlId="btnCloseChat1" ariaLabel="Click to close chat"></app-icon-button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col chat-body">
+                <div class="chat-body-inner border-bottom border-dark" id="divChatContainer" name="divChatContainer" #divChatContainer> 
+                    <div *ngFor="let chat of watsonChat">
+                        <div class="row p-2" *ngIf="chat.nextActor === 'watson' || chat.watson !== '' || chat.watsonTyping">
+                            <div class="col-10" *ngIf="chat.watson !== ''">
+                                <div class="cht-txt-r float-right">{{chat.watson}}</div>
+                            </div>
+                            <div class="col-10" *ngIf="chat.watsonTyping">
+                                <div class="cht-txt-r float-right cht-txt-r-ld">...</div>
+                            </div>
+                            <div class="col cht-img">
+                                <img alt="Watson" class="border border-white rounded-circle bg-white" height="30" src="../assets/img/robot.jpeg">
+                            </div>
+                        </div>
+                        <div class="row p-2" *ngIf="chat.action==='adhoc'">
+                            <div class="col text-center pointer" (click)="onNewAdhocJournalClick()">
+                                <div class="cht-txt-lnk">Click to add Adhoc Journal</div>
+                            </div>
+                        </div>
+                        <div class="row p-2" *ngIf="chat.nextActor === 'user' || chat.user !== '' || chat.userTyping">
+                            <div class="col-1 cht-img">
+                                <img alt="User" class="border border-white rounded-circle bg-white" height="30" src="../assets/img/user.png">
+                            </div>
+                            <div class="col" *ngIf="chat.user !== ''">
+                                <div class="cht-txt-l">{{chat.user}}</div>
+                            </div>
+                            <div class="col-10" *ngIf="chat.userTyping">
+                                <div class="cht-txt-l float-left cht-txt-l-ld">...</div>
+                            </div>
+                        </div>
+                        <div class="row p-2" *ngIf="chat.errorResponse">
+                            <div class="col text-center">
+                                <div class="cht-txt-err">Some error has occured!! Please start over.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9 chat-inpt">
+                <textarea class="chat-input-tag" placeholder="Type here" autocomplete="off" [(ngModel)]="userInput"
+                    (ngModelChange)="onUserInputChange($event)" (keydown)="onUserInputKeydown($event)"
+                    name="txtLiveChatentry" id="txtLiveChatentry" aria-label="Text area for live chat entry"></textarea>
+            </div>
+            <div class="col" (click)="submitUserInput()">
+                <img alt="Send" class="border border-white rounded-circle bg-white chat-input-icn" height="45" src="../assets/img/send.png">
+            </div>
+        </div>
+    </div>
+</ul>

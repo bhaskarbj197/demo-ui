@@ -1,0 +1,46 @@
+<span class="font-stndrd j-info">Journal ID: {{journalId}}</span>
+<main role="main" class="h-100 container-fluid p-0">
+  <div class="h-100 row no-gutters">
+    <div class="col-2 bg-menu border-right border-secondary">
+      <app-loader [isLoading]="isLeftLoading"></app-loader>
+      <app-tree-view [nodes]="treeNodes" (nodeClick)="onLeftMenuNodeClick($event)" [isRunDateComboShowing]="!isJcc"
+        (nodeActionClick)="onLeftMenuActionButtonClick($event)" [isJournalIdFound]="journalId > 0"
+        [runHistoryList]="runHistoryList" [(runHistoryDate)]="selectedRunHistoryDate"
+        (runHistoryDateClick)="onRunHistoryDateChanged($event)" mainRoleNode="jcc"
+        (runHistoryLogClick)="onRunHistoryLogClick()"></app-tree-view>
+    </div>
+    <div class="h-100 col-10 d-none d-sm-flex flex-column">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-10 bg-white border-right border-secondary p-0 jcc-action-area">
+            <app-loader [isLoading]="isMainLoading"></app-loader>
+            <app-about [nodes]="aboutTreeNodes" [aboutDetails]="aboutObject"
+              *ngIf="mainWindow === 'about'" (saveHeaderActionClick)="onSaveHeaderActionClick($event)"></app-about>
+            <app-input-source [heading]="mainWindowHeading" *ngIf="mainWindow === 'inputSource'"
+              [treeNodes]="treeNodes" (saveHeaderActionClick)="onSaveHeaderActionClick()"></app-input-source>
+            <app-process-steps [heading]="mainWindowHeading" [treeNodes]="treeNodes" (columnSelect)="onColumnSelection()"
+              (runHeaderActionClick)="onRunHeaderActionClick($event)" *ngIf="mainWindow === 'processSteps'"></app-process-steps>
+            <app-output-template [heading]="mainWindowHeading" 
+              *ngIf="mainWindow === 'outputMapping'" [aboutDetails]="aboutObject" (saveHeaderActionClick)="onSaveHeaderActionClick()"></app-output-template>
+            <app-run-history-logs [heading]="mainWindowHeading" *ngIf="mainWindow === 'runHisLog'" [historyLogs]="runHistoryList"
+              [selectedRunHistoryDate]="selectedRunHistoryDate" (runDateClick)="onRunHistoryDateChangedByList($event)"></app-run-history-logs>
+            <app-advisor-config *ngIf="mainWindow === 'advisorConfig'" 
+              [nodes]="treeNodes" [heading]="mainWindowHeading" (saveClick)="onSaveHeaderActionClick()"></app-advisor-config>
+            <app-validation-rules *ngIf="mainWindow === 'validationRules'" [heading]="mainWindowHeading"></app-validation-rules>
+            <app-supporting-docs *ngIf="mainWindow === 'supportingDocs'" [heading]="mainWindowHeading"></app-supporting-docs>
+            <app-audit-trial *ngIf="mainWindow === 'activityLog'" [heading]="mainWindowHeading"></app-audit-trial>
+            <app-comments *ngIf="mainWindow === 'comments'" [heading]="mainWindowHeading"></app-comments>
+          </div>
+          <div class="col-2 bg-log p-0">
+            <app-logs [logs]="logList" (stepLogClick)="loadStepLogs()" [stepLogs]="stepLogList" [isLogsAvailable]="isStepLogAvailable"></app-logs>            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 bg-light border-top border-secondary p-0">
+            <app-result-set></app-result-set>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col">
+        <span class="bc-text" [ngClass]="setStatusCss('CREATED')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('CREATED')"></app-icon-only>
+            {{'CREATED' | enumValueConverter: 'journalStatuses'}}
+        </span>
+        <span class="bc-arrow" [ngClass]="setStatusCss('IN_PROGRESS')" *ngIf="!isReturnedShow()" (click)="onStatusClick('IN_PROGRESS')">
+            >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('IN_PROGRESS')" *ngIf="!isReturnedShow()" (click)="onStatusClick('IN_PROGRESS')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('IN_PROGRESS')"></app-icon-only>
+            {{'IN_PROGRESS' | enumValueConverter: 'journalStatuses'}}
+        </span>
+        <span class="bc-arrow" [ngClass]="setStatusCss('RETURNED')" *ngIf="isReturnedShow()" (click)="onStatusClick('RETURNED')">
+            >> >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('RETURNED')" *ngIf="isReturnedShow()" (click)="onStatusClick('RETURNED')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('RETURNED')"></app-icon-only>
+            {{'RETURNED' | enumValueConverter: 'journalStatuses'}}
+        </span>
+        <span class="bc-arrow" [ngClass]="setStatusCss('PENDING_APPROVAL')" (click)="onStatusClick('PENDING_APPROVAL')">
+            >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('PENDING_APPROVAL')" (click)="onStatusClick('PENDING_APPROVAL')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('PENDING_APPROVAL')"></app-icon-only>
+            {{'PENDING_APPROVAL' | enumValueConverter: 'journalStatuses'}}
+        </span>
+        <span class="bc-arrow" [ngClass]="setStatusCss('APPROVED')" (click)="onStatusClick('APPROVED')">
+            >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('APPROVED')" (click)="onStatusClick('APPROVED')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('APPROVED')"></app-icon-only>
+            {{'APPROVED' | enumValueConverter: 'journalStatuses'}}
+        </span>
+    </div>
+</div>

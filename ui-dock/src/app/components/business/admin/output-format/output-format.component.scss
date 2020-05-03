@@ -1,0 +1,13 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.table-area{
+    height: 60vh;
+    max-height: 60vh;
+    @extend .table-data-area;
+}
+
+.ctrl-pos{
+    text-align: center;
+    text-align: -webkit-center;
+}

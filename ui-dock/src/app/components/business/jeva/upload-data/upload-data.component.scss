@@ -1,0 +1,36 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.run-div{
+    float: right;
+    margin-right: 4px;
+}
+
+.tbl-area{
+    height: 38vh;
+    max-height: 38vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+// .icon-show{
+//     font-size: 1.3rem;
+// }
+
+// .icon-show-y{
+//     color: green;
+// }
+
+// .icon-show-n{
+//     color: red;
+// }
+
+.cell-gap{
+    margin-right: 40px;
+}
+
+.err-text{
+    color: $error-text-color;
+    font-family: $font-family;
+}

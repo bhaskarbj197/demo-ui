@@ -1,0 +1,9 @@
+<nav class="mt-5 navbar navbar-expand-lg navbar-dark bg-dark p-0 min-h-hdr" aria-label="main header menu">
+    <ul class="ml-2 navbar-nav" *ngIf="isHeaderMenuShow">
+      <li class="nav-item" *ngFor="let item of menuItems" [hidden]="!isMenuItemShow(item)">
+        <span class="nav-link item" [ngClass]="{'active font-bold': item.isSelected, 'item-n': !item.isClickable}" 
+          (click)="onMenuItemClick(item)">{{item.name}}</span>
+      </li>
+    </ul>
+    <app-live-chat *ngIf="isHeaderMenuShow" [hidden]="'boto' | roleAction"></app-live-chat>
+</nav>

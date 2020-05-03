@@ -1,0 +1,22 @@
+<ul class="navbar-nav">
+  <li class="pl-5 nav-item" *ngIf="isUserLoggedIn">
+    <span class="navbar-brand pt-1 h1 user-info">
+      <span class="user-name">{{userFullName}}</span>
+      {{roleText}}<span class="com-text">{{companyName}}</span>
+    </span>
+  </li>
+  <li class="pl-5 nav-item" *ngIf="isUserLoggedIn">
+    <span class="nav-link" (click)="onUserIconClick()">
+      <img class="border border-white rounded-circle bg-white pointer" src="../assets/img/user-tie-solid.svg" 
+        height="24" alt="...">
+    </span>
+    <app-user-info *ngIf="isUserInfoShow" (clickOutside)="onClickedOutside()" (closeUserInfoEvent) = "onClickedOutside()"></app-user-info>
+  </li>
+  <li class="nav-item item-space"></li>
+  <li class="nav-item item-space">
+    <span class="nav-link" (click)="onHelpClick()">
+      <img class="pointer" src="../assets/img/help.png" height="26" alt="Help">
+    </span>
+  </li>
+  <li class="nav-item item-space"></li>
+</ul>

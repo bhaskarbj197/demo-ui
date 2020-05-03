@@ -1,0 +1,112 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-1 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="row ml-4 mr-4 p-2">
+                    <div class="col text-center step-brdr-lft" [ngClass]="getStepCss(1)">Step-1: Upload Input Files</div>
+                    <div class="col text-center step-brdr-rgt" [ngClass]="getStepCss(2)">Step-2: Status of the Uploaded Files</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="activeStep===1">
+            <div class="col">                
+                <div class="row px-5 py-4">
+                    <div class="col font-stndrd txt-show">
+                        Please upload the input files together as a zip file (with .zip extention).<br/>
+                        Zip file size should be within 5MB.<br/>
+                        Input file name format should be <strong>(Journal Id)_(File Name)</strong><br/>
+                        Zip file should contain only the csv or excel files. Do not use any folder within the zip.
+                    </div>
+                </div>
+                
+                <div class="row px-5 py-2">
+                    <div class="col">
+                        <app-combobox ctrlId="cmbFrequency" label="Frequency" placeholder="Select frequency" 
+                            [list]="frequencyList" key="id" value="name" [isRequired]="true"
+                            [(model)]="selectedFrequency" minLabelLen="140px" ariaLabel="Select frequency"
+                            (valueChange)="onFrequencyChanged($event)" keyInNumber="true"></app-combobox>
+                    </div>
+                    <div class="col">
+                        <app-combobox ctrlId="cmbFrequencyMonth" label="Month" placeholder="Select Month" 
+                            [list]="monthList" key="monthNumber" value="name" *ngIf="getMonthListShow()"
+                            [(model)]="selectedMonth" minLabelLen="140px" ariaLabel="Select month"
+                            (valueChange)="onMonthChanged($event)" keyInNumber="true"
+                            [isRequired]="true"></app-combobox>
+                        <app-combobox ctrlId="cmbFrequencyWeek" label="Week" placeholder="Select Week" 
+                            [list]="weekList" key="weekNumber" value="name" *ngIf="!getMonthListShow()"
+                            [(model)]="selectedWeek" minLabelLen="140px" ariaLabel="Select week"
+                            (valueChange)="onWeekChanged($event)" keyInNumber="true"
+                            [isRequired]="true"></app-combobox>
+                    </div>
+                    <div class="col">
+                        <app-combobox ctrlId="cmbFrequencyYear" label="Year" placeholder="Select Year" 
+                            [list]="yearList" [(model)]="selectedYear" minLabelLen="140px" ariaLabel="Select year"
+                            (valueChange)="onYearChanged($event)" keyInNumber="true"
+                            [isRequired]="true"></app-combobox>
+                    </div>
+                </div>
+                <div class="row px-5 py-2">
+                    <div class="col-6">
+                        <app-file-uploader ctrlId="txtInputFiles" label="Upload Input Files"
+                            (uploadFile)="onUploadData($event)" uploadedFileInfo="Upload input files"
+                            acceptedFormat=".zip" [isRequired]="true" [isDisabled]="isFileUploaded"></app-file-uploader>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row px-5 py-2">
+                    <div class="col">
+                        <app-button value="Reset" faIcon="fa fa-repeat" type="YOUTUBE" (btnClick)="onResetClick()" 
+                            ariaLabel="Reset"></app-button>
+                    </div>
+                    <div class="col-2">
+                        <app-button value="Validate & Next" faIcon="fa-arrow-right" type="TUMBLR" (btnClick)="onValidateNextClick()" 
+                            isFloatRight="true" ariaLabel="Validate & Next" [isDisabled]="!isValidateBtnEnable()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="activeStep===2">
+            <div class="col">
+                <div class="row p-1">
+                    <div class="col">
+                        <div class="table-area tbl-fl">
+                            <div class="table bg-white cu-tbl">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th w-5" scope="col"></div>
+                                        <div class="cu-th w-55" scope="col">File Name</div>
+                                        <div class="cu-th text-center w-20" scope="col">Size</div>
+                                        <div class="cu-th text-center w-20" scope="col">Journal Id</div>
+                                    </div>
+                                </div>
+                                <div  class="cu-tbody">
+                                    <app-table-no-records [list]="bulkInputFiles"></app-table-no-records>
+                                    <div class="cu-tr" *ngFor="let file of bulkInputFiles; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td w-8 center-icon" scope="row">
+                                            <app-popover *ngIf="!file.isValid" faIcon="fa-times fail-color" [message]="file.failedReasons"
+                                                titleText="File Error" position="right" tooltipText="Click to view errors." btnAriaLabel="Error"></app-popover>
+                                            <app-icon-only faIcon="fa-check success-body" *ngIf="file.isValid" tooltipText="Processed" ariaLabel="Processed"></app-icon-only>
+                                        </div>
+                                        <div class="cu-td">{{file.fileName}}</div>
+                                        <div class="cu-td text-center">{{file.fileSize | sizeConverter}}</div>
+                                        <div class="cu-td text-center">{{file.journalId}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row px-2">
+                    <div class="col">
+                        <app-button value="Upload a new file" faIcon="fa-plus-square-o" type="TUMBLR" (btnClick)="onBackClick()" 
+                            isFloatRight="true" ariaLabel="Upload a new file"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+<div class="col-1">
+    <app-combobox ctrlId="{{andOrWhereOptions.ctrlId}}" label="{{andOrWhereOptions.label}}" placeholder="Select"
+        [hidden]="andOrWhereOptions.isHide" (valueChange)="omItemChange($event)"
+        [(model)]="andOrWhereModel" [list]="andOrWhereOptions.list" key="{{andOrWhereOptions.key}}" value="{{andOrWhereOptions.value}}"></app-combobox>
+</div>

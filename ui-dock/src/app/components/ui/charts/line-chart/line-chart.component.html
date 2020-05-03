@@ -1,0 +1,29 @@
+<div class="title-div text-center" *ngIf="isTitleShow"
+    [ngClass]="{'title-chld-div-lrg': isCorrectSize('LARGE'), 'title-chld-div-xs': isCorrectSize('XSMALL')}">
+    {{title}}
+</div>
+<div class="chart" *ngIf="isCorrectSize('SMALL')">
+    <canvas baseChart
+        height="220"
+        width="270"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="lineChartOptions"
+        [plugins]="lineChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="lineChartColors"
+        [chartType]="lineChartType">
+    </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('LARGE')">
+    <canvas baseChart
+        height="450"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="lineChartOptions"
+        [plugins]="lineChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="lineChartColors"
+        [chartType]="lineChartType">
+    </canvas>
+</div>

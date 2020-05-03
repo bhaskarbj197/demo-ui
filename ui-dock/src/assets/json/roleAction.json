@@ -1,0 +1,523 @@
+[	
+	{
+		"id": 103,
+		"roleName": "Administrator",
+		"keycloakRoleCode": "",
+		"isBusinessAdmin": false,
+		"isPlatformAdmin": true,
+		"menu": {
+			"jcc": true,
+			"jeva": true,
+			"advisor": false,
+			"report": false,
+			"jevan": true,
+			"admin": true
+		},
+		"workflowAction": {
+			"journalStatus": {
+				"submitForApproval": false,
+				"pendingApproval": false
+			},
+			"runStatus": {
+				"submitForReview": false,
+				"pendingSignOff": false
+			}
+		},
+		"jevan": {
+			"uploadData": {
+				"view": false
+			},
+			"newAdhocJournal": {
+				"view": false
+			},
+			"adhocJournalList": {
+				"view": true
+			},
+			"bulkInputFileUpload": {
+				"view": false
+			}
+		},
+		"jcc": {
+			"homeAction": {
+				"journalAdd": false,
+				"journalEdit": false,
+				"journalCopy": false,
+				"journalDownload": true,
+				"journalDelete": false
+			},
+			"inputSource": {
+				"view": false,
+				"fileUpload": false,
+				"fileDelete": false,
+				"dataCleanUp": false
+			},
+			"processSteps": {
+				"view": false,
+				"add": false,
+				"edit": false,
+				"copy": false,
+				"delete": false
+			},
+			"outputMapping": {
+				"view": false,
+				"add": false,
+				"delete": false
+			},
+			"supportingDocs": {
+				"view": false,
+				"add": false,
+				"edit": false,
+				"delete": false
+			},
+			"advisorConfig": {
+				"view": false,
+				"add": false,
+				"edit": false,
+				"delete": false
+			},
+			"validationRules": {
+				"view": false,
+				"add": false,
+				"edit": false,
+				"delete": false
+			}
+		},
+		"admin": {
+			"templateMaster": {
+				"view": false
+			},
+			"groupMaster": {
+				"view": false
+			},
+			"validationRulesMaster": {
+				"view": false
+			},
+			"userMaster": {
+				"view": true
+			},
+			"financialMonthMaster": {
+				"view": false
+			},
+			"calendarMaster": {
+				"view": false
+			},
+			"activityLog": {
+				"view": false
+			},
+			"companyMaster": {
+				"view": true
+			},
+			"frequencyMaster": {
+				"view": true
+			},
+			"roleMaster": {
+				"view": true
+			},
+			"outputFormat": {
+				"view": false
+			},
+			"bulkUpload": {
+				"view": false
+			},
+			"journalAutoApprover": {
+				"view": false
+			},
+			"outputHeaderTemplate": {
+				"view": false
+			},
+			"schedulerHistory": {
+				"view": false
+			}
+		},
+		"boto": true
+	},
+	{
+		"id": 101,
+		"roleName": "Preparer",
+		"keycloakRoleCode": "preparer",
+		"isBusinessAdmin": false,
+		"isPlatformAdmin": false,
+		"menu": {
+			"jcc": true,
+			"jeva": true,
+			"advisor": true,
+			"report": false,
+			"jevan": true,
+			"admin": false
+		},
+		"workflowAction": {
+			"journalStatus": {
+				"submitForApproval": true,
+				"pendingApproval": false
+			},
+			"runStatus": {
+				"submitForReview": true,
+				"pendingSignOff": false
+			}
+		},
+		"jevan": {
+			"uploadData": {
+				"view": true
+			},
+			"newAdhocJournal": {
+				"view": true
+			},
+			"adhocJournalList": {
+				"view": true
+			},
+			"bulkInputFileUpload": {
+				"view": true
+			}
+		},
+		"jcc": {
+			"homeAction": {
+				"journalAdd": true,
+				"journalEdit": true,
+				"journalCopy": true,
+				"journalDownload": true,
+				"journalDelete": true
+			},
+			"inputSource": {
+				"view": true,
+				"fileUpload": true,
+				"fileDelete": true,
+				"dataCleanUp": true
+			},
+			"processSteps": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"copy": true,
+				"delete": true
+			},
+			"outputMapping": {
+				"view": true,
+				"add": true,
+				"delete": true
+			},
+			"supportingDocs": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"delete": true
+			},
+			"advisorConfig": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"delete": true
+			},
+			"validationRules": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"delete": true
+			}
+		},
+		"boto": true
+	},
+	{
+		"id": 102,
+		"roleName": "Reviewer",
+		"keycloakRoleCode": "reviewer",
+		"isBusinessAdmin": false,
+		"isPlatformAdmin": false,
+		"menu": {
+			"jcc": true,
+			"jeva": true,
+			"advisor": true,
+			"report": true,
+			"jevan": true,
+			"admin": false
+		},
+		"workflowAction": {
+			"journalStatus": {
+				"submitForApproval": false,
+				"pendingApproval": false,
+				"returned": false
+			},
+			"runStatus": {
+				"submitForReview": false,
+				"pendingSignOff": true
+			}
+		},
+		"jevan": {
+			"uploadData": {
+				"view": false
+			},
+			"newAdhocJournal": {
+				"view": false
+			},
+			"adhocJournalList": {
+				"view": true
+			},
+			"bulkInputFileUpload": {
+				"view": false
+			}
+		},
+		"jcc": {
+			"homeAction": {
+				"journalAdd": false,
+				"journalEdit": false,
+				"journalCopy": false,
+				"journalDownload": true,
+				"journalDelete": false
+			},
+			"inputSource": {
+				"view": true,
+				"fileUpload": false,
+				"fileDelete": false,
+				"dataCleanUp": false
+			},
+			"processSteps": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"copy": false,
+				"delete": false
+			},
+			"outputMapping": {
+				"view": true,
+				"add": false,
+				"delete": false
+			},
+			"supportingDocs": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"delete": false
+			},
+			"advisorConfig": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"delete": false
+			},
+			"validationRules": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"delete": false
+			}
+		},
+		"boto": true
+	},
+	{
+		"id": 104,
+		"roleName": "Approver",
+		"keycloakRoleCode": "approver",
+		"isBusinessAdmin": false,
+		"isPlatformAdmin": false,
+		"menu": {
+			"jcc": true,
+			"jeva": true,
+			"advisor": false,
+			"report": true,
+			"jevan": true,
+			"admin": false
+		},
+		"workflowAction": {
+			"journalStatus": {
+				"submitForApproval": false,
+				"pendingApproval": true,
+				"returned": false
+			},
+			"runStatus": {
+				"submitForReview": false,
+				"pendingSignOff": false
+			}
+		},
+		"jevan": {
+			"uploadData": {
+				"view": false
+			},
+			"newAdhocJournal": {
+				"view": false
+			},
+			"adhocJournalList": {
+				"view": true
+			},
+			"bulkInputFileUpload": {
+				"view": false
+			}
+		},
+		"jcc": {
+			"homeAction": {
+				"journalAdd": false,
+				"journalEdit": false,
+				"journalCopy": false,
+				"journalDownload": true,
+				"journalDelete": false
+			},
+			"inputSource": {
+				"view": true,
+				"fileUpload": false,
+				"fileDelete": false,
+				"dataCleanUp": false
+			},
+			"processSteps": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"copy": false,
+				"delete": false
+			},
+			"outputMapping": {
+				"view": true,
+				"add": false,
+				"delete": false
+			},
+			"supportingDocs": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"delete": false
+			},
+			"advisorConfig": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"delete": false
+			},
+			"validationRules": {
+				"view": true,
+				"add": false,
+				"edit": false,
+				"delete": false
+			}
+		},
+		"boto": true
+	},
+	{
+		"id": 105,
+		"roleName": "Business Admin",
+		"keycloakRoleCode": "business_account_admin",
+		"isBusinessAdmin": true,
+		"isPlatformAdmin": false,
+		"menu": {
+			"jcc": true,
+			"jeva": true,
+			"advisor": true,
+			"report": true,
+			"jevan": true,
+			"admin": true
+		},
+		"workflowAction": {
+			"journalStatus": {
+				"submitForApproval": true,
+				"pendingApproval": true
+			},
+			"runStatus": {
+				"submitForReview": true,
+				"pendingSignOff": true
+			}
+		},
+		"jevan": {
+			"uploadData": {
+				"view": true
+			},
+			"newAdhocJournal": {
+				"view": true
+			},
+			"adhocJournalList": {
+				"view": true
+			},
+			"bulkInputFileUpload": {
+				"view": true
+			}
+		},
+		"jcc": {
+			"homeAction": {
+				"journalAdd": true,
+				"journalEdit": true,
+				"journalCopy": true,
+				"journalDownload": true,
+				"journalDelete": true
+			},
+			"inputSource": {
+				"view": true,
+				"fileUpload": true,
+				"fileDelete": true,
+				"dataCleanUp": true
+			},
+			"processSteps": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"copy": true,
+				"delete": true
+			},
+			"outputMapping": {
+				"view": true,
+				"add": true,
+				"delete": true
+			},
+			"supportingDocs": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"delete": true
+			},
+			"advisorConfig": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"delete": true
+			},
+			"validationRules": {
+				"view": true,
+				"add": true,
+				"edit": true,
+				"delete": true
+			}
+		},
+		"admin": {
+			"templateMaster": {
+				"view": true
+			},
+			"groupMaster": {
+				"view": true
+			},
+			"validationRulesMaster": {
+				"view": true
+			},
+			"userMaster": {
+				"view": true
+			},
+			"financialMonthMaster": {
+				"view": true
+			},
+			"calendarMaster": {
+				"view": true
+			},
+			"activityLog": {
+				"view": true
+			},
+			"companyMaster": {
+				"view": false
+			},
+			"frequencyMaster": {
+				"view": true
+			},
+			"roleMaster": {
+				"view": true
+			},
+			"outputFormat": {
+				"view": true
+			},
+			"bulkUpload": {
+				"view": true
+			},
+			"journalAutoApprover": {
+				"view": true
+			},
+			"outputHeaderTemplate": {
+				"view": true
+			},
+			"schedulerHistory": {
+				"view": true
+			}
+		},
+		"boto": true
+	}
+]

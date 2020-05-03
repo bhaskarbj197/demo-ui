@@ -1,0 +1,118 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-1 mt-2">
+    <div class="">
+        <div class="row">
+            <div class="col-5">
+                <app-loader [isLoading]="isLoading"></app-loader>
+                <div class="row">
+                    <div class="col">
+                        <h5>Adhoc Journal List</h5>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                        <div class="table-area">
+                            <app-table-no-records [list]="journalList"></app-table-no-records>
+                            <div class="table bg-white cu-tbl">
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let journal of journalList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td w-7 text-center" scope="row">{{journal.id}}</div>
+                                        <div class="cu-td w-35">{{journal.name}}</div>
+                                        <div class="cu-td w-21 text-center">{{journal.template.name}}</div>
+                                        <div class="cu-td w-27 text-center">{{journal.status}}</div>
+                                        <div class="cu-td w-10 center-icon">
+                                            <app-icon-button faIcon="fa-eye" (btnClick)="onViewJournal(journal.id)" tooltipText="View Journal"
+                                                [isDisabled]="adhocJournal.id === journal.id" ariaLabel="View journal"></app-icon-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalJournalCount" 
+                            [currentPageIndex]="tableConfigModel.pageIndex"
+                            (nextClicked)="onJournalListPageChangeClicked($event)" (prevClicked)="onJournalListPageChangeClicked($event)"></app-table-footer>
+                    </div>
+                </div>
+            </div>
+            <div class="col bck-thm" *ngIf="isViewOnly">
+                <h5>Adhoc Journal Details</h5>
+                <app-loader [isLoading]="isDetailLoading"></app-loader>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Journal Id" [(value)]="adhocJournal.id" minLabelLen="120px" ariaLabel="Journal id"></app-showbox>
+                            </div>
+                            <div class="col">
+                                <app-showbox label="Frequency" [(value)]="adhocJournal.frequency" minLabelLen="120px" ariaLabel="Frequency"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Name" [(value)]="adhocJournal.name" minLabelLen="120px" ariaLabel="Name"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Description" [(value)]="adhocJournal.description" minLabelLen="120px" ariaLabel="Description"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Template" [(value)]="adhocJournal.template.name" minLabelLen="120px" ariaLabel="Template"></app-showbox>
+                            </div>
+                            <div class="col">
+                                <app-showbox label="Business Rule" [(value)]="adhocJournal.businessRule.name" minLabelLen="120px" ariaLabel="Business rule"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Admin" [(value)]="adhocJournal.superUser.nameEmail" minLabelLen="120px" ariaLabel="Admin"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Reviewer" [(value)]="adhocJournal.reviewer.nameEmail" minLabelLen="120px" ariaLabel="Reviewer"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Preparer" [(value)]="adhocJournal.preparer.nameEmail" minLabelLen="120px" ariaLabel="Preparer"></app-showbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-showbox label="Requester" [(value)]="adhocJournal.requesterEmail" minLabelLen="120px" ariaLabel="Requester"></app-showbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2 pb-1" *ngIf="adhocJournal.dataValues && adhocJournal.dataColumns">
+                    <div class="col">
+                        <div class="tab-content overflow-auto file-view">
+                            <div class="table table-bordered bg-white cu-tbl table-sm">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th no-wrap" scope="col" *ngFor="let col of adhocJournal.dataColumns">
+                                            {{col.col}}
+                                            <span class="manl-col-typ-span">({{col.typ}})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let row of adhocJournal.dataValues; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td text-normal" scope="row" *ngFor="let val of row">{{val}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

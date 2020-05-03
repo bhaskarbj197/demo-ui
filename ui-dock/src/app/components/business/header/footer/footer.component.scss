@@ -1,0 +1,25 @@
+@import '../../../../style/common';
+
+.footer-position{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.footer {
+    background-color: #B71C1C;
+    color: white;
+}
+  
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.footer-text{
+    font-size: 0.75rem !important;
+}
+
+.tm-txt:hover{
+    text-decoration: underline;
+}

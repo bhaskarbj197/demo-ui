@@ -1,0 +1,28 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row-50{
+    width: 48%;
+    margin: 4px;
+}
+
+.tbl-area{
+    height: 36vh;
+    max-height: 36vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.tbl-heading{
+    font-weight: bold;
+    font-size: 1rem;
+}

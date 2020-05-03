@@ -1,0 +1,14 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-1 pl-3 pr-3 row">
+    <div class="col container-fluid">
+        <div class="row content-div p-2">
+            <div class="col">
+                <h5>{{roleDetails.roleName}}</h5>
+            </div>
+            <div class="col"></div>
+        </div>
+        <app-role-action [roleDetails]="roleDetails"></app-role-action>
+    </div>
+</div>

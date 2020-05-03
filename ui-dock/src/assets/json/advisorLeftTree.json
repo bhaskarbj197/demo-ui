@@ -1,0 +1,189 @@
+[
+	{
+		"name": "Journal Data",
+		"code": "journalData",
+		"id": 1,
+		"seq": 1,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": true,
+		"children": [
+			{
+				"name": "View Journal Data",
+				"code": "viewJournalData",
+				"id": 101,
+				"seq": 101,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false,
+				"isForAdhoc": false
+			},
+			{
+				"name": "Output Result",
+				"code": "outputResult",
+				"id": 102,
+				"seq": 102,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false,
+				"isForAdhoc": true
+			}
+		]
+	},
+	{
+		"name": "Validation Results",
+		"code": "validationResults",
+		"id": 2,
+		"seq": 2,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": true,
+		"countPropertyName": "validationFailCount"
+	},
+	{
+		"name": "Log Anomalies",
+		"code": "logAnomalies",
+		"id": 3,
+		"seq": 4,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": false,
+		"children": [
+			{
+				"name": "Input Logs",
+				"code": "inputLogs",
+				"id": 31,
+				"seq": 31,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false,
+				"countPropertyName": "inputLogAnomalyCount"
+			},
+			{
+				"name": "Processed Logs",
+				"code": "processedLogs",
+				"id": 32,
+				"seq": 32,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false,
+				"countPropertyName": "processedLogAnomalyCount"
+			}
+		]
+	},
+	{
+		"name": "Documentary Evidence",
+		"code": "documentaryEvidence",
+		"id": 4,
+		"seq": 5,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": false,
+		"isAllChildrenOpenInSamePage": true,
+		"children": [
+			{
+				"name": "Input Sources",
+				"code": "inputSources",
+				"id": 41,
+				"seq": 41,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false,
+				"countPropertyName": "inputDataAnomalyCount"
+			},
+			{
+				"name": "Processed Data",
+				"code": "processedData",
+				"id": 42,
+				"seq": 42,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false,
+				"countPropertyName": "processedDataAnomalyCount"
+			}
+		]
+	},
+	{
+		"name": "Financial Impact",
+		"code": "financialImpact",
+		"id": 5,
+		"seq": 6,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": true,
+		"children": [
+			{
+				"name": "Profit & Loss",
+				"code": "profitLoss",
+				"id": 51,
+				"seq": 51,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false
+			},
+			{
+				"name": "Balance Sheet",
+				"code": "balanceSheet",
+				"id": 52,
+				"seq": 52,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false
+			}
+		]
+	},
+	{
+		"name": "Data Anomalies",
+		"code": "dataAnomalies",
+		"id": 6,
+		"seq": 3,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": false,
+		"isAllChildrenOpenInSamePage": true
+	},
+	{
+		"name": "Supporting Docs",
+		"code": "supportingDocs",
+		"id": 7,
+		"seq": 7,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": true,
+		"isAllChildrenOpenInSamePage": true
+	},
+	{
+		"name": "Comments",
+		"code": "comments",
+		"id": 8,
+		"seq": 8,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isForAdhoc": true,
+		"isAllChildrenOpenInSamePage": true
+	}
+]

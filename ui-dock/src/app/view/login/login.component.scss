@@ -1,0 +1,74 @@
+@import '../../style/common';
+
+.login-container {
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 70%;
+    margin: auto;
+
+    -webkit-box-shadow: 0 15px 10px #777;
+    -moz-box-shadow: 0 15px 10px #777;
+    box-shadow: 0 15px 10px #777;
+}
+
+.wrapper {
+    margin: 100px 0;
+}
+
+.card-div{
+    width: 60vw;
+    height: 47vh;
+    margin: 5px;
+}
+
+input:focus, input:active{
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    outline-width: 0;
+}
+
+.icon{
+    font-size: 1.0rem;
+    color: gray;
+}
+
+.div-txt{
+    height: 50px;
+    border-radius: 8px;
+    border: solid 2px gray;
+    line-height: 42px;
+    padding-left: 5px;
+}
+
+.txt-user{
+    height: 40px;
+    width: 89%;
+    border: 0;
+    padding-left: 5px;
+    color: gray;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.is-invalid{
+    border: solid 2px red;
+}
+
+.frm-login{
+    width:41%;
+}
+
+.err-div{
+    height: 30px;
+    line-height: 30px;
+}
+
+.err-msg{
+    color: $error-text-color;
+}
+
+.rem-me{
+    font-size: 0.8rem;
+    color: $gray-text;
+}

@@ -1,0 +1,153 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-1 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="row ml-4 mr-4 p-2">
+                    <div class="col text-center step-brdr-lft" [ngClass]="getStepCss(1)">Step-1: Download Template</div>
+                    <div class="col text-center step-brdr-mdl" [ngClass]="getStepCss(2)">Step-2: Upload Data & Validate</div>
+                    <div class="col text-center step-brdr-rgt" [ngClass]="getStepCss(3)">Step-3: Save Data</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="activeStep===1">
+            <div class="col">                
+                <div class="row p-5">
+                    <div class="col font-stndrd txt-show">
+                        Please download template file if you don't have (optional, but recommended) and fill up the template with the required columns properly.
+                    </div>
+                    <div class="col-3">
+                        <app-button value="Download Template" faIcon="fa-download" type="YAHOO" 
+                            (btnClick)="onTemplateDownloadClick()" ariaLabel="Download Template"></app-button>
+                    </div>
+                    <div class="col-2">
+                        <app-button value="Next" faIcon="fa-arrow-right" type="VIMEO" (btnClick)="onNextClick()" 
+                            isFloatRight="true" ariaLabel="Next"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="activeStep===2">
+            <div class="col">
+                <div class="row p-2">
+                    <div class="col-4">
+                        <app-file-uploader ctrlId="txtDataFile" label="Upload Data" [isDisabled]="!isUploadEnabled"
+                            (uploadFile)="onUploadData($event)" uploadedFileInfo="Upload data file"></app-file-uploader>
+                    </div>
+                    <div class="col-2">
+                        <app-button value="Validate" faIcon="fa-check" type="YAHOO" ariaLabel="Validate"
+                            (btnClick)="onValidateDataClick()" [isDisabled]="isUploadEnabled || bulkValidatedDataAll.length > 0"></app-button>
+                    </div>
+                    <div class="form-group cell-gap" *ngIf="errMsg!==''">
+                        <span class="err-text">{{errMsg}}</span>
+                    </div>
+                    <div class="col-2 pt-1" *ngIf="bulkValidatedData.length > 0">
+                        <app-icon-only faIcon="fa-square fa-lg" dynamicClass="success-body"></app-icon-only>&nbsp;
+                        <span class="font-stndrd">{{noOfPassedRecords}}</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <app-icon-only faIcon="fa-square fa-lg" dynamicClass="fail-body"></app-icon-only>&nbsp;
+                        <span class="font-stndrd">{{noOfFailedRecords}}</span>
+                    </div>
+                    <div class="col"  *ngIf="bulkValidatedData.length > 0">
+                        <app-combobox ctrlId="cmbDataFilter" label="Validation" placeholder="Select" ariaLabel="Select Validation"
+                            [(model)]="filterValidationText" minLabelLen="125px" [list]="filterValidationList"
+                            (valueChange)="onDataFilterValueChanged($event)"></app-combobox>
+                    </div>
+                </div>
+                <div class="row p-1" *ngIf="bulkValidatedData.length > 0">
+                    <div class="col">
+                        <div class="table-area tbl-fl">
+                            <div class="table bg-white cu-tbl">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th w-8" scope="col"></div>
+                                        <div class="cu-th text-center" scope="col">Company</div>
+                                        <div class="cu-th text-center" scope="col">Year</div>
+                                        <div class="cu-th text-center" scope="col">Month</div>                                        
+                                        <div class="cu-th text-center" scope="col">Start Date</div>
+                                        <div class="cu-th text-center" scope="col">End Date</div>
+                                        
+                                    </div>
+                                </div>
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let finMonth of bulkValidatedData; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td w-8 center-icon" scope="row">
+                                            <app-popover *ngIf="!finMonth.isValid" faIcon="fa-times invalid-icon" [popMessages]="finMonth.failedReasons"
+                                                titleText="Validation Errors" position="right" tooltipText="Click to view errors." btnAriaLabel="Invalid"></app-popover>
+                                                <app-icon-only faIcon="fa-check success-body" *ngIf="finMonth.isValid" tooltipText="Passed" ariaLabel="Passed"></app-icon-only>
+                                        </div>
+                                        <div class="cu-td text-center">{{finMonth.companyName}}</div>
+                                        <div class="cu-td text-center">{{finMonth.year}}</div>
+                                        <div class="cu-td text-center">{{finMonth.month}}</div>                                        
+                                        <div class="cu-td text-center">{{finMonth.startDateYyyyMmDd}}</div>
+                                        <div class="cu-td text-center">{{finMonth.endDateYyyyMmDd}}</div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="bulkValidatedData.length > 0">
+                    <div class="col-2">
+                        <app-button value="Back" faIcon="fa-arrow-left" type="VIMEO" (btnClick)="onBackClick()" ariaLabel="Back"></app-button>
+                    </div>
+                    <div class="col font-stndrd text-center">
+                        If you wish to save the validated records, click <strong>"Next"</strong> or if you wish to correct the bad records, click <strong>"Back"</strong>.
+                    </div>
+                    <div class="col-2">
+                        <app-button value="Next" faIcon="fa-arrow-right" type="VIMEO" (btnClick)="onNextClick()" 
+                            isFloatRight="true" [isDisabled]="noOfPassedRecords === 0" ariaLabel="Next"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="activeStep===3">
+            <div class="col">
+                <div class="row p-1" *ngIf="bulkProcessedData.length > 0">
+                    <div class="col">
+                        <div class="table-area tbl-fl">
+                            <div class="table bg-white cu-tbl">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th w-8" scope="col"></div>
+                                        <div class="cu-th text-center" scope="col">Company</div>
+                                        <div class="cu-th text-center" scope="col">Year</div>
+                                        <div class="cu-th text-center" scope="col">Month</div>                                        
+                                        <div class="cu-th text-center" scope="col">Start Date</div>
+                                        <div class="cu-th text-center" scope="col">End Date</div>
+                                    </div>
+                                </div>
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let data of bulkProcessedData; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td w-8 center-icon" scope="row">
+                                            <app-popover *ngIf="!data.isValid" faIcon="fa-times invalid-icon" [popMessages]="data.failedReasons"
+                                                titleText="Insertion Error" position="right" tooltipText="Click to view errors." btnAriaLabel="Error"></app-popover>
+                                                <app-icon-only faIcon="fa-check success-body" *ngIf="data.isValid" tooltipText="Processed" ariaLabel="Processed"></app-icon-only>
+                                        </div>
+                                        <div class="cu-td text-center">{{data.companyName}}</div>
+                                        <div class="cu-td text-center">{{data.year}}</div>
+                                        <div class="cu-td text-center">{{data.month}}</div>                                        
+                                        <div class="cu-td text-center">{{data.startDateYyyyMmDd}}</div>
+                                        <div class="cu-td text-center">{{data.endDateYyyyMmDd}}</div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col font-stndrd text-center">
+                        If you wish to correct the bad records or upload new, click <strong>"Start Over"</strong> to upload updated or new template.
+                    </div>
+                    <div class="col-2">
+                        <app-button value="Start Over" faIcon="fa fa-repeat" type="VIMEO" (btnClick)="onStartOverClick()" 
+                            isFloatRight="true" [isDisabled]="noOfPassedRecords === 0" ariaLabel="Start Over"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

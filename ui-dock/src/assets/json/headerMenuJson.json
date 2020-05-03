@@ -1,0 +1,74 @@
+[
+	{
+		"name": "Home",
+		"code": "home",
+		"seq": 1,
+		"isSelected": true,
+		"isVisible": true,
+		"isClickable": true,
+		"route": "/home"
+	},
+	{
+		"name": "JCC",
+		"code": "jcc",
+		"seq": 2,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": false,
+		"route": "/jcc"
+	},
+	{
+		"name": "JEH",
+		"code": "jeva",
+		"seq": 3,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": false,
+		"route": "/jeva"
+	},
+	{
+		"name": "JEVA",
+		"code": "jevan",
+		"seq": 4,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": true,
+		"route": "/jevan"
+	},
+	{
+		"name": "Advisor",
+		"code": "advisor",
+		"seq": 5,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": true,
+		"route": "advisor-home"
+	},
+	{
+		"name": "Report",
+		"code": "report",
+		"seq": 6,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": true,
+		"route": "report"
+	},
+	{
+		"name": "Admin",
+		"code": "admin",
+		"seq": 7,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": true,
+		"route": "admin"
+	},
+	{
+		"name": "My Profile",
+		"code": "user",
+		"seq": 8,
+		"isSelected": false,
+		"isVisible": true,
+		"isClickable": true,
+		"route": "user"
+	}
+]

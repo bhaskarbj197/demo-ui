@@ -1,0 +1,66 @@
+<div class="tv-container pt-2 h-80 set-area">
+    <div class="row cmb-holder" *ngIf="isRunDateComboShowing">
+        <div class="col-7">
+            <app-combobox ctrlId="cmbRunDate" [list]="runHistoryList" key="runDate" value="runDate" ariaLabel="Select Run Date"
+                [(model)]="runHistoryDate" (valueChange)="onRunHistoryDateChanged($event)"></app-combobox>
+        </div>
+        <div class="col-3">
+            <span class="cmb-status-text" [ngClass]="{'cmb-status-text-suc': getRunDateStatus(), 'cmb-status-text-fail': !getRunDateStatus()}">
+                {{getRunDateStatus() ? "Success" : "Failure"}}
+            </span>
+        </div>
+        <div class="col-1 jeva-log-icon">
+            <app-icon-button faIcon="fa-list-alt" (btnClick)="onRunHistoryLogClick()" tooltipText="Run History" ariaLabel="Run History"></app-icon-button>
+        </div>
+    </div>
+    <div class="row cmb-holder" *ngIf="isJournalListComboShowing">
+        <div class="col">
+            <app-combobox ctrlId="cmbJournalList" [list]="journalList" key="id" value="id" label="Journal ID:" minLabelLen="90px"
+                [backLabel]="journalListBackInfo" isBackLabelInfoOnly="true" ariaLabel="Select journal id"
+                [(model)]="journalIdSelectedForAdvisor" (valueChange)="onJournalIdChanged($event)"></app-combobox>
+        </div>
+    </div>
+    <div class="row cmb-holder btn-holder" *ngIf="isJournalListComboShowing">
+        <div class="col">
+            <app-combobox ctrlId="cmbRunDateList" [list]="runDateList" key="runDate" value="runDate" label="Run Date:" minLabelLen="90px"
+                [(model)]="runDateSelectedForAdvisor" (valueChange)="onRunDateChanged($event)" ariaLabel="Select run date"></app-combobox>
+        </div>
+    </div>
+    <div class="tv-node" *ngFor="let node of nodes | orderBy: 'asc' : 'seq'" [hidden]="isTreeNodeHidden(node, true)">
+        <span [ngClass]="getArrowClass(node)" class="arrow-icon pointer" (click)="onNodeClick(node, $event)"></span>
+        <span class="tv-node-text pointer" [ngClass]="{'active-menu': node.isSelected, 'disabled-span': node.isDisabled}" (click)="onNodeClick(node, $event)">
+            {{node.name}}
+            <app-badge value="{{node.children.length}}" *ngIf="node.isCountShow"></app-badge>
+            <app-badge value="{{node.anomalyCount}}" *ngIf="node.anomalyCount && node.anomalyCount > -1"
+                [type]="'DANGER' | enumValueConverter: 'badgeTypes'"></app-badge>
+            <app-badge value="0" *ngIf="node.countPropertyName && node.anomalyCount <= 0"
+                [type]="'SUCCESS' | enumValueConverter: 'badgeTypes'"></app-badge>
+        </span>
+        <span *ngIf="node.actionBtnIcon" [ngClass]="node.actionBtnIcon" class="action-btn-text pointer" (click)="onActionBtnClick(node, $event)"></span>
+        <div *ngIf="node.children.length > 0" [hidden]="!node.isExpanded">
+            <div class="tv-node tv-chld-div" *ngFor="let chld of node.children | orderBy: 'asc' : 'seq'" [hidden]="isTreeNodeHidden(chld)">
+                <span [ngClass]="getArrowClass(chld)" class="pointer"></span>
+                <span class="tv-node-text pointer" [ngClass]="{'active-menu': chld.isSelected, 'disabled-span': chld.isDisabled}" 
+                    (click)="onNodeClick(chld, $event)">
+                    {{chld.name}}
+                    <span class="master-span" [ngClass]="'MASTER_SOURCE_FILE_INDICATOR' | defaultConstantValueConverter" *ngIf="chld.isMasterFile"></span>
+                    <app-badge value="{{chld.dangerCount}}" *ngIf="chld.dangerCount && chld.dangerCount > 0"
+                        [type]="'DANGER' | enumValueConverter: 'badgeTypes'"></app-badge>
+                    <app-badge value="{{chld.anomalyCount}}" *ngIf="chld.anomalyCount && chld.anomalyCount > -1"
+                        [type]="'DANGER' | enumValueConverter: 'badgeTypes'"></app-badge>
+                    <app-badge value="0" *ngIf="chld.countPropertyName && chld.anomalyCount <= 0"
+                        [type]="'SUCCESS' | enumValueConverter: 'badgeTypes'"></app-badge>
+                </span>
+                <span *ngIf="chld.actionBtnIcon" [ngClass]="node.actionBtnIcon" class="action-btn-text pointer" (click)="onActionBtnClick(chld, $event)"></span>
+                <div *ngIf="chld.children !== undefined && chld.children.length > 0" [hidden]="!chld.isExpanded">
+                    <div class="tv-node tv-chld-div" *ngFor="let gChld of chld.children | orderBy: 'asc' : 'seq'" [hidden]="isTreeNodeHidden(gChld)">
+                        <span [ngClass]="getArrowClass(gChld)" class="pointer"></span>
+                        <span class="tv-node-text pointer" [ngClass]="{'active-menu': gChld.isSelected, 'disabled-span': gChld.isDisabled}" (click)="onNodeClick(gChld, $event)">
+                            {{gChld.name}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

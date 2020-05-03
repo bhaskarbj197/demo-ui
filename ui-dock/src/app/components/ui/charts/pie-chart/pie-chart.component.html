@@ -1,0 +1,45 @@
+<div class="title-div text-center" *ngIf="isTitleShow"
+    [ngClass]="{'title-chld-div-lrg': isCorrectSize('LARGE'), 'title-chld-div-xs': isCorrectSize('XSMALL')}">
+    {{title}}
+</div>
+<div class="chart" *ngIf="isCorrectSize('XSMALL')">
+  <canvas baseChart
+    width="195"
+    height="195"
+    [data]="data"
+    [labels]="labels"
+    [chartType]="pieChartType"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [colors]="pieChartColors"
+    [legend]="isLegendShow"
+    (chartClick)="onChartClicked($event)">
+  </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('SMALL')">
+  <canvas baseChart
+    width="220"
+    height="220"
+    [data]="data"
+    [labels]="labels"
+    [chartType]="pieChartType"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [colors]="pieChartColors"
+    [legend]="isLegendShow"
+    (chartClick)="onChartClicked($event)">
+  </canvas>
+</div>
+<div class="chart" *ngIf="isCorrectSize('LARGE')">
+  <canvas baseChart
+    height="450"
+    [data]="data"
+    [labels]="labels"
+    [chartType]="pieChartType"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [colors]="pieChartColors"
+    [legend]="isLegendShow"
+    (chartClick)="onChartClicked($event)">
+  </canvas>
+</div>

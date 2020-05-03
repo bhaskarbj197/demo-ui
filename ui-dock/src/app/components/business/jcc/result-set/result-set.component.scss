@@ -1,0 +1,46 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.bg-menu {
+    background-color: #E0E1E3;
+}
+
+.nav-link{
+    @extend .jcc-section-header;
+}
+
+.li-content{
+    padding: 5px;
+    min-width: 230px;
+    border-left: solid 1px #ffffff;
+}
+
+.li-content i{
+    float: right;
+    padding-top: 5px;
+    margin-right: 4px;
+}
+
+.jcc-file-view {
+    height: calc(40vh - 10rem);
+}
+
+.rslt-view{
+    height: calc(40vh - 7.5rem);
+}
+
+.file-hdr{
+    min-height: 2rem;
+}
+
+.download-btn{
+    position: absolute;
+    right: 15px;
+    top: 9px;
+}
+
+.err-msg{
+    color: $error-text-color;
+    font-size: 0.8rem;
+    padding: 10px;
+}

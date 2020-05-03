@@ -1,0 +1,62 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 justify-content-center">
+    <app-loader [isLoading]="isFileInfoLoading"></app-loader>
+    <div class="d-flex justify-content-start mb-2">
+        <div class="form-inline">
+            <div class="form-group cell-gap">
+                <app-number-textbox ctrlId="txtJournalId" label="Journal Id" ariaLabel="Journal Id"
+                    [(model)]="journalId" [isDisabled]="isPrimaryControlsDisable"></app-number-textbox>
+            </div>
+            <div class="form-group cell-gap">
+                <app-date-picker label="Run Date" [(model)]="runDate" [isDisabled]="isPrimaryControlsDisable" ariaLabel="Run Date"></app-date-picker>
+                <em id="inputDateHelpInline" class="text-muted"> </em>
+            </div>
+            <div class="form-group cell-gap">
+                <app-button value="Forward" faIcon="fa fa-arrow-circle-right" type="FACEBOOK" ariaLabel="Forward to next action"
+                    (btnClick)="onGetJournalClick()" marginBottom="4px" [isDisabled]="isPrimaryControlsDisable"></app-button>
+            </div>
+            <div class="form-group cell-gap">
+                <span class="err-text">{{errMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isPrimaryControlsDisable">
+        <div class="table table-bordered bg-white cu-tbl only-head">
+            <div class="cu-thead">
+                <div class="cu-tr">
+                    <div class="cu-th w-34 no-border" scope="col">File</div>
+                    <div class="cu-th w-9 no-border" scope="col">Size</div>
+                    <div class="cu-th w-20 no-border" scope="col">Last Modified</div>
+                    <div class="cu-th w-34 no-border" scope="col">Upload</div>
+                    <div class="cu-th w-3 no-border" scope="col"></div>
+                </div>
+            </div>
+        </div>
+        <div class="tbl-area">
+            <div class="table table-bordered bg-white cu-tbl">
+                <div class="cu-tbody form-group row">
+                    <div class="cu-tr" *ngFor="let fileInfo of uploadFileList; let i = index;">
+                        <div class="cu-td w-34" scope="row">{{fileInfo.file}}</div>
+                        <div class="cu-td w-9">{{fileInfo.size | sizeConverter}}</div>
+                        <div class="cu-td w-20">{{fileInfo.lastUpdated | dateConverter}}</div>
+                        <div class="cu-td w-34">
+                            <app-file-uploader ctrlId="txtFileUpload_{{i}}" (uploadFile)="onUploadFile($event, fileInfo, i)" fixedLen="350px"></app-file-uploader>
+                        </div>
+                        <div class="cu-td w-3 center-icon">
+                            <app-icon-only faIcon="fa-check" dynamicClass="success-color" size="1.3rem" *ngIf="fileInfo.isUploaded"></app-icon-only>
+                            <app-icon-only faIcon="fa-times" dynamicClass="fail-color" size="1.3rem" *ngIf="!fileInfo.isUploaded"></app-icon-only>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row run-div p-2" *ngIf="isPrimaryControlsDisable">
+        <app-button value="Run" faIcon="fa fa-bolt" type="VK" ariaLabel="Run"
+            (btnClick)="onRunClick()" [isDisabled]="isRunDisabled()"></app-button>&nbsp;&nbsp;
+        <app-button value="Cancel" faIcon="fa fa-times-circle-o" type="YOUTUBE" ariaLabel="Cancel"
+            (btnClick)="onCancelRunClick()"></app-button>
+    </div>
+</div>

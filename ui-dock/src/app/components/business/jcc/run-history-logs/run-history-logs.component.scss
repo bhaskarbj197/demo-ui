@@ -1,0 +1,32 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: 51vh;
+    max-height: 51vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.w-10{
+    width: 10%;
+}
+
+.w-80{
+    width: 75%;
+}
+
+.w-5{
+    width: 10%;
+}
+
+.success-log{
+    color: $success-color; 
+    font-weight: bold;
+}
+
+.failure-log{
+    color: $failure-color; 
+    font-weight: bold;
+}

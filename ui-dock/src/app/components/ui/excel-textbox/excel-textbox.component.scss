@@ -1,0 +1,20 @@
+@import '../../../style/common';
+
+.excl-list-div{
+    height: 100px;
+    width: 40vw;
+    margin-left: 10vw;
+    margin-top: -4px;
+    border: solid 1px $tbl-border-color;
+    @extend .font-stndrd;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.selct-item{
+    background-color: $control-border-color;
+}
+
+.query-builder-textbox-card{
+    padding-top: 30px;
+}

@@ -1,0 +1,15 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.nav-text{
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.table-area{
+    max-height: 480px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+}

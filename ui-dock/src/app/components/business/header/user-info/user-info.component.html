@@ -1,0 +1,34 @@
+<div class="up-arrow"></div>
+<div class="border border-dark rounded p-2 info-div">
+    <div class="row">
+        <div class="col center-icon">
+            <img class="border border-white rounded bg-white pointer" src="../assets/img/user-tie-solid.svg" height="120" alt="user">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center name-show">
+            {{userInfo.fName}}&nbsp;{{userInfo.lName}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center role-show">
+            {{userInfo.role.roleName}}
+        </div>
+    </div>
+    <div *ngFor="let item of infoList">
+        <div class="seperator"></div>
+        <div class="row">
+            <div class="col u-optn pointer" (click)="onInfoItemClick(item)">
+                <app-icon-only [dynamicClass]="item.userInfoListIcon"></app-icon-only>
+                &nbsp;{{item.name}}
+            </div>
+        </div>
+    </div>
+    <div class="seperator-o"></div>
+    <div class="row">
+        <div class="col u-optn optn-r pointer" (click)="onLogoutClick()">
+            <app-icon-only faIcon="fa-sign-out"></app-icon-only>
+            &nbsp;Log out
+        </div>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" successBtnLabel="Submit" failBtnLabel="Reset" successBtnType="TUMBLR" failBtnType="YOUTUBE"
+            successBtnIcon="fa-thumbs-o-up" failBtnIcon="fa-thumbs-o-down" (successBtnClicked)="onSubmitRule()" [activeTab]="activeTab"
+            (failBtnClicked)="onResetRule()" [isFailBtnHide]="activeTab === tabList[0]" [isSuccessBtnHide]="activeTab === tabList[0]"
+            successBtnAreaLabel="Submit" failBtnAreaLabel="Reset"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="table bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-10 no-border" scope="col">Category</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Template</div>
+                            <div class="cu-th w-30 no-border" scope="col">Condition(s)</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Action</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Exception?</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Created On</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <app-table-no-records [list]="ruleList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let rule of ruleList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-10" scope="row">{{rule.category}}</div>
+                                <div class="cu-td w-15 text-center" scope="row">{{rule.template.name}}</div>
+                                <div class="cu-td w-30" scope="row">{{rule.condText}}</div>
+                                <div class="cu-td w-15 text-center" scope="row">{{rule.action.value}}</div>
+                                <div class="cu-td w-10 text-center" scope="row">
+                                    <app-icon-only [faIcon]="getExceptionPresentIcon(rule)"></app-icon-only>
+                                </div>
+                                <div class="cu-td w-10 text-center" scope="row">{{rule.createdOn | dateConverter : false : true}}</div>
+                                <div class="cu-td w-10 center-icon" *ngIf="deletingRuleId !== rule.id">
+                                    <app-icon-button [faIcon]="getLockIcon(rule)" (btnClick)="onUpdateRuleStatus(rule)" 
+                                        tooltipText="Active/Inactive" ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-edit" (btnClick)="onEditRule(rule)" 
+                                        tooltipText="Edit rule" ariaLabel="Edit rule"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteRule(rule.id)" 
+                                        tooltipText="Delete rule" ariaLabel="Delete rule"></app-icon-button>&nbsp;
+                                </div>
+                                <div class="cu-td w-10 center-icon del-row" *ngIf="deletingRuleId === rule.id">
+                                    Delete?&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteRule(rule.id, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteRule(rule.id, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-1">
+                    <div class="col">
+                        <app-combobox ctrlId="cmbCategory" label="Category" placeholder="Select Category" 
+                            [(model)]="ruleModel.category" minLabelLen="125px" [list]="journalTypeCatList" key="key" value="value"
+                            ariaLabel="Category" (valueChange)="onJournalTypeCatChanged($event)"></app-combobox>
+                    </div>
+                    <div class="col">
+                        <app-combobox ctrlId="cmbTemplate" label="Template" placeholder="Select template" 
+                            [list]="templateList" key="id" value="name" 
+                            [(model)]="ruleModel.template.id" minLabelLen="125px" ariaLabel="Select Template"
+                            (valueChange)="onTemplateChanged($event)" keyInNumber="true"></app-combobox>
+                    </div>
+                    <div class="col-3">
+                        <app-checkbox ctrlId="chkException" label="{{ruleModel.isException? 'With Exception' : 'Without Exception'}}"
+                            [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isChecked]="ruleModel.isException" class="float-right" (valueChange)="onSetExceptionClick()"></app-checkbox>
+                    </div>
+                </div>
+                <div class="row p-1 mt-2">
+                    <div class="col">
+                        <div class="container accordion cu-accdn-cntn">
+                            <div class="card main-card cu-card">
+                                <div class="card-header px-2 py-1">
+                                    <strong>Conditional Area</strong>
+                                </div>
+                                <div class="tab-body">
+                                    <div class="row p-1 mt-2" *ngFor="let cond of ruleModel.conditions; let idx=index;">
+                                        <div class="col-1">
+                                            <app-combobox ctrlId="cmbAndOrCond_{{idx}}" label="" placeholder="Select"
+                                                [hidden]="idx===0" ariaLabel="Select Logical Operator"
+                                                [(model)]="cond.andOr" [list]="andOrList" key="code" value="name"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-combobox ctrlId="cmbType_{{idx}}" label="" placeholder="Select"
+                                                [(model)]="cond.typ" [list]="conditionTypeList" ariaLabel="Select Type"
+                                                (valueChange)="onConditionTypeChanged($event, idx)"></app-combobox>
+                                        </div>
+                                        <div class="col" *ngIf="cond.typ===''"></div>
+                                        <div class="col" *ngIf="cond.typ==='Column'">
+                                            <app-combobox ctrlId="cmbTemplateColList_{{idx}}" label="Column" placeholder="Select column" 
+                                                [list]="columnList" key="code" value="name"
+                                                [(model)]="cond.columnName" ariaLabel="Select column"></app-combobox>
+                                        </div>
+                                        <div class="col" *ngIf="cond.typ==='Workday'">
+                                            <app-combobox ctrlId="cmbWorkdayStartList_{{idx}}" label="Workday Start" placeholder="Select workday" 
+                                                [(model)]="cond.startWorkday" ariaLabel="Select workday" [list]="workdayList"></app-combobox>
+                                        </div>
+                                        <div class="col" *ngIf="cond.typ==='Workday'">
+                                            <app-combobox ctrlId="cmbWorkdayEndList_{{idx}}" label="Workday End" placeholder="Select workday" 
+                                                [(model)]="cond.endWorkday" ariaLabel="Select workday" [list]="workdayList"></app-combobox>
+                                        </div>
+                                        <div class="col-2" *ngIf="cond.typ==='Column'">
+                                            <app-combobox ctrlId="cmbOperatorList_{{idx}}" label="Operator" placeholder="Select operator" 
+                                                [list]="operatorList" [(model)]="cond.operator" key="value" value="value" ariaLabel="Select operator"></app-combobox>
+                                        </div>
+                                        <div class="col" *ngIf="cond.typ==='Column'">
+                                            <app-textbox ctrlId="txtValue_{{idx}}" label="Value" placeholder="Value" ariaLabel="Value"
+                                                [(model)]="cond.value"></app-textbox>
+                                        </div>
+                                        <div class="col" *ngIf="cond.typ==='Reviewer'">
+                                            <app-combobox ctrlId="cmbReviewer" label="Reviewer" placeholder="Select reviewer" 
+                                                [list]="reviewerList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                                [(model)]="cond.reviewer" ariaLabel="Select Reviewer" keyCustomType="true"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-button value="Add" faIcon="fa-plus" type="FACEBOOK" ariaLabel="Add new rule expression"
+                                                [hidden]="idx<ruleModel.conditions.length-1" isFloatRight="true"
+                                                (btnClick)="onAddNewRuleConditionClick()"></app-button>
+                                            <app-button value="Del" faIcon="fa-minus" type="YOUTUBE" ariaLabel="Del rule expression"
+                                                [hidden]="cond.andOr.length===0 && ruleModel.conditions.length===1" isFloatRight="true" marginRight="4px"
+                                                (btnClick)="onDeleteRuleConditionClick(idx)"></app-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 mt-2">
+                    <div class="col">
+                        <div class="container accordion cu-accdn-cntn">
+                            <div class="card main-card cu-card">
+                                <div class="card-header px-2 py-1">
+                                    <strong>Action Area</strong>
+                                </div>
+                                <div class="tab-body">
+                                    <div class="row p-1 mt-2">
+                                        <div class="col">
+                                            <app-combobox ctrlId="cmbActionList" label="Action" placeholder="Select action" 
+                                                [list]="actionList | filterListWithColumn: 'isShowInActionArea': true" key="code" 
+                                                value="value" (valueChange)="onActionChanged($event)"
+                                                [(model)]="ruleModel.action.code" ariaLabel="Select action"></app-combobox>
+                                        </div>
+                                        <div class="col">
+                                            <app-combobox ctrlId="cmbReviewer2" label="2nd Reviewer" placeholder="Select 2nd reviewer" 
+                                                [list]="reviewerList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                                *ngIf="this.ruleModel.action.isReview2ListShow"
+                                                [(model)]="ruleModel.actionReviewer2" ariaLabel="Select 2nd Reviewer" keyCustomType="true"></app-combobox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 mt-2" *ngIf="ruleModel.isException">
+                    <div class="col">
+                        <div class="container accordion cu-accdn-cntn">
+                            <div class="card main-card cu-card">
+                                <div class="card-header px-2 py-1">
+                                    <strong>Exception Area</strong>
+                                </div>
+                                <div class="tab-body">
+                                    <div class="row p-1 mt-2">
+                                        <div class="col" *ngIf="groupList.length>0">
+                                            <app-combobox ctrlId="cmbAbount_group1" label="{{groupList[0].name}}" placeholder="Select" 
+                                                [list]="groupList[0].elements" key="name" value="name" 
+                                                [(model)]="ruleModel.exception.group1.element" minLabelLen="140px"
+                                                (valueChange)="onGroup1Changed($event)" ariaLabel="{{groupList[0].name}}"></app-combobox>
+                                        </div>
+                                        <div class="col" *ngIf="groupList.length>1">
+                                            <app-combobox ctrlId="cmbAbount_group2" label="{{groupList[1].name}}" placeholder="Select" 
+                                                [list]="groupList[1].elements" key="name" value="name" 
+                                                [(model)]="ruleModel.exception.group2.element" minLabelLen="140px"
+                                                (valueChange)="onGroup2Changed($event)" ariaLabel="{{groupList[1].name}}"></app-combobox>
+                                        </div>
+                                        <div class="col">
+                                            <app-combobox ctrlId="cmbActionListExcp" label="Action" placeholder="Select action" 
+                                                [list]="actionList | filterListWithColumn: 'isShowInExceptionArea': true" key="code" 
+                                                value="value" (valueChange)="onActionChanged($event)" isDisabled="true"
+                                                [(model)]="ruleModel.exception.action.code" ariaLabel="Select action"></app-combobox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

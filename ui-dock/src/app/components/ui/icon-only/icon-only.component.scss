@@ -1,0 +1,23 @@
+@import '../../../style/common';
+
+.success-body{
+    color:rgb(74, 235, 74) !important;
+}
+
+.fail-body{
+    color:rgb(243, 53, 53) !important;
+}
+
+.success-color{
+    color: green !important;
+}
+
+.fail-color{
+    color: red !important;
+}
+
+.master-rule-identifier{
+    color: tomato;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}

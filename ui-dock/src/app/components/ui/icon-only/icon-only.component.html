@@ -1,0 +1,4 @@
+<i class="cu-fa fa" [ngClass]="getDynamicClass()" [ngStyle]="{'font-size': size, 'color': color }" [tooltip]="tooltipText" 
+    aria-hidden="true" *ngIf="tooltipText !== ''"></i>
+<i class="cu-fa fa" [ngClass]="getDynamicClass()" [ngStyle]="{'font-size': size, 'color': color }" *ngIf="tooltipText === ''"
+    aria-hidden="true"></i>

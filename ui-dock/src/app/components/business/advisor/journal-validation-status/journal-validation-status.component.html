@@ -1,0 +1,62 @@
+<div class="row px-2 py-1 jcc-section-header">
+    Journal Validation Status
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <app-navbar ctrlId="journalValidationStatusTab" [tabList]="tabList" [activeTab]="activeTab"
+            (activeTabChanged)="onChangedActiveTab($event)"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="row p-2">
+                    <app-loader [isLoading]="isLoading"></app-loader>
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-10 no-border text-center" scope="col">Journal Id</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Run Date</div>
+                                <div class="cu-th w-40 no-border" scope="col">Journal Name</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Status</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col"># of Passed</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col"># of Failed</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Action</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-area">
+                        <app-table-no-records [list]="validationStatusList"></app-table-no-records>
+                        <div class="table bg-white cu-tbl">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let item of validationStatusList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                    <div class="cu-th w-10 text-center" scope="row">{{item.journalId}}</div>
+                                    <div class="cu-th w-10 text-center">{{item.runDate |dateConverter: false: true}}</div>
+                                    <div class="cu-td w-40">{{item.journalName}}</div>
+                                    <div class="cu-td w-10 text-center" (click)="onValidationStatusItemClick(item, 'validationResults')">
+                                        <div [ngClass]="{'inner-div-bck-clr': item.validationStatus.toLowerCase().trim()==='fail',
+                                            'inner-div-bck-sc': item.validationStatus.toLowerCase().trim()==='pass'}" class="pointer">
+                                            {{item.validationStatus}}
+                                        </div>
+                                    </div>
+                                    <div class="cu-td w-10 text-center">{{item.validationPassCount}}/{{item.totalCount}}</div>
+                                    <div class="cu-td w-10 text-center">{{item.validationFailCount}}/{{item.totalCount}}</div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-icon-button faIcon="fa-bar-chart" tooltipText="Details View" ariaLabel="Details View"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-3 justify-content-center">
+                    <div class="graph-show">
+                        <app-bar-chart title="Journal Validation Status by Journal Rundate" [labels]="validationStatusGraph.labels" [data]="validationStatusGraph.data" 
+                            [size]="'LARGE' | enumValueConverter : 'chartSizes'" [colors]="validationStatusGraph.colors" *ngIf="validationStatusGraph.data.length > 0"></app-bar-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

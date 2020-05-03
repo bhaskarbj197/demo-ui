@@ -1,0 +1,30 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row content-div p-2">
+            <div class="col">
+                <div class="table bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-85 no-border" scope="col">Name</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let freq of frequencyList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-85" scope="row">{{freq.name}}</div>
+                                <div class="cu-td w-15 center-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

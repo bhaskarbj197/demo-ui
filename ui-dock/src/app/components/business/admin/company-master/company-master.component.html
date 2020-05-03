@@ -1,0 +1,65 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" successBtnLabel="Submit" failBtnLabel="Reset" successBtnType="TUMBLR" failBtnType="YOUTUBE"
+            successBtnIcon="fa-thumbs-o-up" failBtnIcon="fa-repeat" (successBtnClicked)="onSubmitCompany()" [activeTab]="activeTab"
+            (failBtnClicked)="onResetCompany()" [isFailBtnHide]="activeTab === tabList[0]" [isSuccessBtnHide]="activeTab === tabList[0]"
+            successBtnAreaLabel="Submit" failBtnAreaLabel="Reset"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="table bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-85 no-border" scope="col">Name</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <app-table-no-records [list]="companyList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let company of companyList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-85" scope="row">{{company.name}}</div>
+                                <div class="cu-td w-15 center-icon" *ngIf="deletingCompanyId != company.id">
+                                    <app-icon-button [faIcon]="getLockIcon(company)" (btnClick)="onUpdateCompany(company)" 
+                                        tooltipText="Active/Inactive" ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-edit" (btnClick)="onEditCompany(company)" 
+                                        tooltipText="Edit company" ariaLabel="Edit company"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteCompany(company.id)" 
+                                        tooltipText="Delete company" ariaLabel="Delete company"></app-icon-button>&nbsp;
+                                </div>
+                                <div class="cu-td w-10 center-icon del-row" *ngIf="deletingCompanyId === company.id">
+                                    Delete?&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteCompany(company.id, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteCompany(company.id, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row">
+                    <div class="col m-1">
+                        <app-textbox ctrlId="txtCompanyName" label="Company Name" placeholder="company name" isRequired="true"
+                            [(model)]="newCompany.name" minLabelLen="125px" [isSubmit]="isSubmit" ariaLabel="Company Name"></app-textbox>
+                    </div>
+                    <div class="col m-1">
+                        <app-checkbox ctrlId="chkCompanyActive" label="{{newCompany.isActive? 'Active' : 'Inactive'}}" (valueChange)="onSetActiveClick()"
+                            [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isChecked]="newCompany.isActive"></app-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

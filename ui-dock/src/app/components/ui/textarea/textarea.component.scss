@@ -1,0 +1,47 @@
+@import '../../../style/common';
+
+textarea:focus, button:focus{
+    box-shadow: none !important;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none !important;
+}
+
+.invalid-text {
+    width: 100%;
+    margin-top: .25rem;
+    color: #dc3545;
+}
+
+.invalid-textbox{
+    border: solid 1px #dc3545;
+    border-left-width: 3px;
+}
+
+.resize{
+    resize: none;
+}
+
+::-webkit-input-placeholder, :-ms-input-placeholder { /* Edge */
+    color: gray;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center; 
+    vertical-align: middle;
+}
+
+::placeholder{
+    color: gray;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center; 
+    vertical-align: middle;
+}
+
+.custom:read-only{
+    background-color: $disable-color;
+}
+
+.custom:disabled{
+    background-color: $disable-color;
+}

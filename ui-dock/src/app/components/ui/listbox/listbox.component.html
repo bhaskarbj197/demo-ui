@@ -1,0 +1,7 @@
+<ul class="list-group" id="{{ctrlId}}">
+    <li class="list-group-item list-item" *ngFor="let item of list" (click)="onItemclick(item)"
+        value="item[key]" [ngClass]="{'active': isActive(item)}">
+        {{item[val]}}
+        <span *ngIf="helpText.length>0">{{item[helpText]}}</span>
+    </li>
+</ul>

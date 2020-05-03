@@ -1,0 +1,33 @@
+<div>
+    <div class="px-2 py-1 jcc-section-header">
+        {{heading}}
+    </div>
+    <div class="p-3">
+        <div class="tbl-area">
+            <div class="table table-bordered bg-white cu-tbl">
+                <div class="cu-thead">
+                    <div class="cu-tr">
+                        <div class="cu-th w-10" scope="col">Date</div>
+                        <div class="cu-th w-10 text-center" scope="col">Status</div>
+                        <div class="cu-th w-80" scope="col">Details</div>
+                        <div class="cu-th w-5 text-center" scope="col">Actions</div>
+                    </div>
+                </div>
+                <div class="cu-tbody">
+                    <div class="cu-tr" *ngFor="let log of historyLogs; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                        <div class="cu-td w-10" scope="row">{{log.runDate}}</div>
+                        <div class="cu-td w-10 text-center" scope="row">
+                            <span class="success-log" *ngIf="log.isSuccess">Success</span>
+                            <span class="failure-log" *ngIf="!log.isSuccess">Failure</span>
+                        </div>
+                        <div class="cu-td w-80">{{log.message}}</div>
+                        <div class="cu-td w-5 center-icon">
+                            <app-icon-button faIcon="fa-calendar-o" [isDisabled]="log.runDate === selectedRunHistoryDate"
+                                (btnClick)="onRunDateClick(log)" tooltipText="Run History" ariaLabel="run history"></app-icon-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

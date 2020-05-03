@@ -1,0 +1,17 @@
+<div class="title-div text-center" *ngIf="isTitleShow">
+    {{title}}
+</div>
+<div class="chart">
+    <canvas baseChart
+        height="220"
+        width="250"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [colors]="barChartColors"
+        [legend]="isLegendShow"
+        [chartType]="barChartType">
+    </canvas>
+</div>
+    

@@ -1,0 +1,64 @@
+<div class="row py-1 jcc-section-header">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class=" row p-2 justify-content-center content-area">
+    <div class="col">
+        <div class="row chld-div">
+            <div class="col graph-div">
+                <div class="row div-grph-cntn justify-content-center">
+                    <app-doughnut-chart title="Validation Summary by JE Count" [labels]="journalGraphs.validationStatus.labels" 
+                        *ngIf="journalGraphs.validationStatus.data.length > 0" [backColors]="journalGraphs.validationStatus.colors"
+                        [data]="journalGraphs.validationStatus.data"></app-doughnut-chart>
+                </div>
+            </div>
+            <div class="col graph-div">
+                <div class="row div-grph-cntn justify-content-center">
+                    <app-h-bar-chart title="Validation Summary by Category" [labels]="journalGraphs.validationCategory.labels" 
+                        *ngIf="journalGraphs.validationCategory.dataSet.length > 0" [colors]="this.journalGraphs.validationCategory.colors"
+                        [data]="journalGraphs.validationCategory.dataSet"></app-h-bar-chart>
+                </div>
+            </div>
+            <div class="col graph-div">
+                <div class="row div-grph-cntn justify-content-center">
+                    <app-bar-chart title="Error Summary" [labels]="['LE001', 'LE002', 'LE003']"
+                        [data]="[{data:[3,1,2], label:''}]" [isLegendShow]="false"></app-bar-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row chld-div">
+    <div class="table bg-white cu-tbl only-head">
+        <div class="cu-thead">
+            <div class="cu-tr">
+                <div class="cu-th w-10 no-border text-center" scope="col">Validation #</div>
+                <div class="cu-th w-20 no-border" scope="col">Category</div>
+                <div class="cu-th w-60 no-border" scope="col">
+                    Description
+                    <app-button value="Download" faIcon="fa-download" [isSmall]="true" type="TUMBLR" ariaLabel="Download"
+                        [isFloatRight]="true" (btnClick)="onDownloadValidationResult()"></app-button>
+                </div>
+                <div class="cu-th w-10 no-border text-center" scope="col">Status</div>
+            </div>
+        </div>
+    </div>
+    <div class="table-area">
+        <app-table-no-records [list]="validationResults"></app-table-no-records>
+        <div class="table bg-white cu-tbl">
+            <app-loader [isLoading]="isLoading"></app-loader>
+            <div  class="cu-tbody">
+                <div class="cu-tr" *ngFor="let validation of validationResults | orderBy: 'asc' : 'validationNo'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                    <div class="cu-th w-10 text-center" scope="row">{{validation.validationNo}}</div>
+                    <div class="cu-td w-20">{{validation.category}}</div>
+                    <div class="cu-td w-60">{{validation.description}}</div>
+                    <div class="cu-td w-10 text-center font-bold" [ngClass]="{'error-box': !validation.isSuccess, 'success-box': validation.isSuccess}">
+                        {{validation.statusText}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

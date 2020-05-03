@@ -1,0 +1,52 @@
+<div class="login-container" role="main">
+    <div class="wrapper card-deck">
+        <div class="card card-div">
+            <div class="row p-4">
+                <div class="col-7">
+                    <img src="../../../assets/img/login-board.png" height="73%" width="100%" alt="Login">
+                </div>
+                <form [formGroup]="loginForm" class="frm-login">
+                    <div class="col p-2">
+                        <div class="row">
+                            <div class="col m-2 text-center">
+                                <h5>LOGIN</h5>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-7 m-2 div-txt" 
+                                [ngClass]="{ 'is-invalid': this.loginForm.controls.userName.invalid && (this.loginForm.controls.userName.dirty || isSubmitClicked) }">
+                                <input type="text" class="txt-user" placeholder="Username" formControlName="userName" 
+                                    [(ngModel)]="userName" aria-label="Username" />
+                                <app-icon-only faIcon="fa-user ml-2" color="gray" size="1.0rem"></app-icon-only>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">  
+                            <div class="col-7 m-2 div-txt"
+                                [ngClass]="{ 'is-invalid': this.loginForm.controls.password.invalid && (this.loginForm.controls.password.dirty || isSubmitClicked) }">
+                                <input type="password" class="txt-user" placeholder="Password" formControlName="password" 
+                                    [(ngModel)]="password" aria-label="Password" />
+                                <app-icon-only faIcon="fa-key ml-2" color="gray" size="1.0rem"></app-icon-only>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">  
+                            <div class="col-7 m-2 center-icon err-div">
+                                <img src="../../../assets/img/103.gif" alt="loading" width="120px" *ngIf="isLoading">
+                                <span class="err-msg" [hidden]="loginErrorMsg.length === 0">{{loginErrorMsg}}</span>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">  
+                            <div class="col-4 pt-2 pl-3 rem-me">
+                                <app-checkbox ctrlId="chkRememberMe" label="Remember Me" (valueChange)="onRememberMeClick()"
+                                    [isChecked]="isRememberMe" [(model)]="isRememberMe"></app-checkbox>
+                            </div>
+                            <div class="col-4">
+                                <app-button value="SUBMIT" faIcon="fa-sign-in" type="FACEBOOK" (btnClick)="onLoginClick()" 
+                                    isFloatRight="true" ariaLabel="Submit"></app-button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

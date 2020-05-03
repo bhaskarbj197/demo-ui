@@ -1,0 +1,170 @@
+<div *ngFor="let node of nodes">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div *ngIf="node.isSelected">
+        <div class="px-2 py-1 jcc-section-header">
+            <app-main-area-header [headerName]="node.name" [isRunHide]="true"
+                (headerActionSaveClick)="onHeaderActionSaveClick()"></app-main-area-header>
+        </div>
+        <div class="p-3">            
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col" *ngIf="node.code === 'journalInfo'">
+                        <div class="row">
+                            <div class="col-6">
+                                <app-textbox ctrlId="txtAbount_name" label="Name" placeholder="Name" 
+                                    [isReadOnly]="isViewOnly || aboutDetails.journalInfo.id !== 0" [(model)]="aboutDetails.journalInfo.name" 
+                                    minLabelLen="140px" isRequired="true" ariaLabel="Journal Name"
+                                    [isSubmit]="isFormSubmitted" backLabel="Non Editable" isBackLabelInfoOnly="true"></app-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-textbox ctrlId="txtAbount_id" label="Id" placeholder="Id" ariaLabel="Journal Id"
+                                    [isReadOnly]="true" [(model)]="aboutDetails.journalInfo.id" minLabelLen="140px"></app-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-textarea ctrlId="txtAbount_description" label="Description" placeholder="Description" ariaLabel="Description"
+                                    [isReadOnly]="isViewOnly" [(model)]="aboutDetails.journalInfo.description" minLabelLen="140px"></app-textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_frequency" label="Frequency" placeholder="Select frequency" 
+                                    [isDisabled]="isViewOnly || aboutDetails.journalInfo.id !== 0" [list]="frequencyList" key="id" value="name" 
+                                    [(model)]="aboutDetails.journalInfo.frequency.id" minLabelLen="140px" ariaLabel="Select frequency"
+                                    (valueChange)="onFrequencyChanged($event)" backLabel="Non Editable" isBackLabelInfoOnly="true"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_template" label="Template" placeholder="Select template" 
+                                    [isDisabled]="isViewOnly || aboutDetails.journalInfo.id !== 0" [list]="templateList" key="id" value="name" 
+                                    [(model)]="aboutDetails.journalInfo.template.id" minLabelLen="140px" ariaLabel="Select Template"
+                                    (valueChange)="onTemplateChanged($event)" backLabel="Non Editable" isBackLabelInfoOnly="true"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-checkbox ctrlId="chkIsReversal" label="Reversal" (valueChange)="onReversalChanged()"
+                                    [isDisabled]="isViewOnly" [isChecked]="aboutDetails.journalInfo.isReversal"></app-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" *ngIf="node.code === 'workflow'">
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_superuser" label="Administrator" placeholder="Select administrator" 
+                                    [isDisabled]="isViewOnly" [list]="superUserList| orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                    [(model)]="aboutDetails.workflow.superuser" minLabelLen="140px" ariaLabel="Select Administrator"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyCustomType="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_approver" label="Approver" placeholder="Select approver" 
+                                    [isDisabled]="isViewOnly" [list]="approverList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                    [(model)]="aboutDetails.workflow.approver" minLabelLen="140px" ariaLabel="Select Approver"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyCustomType="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_reviewer" label="Reviewer" placeholder="Select reviewer" 
+                                    [isDisabled]="isViewOnly" [list]="reviewerList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                    [(model)]="aboutDetails.workflow.reviewer" minLabelLen="140px" ariaLabel="Select Reviewer"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyCustomType="true"></app-combobox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" *ngIf="node.code === 'riskManagement'">
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_sourceSla" label="Source SLA" placeholder="Select Source SLA" ariaLabel="Select Source SLA"
+                                    [isDisabled]="isViewOnly" [list]="workdayList" isRequired="true" [isSubmit]="isFormSubmitted"
+                                    [(model)]="aboutDetails.riskManagement.sourceSLA" minLabelLen="140px"></app-combobox>
+                            </div>
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_timeSourceSla" label="Source SLA Time" placeholder="Select Time" 
+                                    [isDisabled]="isViewOnly" [list]="tiemList" key="code" value="value" 
+                                    [(model)]="aboutDetails.riskManagement.sourceSLATime" minLabelLen="140px"
+                                    ariaLabel="Select Source SLA Time" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-textbox ctrlId="txtAbount_sourceContact" label="Source Contact" placeholder="Source Contact" ariaLabel="Source Contact" 
+                                    [isReadOnly]="isViewOnly" [(model)]="aboutDetails.riskManagement.sourceContact" minLabelLen="140px" isRequired="true" 
+                                    [isSubmit]="isFormSubmitted"></app-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_postDate" label="Post Date" placeholder="Select Post Date" 
+                                    [isDisabled]="isViewOnly" isRequired="true" [list]="workdayList" ariaLabel="Select Post Date" 
+                                    [isSubmit]="isFormSubmitted" [(model)]="aboutDetails.riskManagement.postDate" minLabelLen="140px"></app-combobox>
+                            </div>
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_timePostDate" label="Post Date Time" placeholder="Select Time" 
+                                    [isDisabled]="isViewOnly" [list]="tiemList" key="code" value="value" 
+                                    [(model)]="aboutDetails.riskManagement.postDateTime" minLabelLen="140px"
+                                    ariaLabel="Select Post Date Time" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_timeZone" label="Time Zone" placeholder="Select time zone" 
+                                    [isDisabled]="isViewOnly || aboutDetails.journalInfo.id !== 0" [list]="timeZoneList" key="id" value="name" 
+                                    [(model)]="aboutDetails.riskManagement.timezone.id" minLabelLen="140px" ariaLabel="Select Time Zone"
+                                    (valueChange)="onTimeZoneChanged($event)" backLabel="Non Editable" isBackLabelInfoOnly="true"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-textbox ctrlId="txtAbount_postContact" label="Post Contact" placeholder="Post Contact" 
+                                    [isReadOnly]="isViewOnly" [(model)]="aboutDetails.riskManagement.postContact" minLabelLen="140px" isRequired="true" 
+                                    [isSubmit]="isFormSubmitted" ariaLabel="Post contact"></app-textbox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_businessRule" label="Business Rule" placeholder="Select business rule" 
+                                    [isDisabled]="isViewOnly || aboutDetails.journalInfo.id !== 0" [list]="businessRuleList" key="id" value="name" 
+                                    [(model)]="aboutDetails.riskManagement.businessRules.id" minLabelLen="140px" ariaLabel="Select business rule"
+                                    (valueChange)="onBusinessRuleChanged($event)" backLabel="Non Editable" isBackLabelInfoOnly="true"
+                                    isRequired="true" [isSubmit]="isFormSubmitted" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <app-combobox ctrlId="cmbAbount_calendar" label="Calendar" placeholder="Select calendar" 
+                                    [isDisabled]="isViewOnly || aboutDetails.journalInfo.id !== 0" [list]="calendarList" key="id" value="name" 
+                                    [(model)]="aboutDetails.riskManagement.calendar.id" minLabelLen="140px"
+                                    backLabel="Non Editable" isBackLabelInfoOnly="true" ariaLabel="Select calendar"
+                                    (valueChange)="onCalendarChanged($event)" keyInNumber="true"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" *ngIf="groupList.length>0">
+                                <app-combobox ctrlId="cmbAbount_group1" label="{{groupList[0].name}}" placeholder="Select" 
+                                    [isDisabled]="isViewOnly" [list]="groupList[0].elements" key="name" value="name" 
+                                    [(model)]="aboutDetails.riskManagement.group1.element" minLabelLen="140px"
+                                    (valueChange)="onGroup1Changed($event)" ariaLabel="{{groupList[0].name}}"></app-combobox>
+                            </div>
+                            <div class="col-6" *ngIf="groupList.length>1">
+                                <app-combobox ctrlId="cmbAbount_group2" label="{{groupList[1].name}}" placeholder="Select" 
+                                    [isDisabled]="isViewOnly" [list]="groupList[1].elements" key="name" value="name" 
+                                    [(model)]="aboutDetails.riskManagement.group2.element" minLabelLen="140px"
+                                    (valueChange)="onGroup2Changed($event)" ariaLabel="{{groupList[1].name}}"></app-combobox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

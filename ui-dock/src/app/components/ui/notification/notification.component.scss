@@ -1,0 +1,66 @@
+@import '../../../style/common';
+
+button:focus{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none !important;
+}
+
+button{
+    outline:none !important
+}
+
+button::-moz-focus-inner {
+    border: 0 !important;
+}
+
+.alert-position{
+    position: absolute;
+    min-width: 45%;
+    max-width: 65%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1100;
+}
+.alert-position-top{
+    @extend .alert-position;
+    top: 10%;
+}
+.alert-position-bottom{
+    @extend .alert-position;
+    bottom: 8%;
+}
+
+.alert-position-corner{
+    z-index: 1100;
+    position: absolute;
+    min-width: 250px;
+    max-width: 350px;
+    width: 350px;
+}
+.alert-position-bottom-right{
+    @extend .alert-position-corner;
+    right: 3%;
+    bottom: 5%;
+}
+.alert-position-bottom-left{
+    @extend .alert-position-corner;
+    left: 3%;
+    bottom: 5%;
+}
+.alert-position-top-left{
+    @extend .alert-position-corner;
+    left: 3%;
+    top: 15%;
+}
+.alert-position-top-right{
+    @extend .alert-position-corner;
+    right: 3%;
+    top: 1%;
+}
+
+.msg{
+    font-size: 1rem;
+    font-weight: bold;
+}

@@ -1,0 +1,38 @@
+<div class="input-group mb-1" [ngClass]="getDynamicClasses()" [hidden]="isHide" [ngStyle]="{width: getFixedWidth()}">
+    <div class="input-group-prepend" *ngIf="label.length>0">
+        <label class="input-group-text font-stndrd" for="{{ctrlId}}" [ngStyle]="{'min-width': minLabelLen}" [ngClass]="{'invalid-textbox':isInValidInput()}">{{label}}
+            <span class="mandatory-star" *ngIf="isRequired">&nbsp;*</span>
+        </label>
+    </div>
+    <select class="form-control selectpicker custom cntrl-any font-stndrd" name="{{ctrlId}}" id="{{ctrlId}}" 
+        [(ngModel)]="model" (change)="onItemChange()" [attr.aria-label]="ariaLabel"
+        [ngClass]="{'invalid-textbox':isInValidInput(), 'no-border': isNoBorder}"
+        [required]="isRequired" 
+        [disabled]="isDisabled" data-live-search="true" (keypress)="onKeypress($event)">
+        <option value="null" disabled selected *ngIf="placeholder.length>0 && keyCustomType">{{placeholder}}</option>
+        <option value="" disabled selected *ngIf="!keyInNumber && placeholder.length>0 && !keyCustomType">{{placeholder}}</option>
+        <option value="0" disabled selected *ngIf="keyInNumber && placeholder.length>0 && !keyCustomType">{{placeholder}}</option>
+        <option *ngFor="let item of list" [ngValue]="item[key]" [hidden]="itemDisabledKey.length > 0"
+            [ngClass]="{'master-text': item['isMasterFile'], 'marked-item': isMarkedItemKey(item[key])}">
+            {{item[value]}}<span *ngIf="isMarkedItemKey(item[key])">&nbsp;{{markedText}}</span>
+        </option>
+        <option *ngFor="let item of list" [ngValue]="item[key]" [disabled]="item[itemDisabledKey]" [hidden]="itemDisabledKey.length === 0"
+            [ngClass]="{'master-text': item['isMasterFile'], 'marked-item': isMarkedItemKey(item[key])}">
+            {{item[value]}}<span *ngIf="isMarkedItemKey(item[key])">&nbsp;{{markedText}}</span>
+        </option>
+    </select>
+    <div class="input-group-prepend pointer" *ngIf="((backLabel.length>0) || (backLabelIcon.length>0)) && !isBackLabelInfoOnly" 
+        (click)="onBackLabelClick()">
+        <span class="input-group-text font-stndrd" [ngStyle]="{'min-width': backLabelMinLabelLen}">
+            <app-icon-only [faIcon]="backLabelIcon"></app-icon-only>&nbsp;&nbsp;{{backLabel}}
+        </span>
+    </div>
+    <div class="input-group-prepend info-back-c" *ngIf="(backLabel.length>0) && isBackLabelInfoOnly">
+        <span class="input-group-text font-stndrd info-back" [ngStyle]="{'min-width': backLabelMinLabelLen}">
+            <app-icon-only [faIcon]="backLabelIcon"></app-icon-only>&nbsp;&nbsp;{{backLabel}}
+        </span>
+    </div>
+    <div *ngIf="isInValidInput()" class="invalid-text">
+        {{messageShow}}
+    </div>
+</div>

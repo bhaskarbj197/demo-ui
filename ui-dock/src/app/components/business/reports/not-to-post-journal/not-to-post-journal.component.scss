@@ -1,0 +1,21 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.cu-card{
+    margin-bottom: 0px;
+    height: auto;
+    border-bottom: solid 1px $tbl-border-color !important;
+}
+
+.cu-accdn-cntn{
+    max-width: 100%;
+    margin: 0px;
+    padding: 0px 3px;
+}
+
+.table-area{
+    height: 58vh;
+    max-height: 58vh;
+    @extend .table-data-area;
+    border: solid 1px $tbl-border-color;
+}

@@ -1,0 +1,83 @@
+<div class="row px-2 py-1 jcc-section-header">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="row p-2 justify-content-center">
+    <app-loader [isLoading]="isProcessLogsLoading"></app-loader>
+    <div class="col">
+        <app-navbar ctrlId="anomalyProcessedLogTab" [tabList]="tabList" [disableTabs]="disableTabList"
+            (activeTabChanged)="onChangedActiveTab($event)" [activeTab]="activeTab"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="row p-2 head-text">
+                    <div class="col">
+                        <span class="header-span">Total Records:</span>
+                        <app-badge value="{{processLogs.totalNoFilterStep}}" [type]="'PRIMARY' | enumValueConverter: 'badgeTypes'"
+                            class="anomaly-badge"></app-badge>
+                    </div>
+                    <div class="col">
+                        <span class="header-span">Total Anomalies:</span>
+                        <app-badge value="{{processLogs.anomalyStepCount}}" [type]="'DANGER' | enumValueConverter: 'badgeTypes'"
+                            *ngIf="processLogs.anomalyStepCount>0" class="anomaly-badge"></app-badge>
+                        <app-badge value="{{processLogs.anomalyStepCount}}" [type]="'SUCCESS' | enumValueConverter: 'badgeTypes'"
+                            *ngIf="processLogs.anomalyStepCount===0" class="anomaly-badge"></app-badge>
+                        <app-button value="Download" faIcon="fa-download" type="YAHOO" isFloatRight="true" 
+                            (btnClick)="onDownloadProcessedLogAnomalyExcel()" ariaLabel="Download"
+                            [isDisabled]="processLogs.anomalyStepCount===0"></app-button>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-15 no-border" scope="col">Input File Name</div>
+                                <div class="cu-th w-15 no-border" scope="col">Output File Name</div>
+                                <div class="cu-th w-5 no-border text-center" scope="col">Step#</div>
+                                <div class="cu-th w-10 no-border" scope="col">Operation</div>
+                                <div class="cu-th w-7 no-border text-center" scope="col">Rows Del</div>
+                                <div class="cu-th w-8 no-border text-center" scope="col">Run Date</div>
+                                <div class="cu-th w-32 no-border" scope="col">
+                                    Comments
+                                </div>
+                                <div class="cu-th w-8 no-border text-center" scope="col">Actions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-area">
+                        <app-table-no-records [list]="processLogs.records"></app-table-no-records>
+                        <div class="table bg-white cu-tbl" *ngFor="let log of processLogs.records | orderBy: 'asc' : 'inputNo'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" [ngClass]="{'anomaly-tr': log.isAnomaly}">
+                                    <div class="cu-td w-15" scope="row">{{log.inFileName}}</div>
+                                    <div class="cu-td w-15" scope="row">{{log.outFileName}}</div>
+                                    <div class="cu-td w-5 text-center">{{log.stepNo}}</div>
+                                    <div class="cu-td w-10" scope="row">{{log.operationName}}</div>
+                                    <div class="cu-td w-7 text-center">{{log.removeCount}}</div>
+                                    <div class="cu-td w-8 text-center">{{log.runDate | dateConverter}}</div>
+                                    <div class="cu-td w-32" [ngClass]="{'anomaly-text': log.isAnomaly}">{{log.comment}}</div>
+                                    <div class="cu-td w-8 center-icon">
+                                        <app-icon-button faIcon="fa fa-line-chart" (btnClick)="onShowLogHistoryClick(log)" 
+                                            tooltipText="Show Graph" ariaLabel="Show Graph"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-3 justify-content-center">
+                    <div class="graph-show">
+                        <app-line-chart title="Process Logs Anomaly" [labels]="journalGraphs.labels" 
+                            [data]="journalGraphs.processLogAnomaly"
+                            [size]="'LARGE' | enumValueConverter : 'chartSizes'" [isLegendShow]="false"
+                            [colors]="journalGraphs.colors"></app-line-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

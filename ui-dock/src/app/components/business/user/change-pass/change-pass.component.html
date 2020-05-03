@@ -1,0 +1,41 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+    <div class="col">
+        <app-icon-button faIcon="fa-floppy-o" (btnClick)="onSaveClick()" tooltipText="Save" isFloatRight="true" ariaLabel="Save"></app-icon-button>
+    </div>
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col">
+                <div class="row">
+                    <div class="col m-1">
+                        <app-passbox ctrlId="txtCurrentPassword" label="Current Password" placeholder="password" isRequired="true" 
+                            [(model)]="currentPass" minLabelLen="150px" [isSubmit]="isSubmit" ariaLabel="Current Password"></app-passbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m-1">
+                        <app-passbox ctrlId="txtNewPassword" label="New Password" placeholder="password" isRequired="true" 
+                            [(model)]="newPass" minLabelLen="150px" [isSubmit]="isSubmit" isSummaryBox="true" 
+                            [minLength]="minimumPassLength" (boxSmryUpdate)="onBoxSummaryUpdate($event)" ariaLabel="New Password"></app-passbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m-1">
+                        <app-passbox ctrlId="txtConfirmPassword" label="Confirm Password" placeholder="password" isRequired="true" 
+                            [(model)]="confirmPass" minLabelLen="150px" [isSubmit]="isSubmit" ariaLabel="Confirm Password"></app-passbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m-1 pt-3 font-stndrd anomaly-text">
+                        {{errorMsg}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+</div>

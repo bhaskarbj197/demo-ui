@@ -1,0 +1,22 @@
+@import '../../../../style/common';
+
+.bc-text{
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-left: 12px;
+    color: $success-box-text-color;
+    font-family: $font-family;
+}
+
+.bc-text-dis{
+    color: #68727D;
+}
+
+.bc-arrow{
+    font-size: 0.8rem;
+    margin-left: 12px;
+}
+
+.bc-text-active{
+    color: royalblue;
+}

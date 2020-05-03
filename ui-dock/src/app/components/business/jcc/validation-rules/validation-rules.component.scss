@@ -1,0 +1,31 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: 35vh;
+    max-height: 35vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.inactive-rule{
+    color: $inactive-text-color;
+}
+
+.cu-card{
+    margin-bottom: 0px;
+    height: auto;
+    border-bottom: solid 1px $tbl-border-color !important;
+}
+
+.cu-accdn-cntn{
+    max-width: 100%;
+    margin: 0px;
+    padding: 0px 3px;
+}
+
+.cond-flow{
+    overflow-x: auto;
+    max-height: 48vh;
+}

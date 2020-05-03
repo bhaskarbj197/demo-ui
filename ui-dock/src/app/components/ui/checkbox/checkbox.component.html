@@ -1,0 +1,66 @@
+<div class="chk-div-main" *ngIf="isShowCategory(1)">
+    <input type="checkbox" name="{{ctrlId}}" id="{{ctrlId}}" autocomplete="off" [disabled]="isDisabled" [attr.aria-label]="ariaLabel" />
+    <div class="chk-div-btn">
+        <label for="{{ctrlId}}" class="btn" [ngClass]="getBtnClass()">
+            <span class="glyphicon glyphicon-ok"></span>
+            <span></span>
+        </label>
+        <label for="{{ctrlId}}" class="btn" [ngClass]="getLabelClass()">
+            {{label}}
+        </label>
+    </div>
+</div>
+
+<label for="{{ctrlId}}" class="btn" [ngClass]="getLabelClass()" *ngIf="isShowCategory(2)">
+    {{label}} 
+    <input type="checkbox" id="{{ctrlId}}" name="{{ctrlId}}" class="badgebox" [disabled]="isDisabled" [attr.aria-label]="ariaLabel" >
+    <span class="badge">&#10004;</span>
+</label>
+
+<div class="btn-group" *ngIf="isShowCategory(3)">
+    <label class="switch cu-toggle" id="{{ctrlId}}" [attr.aria-label]="ctrlId">
+        <input type="checkbox" [ngClass]="getBtnClass()" [disabled]="isDisabled"
+            (change)="onSelectionChange()" [checked]="isChecked">
+        <span class="slider round"></span>
+    </label>
+    <label class="lbl-text cu-tgl-lbl" for="{{ctrlId}}">
+        {{label}}
+    </label>
+</div>
+
+<div class="btn-group" *ngIf="isShowCategory(4)">
+    <label class="switch">
+        <input type="checkbox" [ngClass]="getBtnClass()" id="{{ctrlId}}" name="{{ctrlId}}" [disabled]="isDisabled" [attr.aria-label]="ariaLabel">
+        <span class="slider"></span>
+    </label>
+    <label for="{{ctrlId}}" class="lbl-text" [ngClass]="getLabelClass()">
+        {{label}}
+    </label>
+</div>
+
+<div class="btn-group" *ngIf="isShowCategory(5)">
+    <label>
+        <input type="checkbox" class="tick-cross-chk" id="{{ctrlId}}" name="{{ctrlId}}" [disabled]="isDisabled"
+            [(ngModel)]="model" [checked]="isChecked" (change)="onSelectionChange()" [attr.aria-label]="ariaLabel">
+        <span></span>
+    </label>
+    <label for="{{ctrlId}}" class="lbl-text1">
+        {{label}}
+    </label>
+</div>
+
+<div class="chckbx" [ngClass]="getBtnClass()" *ngIf="isShowCategory(6)">
+    <input id="{{ctrlId}}" name="{{ctrlId}}" type="checkbox" 
+        [disabled]="isDisabled" class="dynPos" [(ngModel)]="model" (change)="onSelectionChange()" 
+        [checked]="isChecked" [attr.aria-label]="ariaLabel">
+    <label for="{{ctrlId}}" [attr.aria-label]="ariaLabel">
+        {{label}}
+    </label>
+</div>
+
+<div class="chckbx chckbx-circle" [ngClass]="getBtnClass()" *ngIf="isShowCategory(7)">
+    <input id="{{ctrlId}}" name="{{ctrlId}}" type="checkbox" [disabled]="isDisabled" [attr.aria-label]="ariaLabel">
+    <label for="{{ctrlId}}">
+        {{label}}
+    </label>
+</div>

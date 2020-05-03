@@ -1,0 +1,38 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.table-area{
+    max-height: 480px;
+    @extend .table-data-area;
+}
+
+.graph-show{
+    width: 90%;
+    height: 500px;
+    padding-top: 10px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+}
+
+.inner-div-bck-clr{
+    width: 100%;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+
+.back-color-risk-3{
+    background-image: linear-gradient(to right, rgba(255,99,71, 0.9), transparent);
+}
+
+.back-color-risk-2{
+    background-image: linear-gradient(to right, rgba(255,165,0, 0.8), transparent);
+}
+
+.back-color-risk-1{
+    background-image: linear-gradient(to right, rgba(255,255,0, 0.9), transparent);
+}
+
+.back-color-risk-0{
+    background-image: linear-gradient(to right, rgba(144,238,144, 0.8), transparent);
+}

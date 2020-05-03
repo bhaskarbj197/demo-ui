@@ -1,0 +1,10 @@
+<div class="float-right">
+    <app-loader [isLoading]="isHeaderActionLoading"></app-loader>
+    <app-icon-button faIcon="fa-chevron-left" (btnClick)="onBackClick()" [isHide]="!isBackShow" 
+        tooltipText="Back" ariaLabel="Back"></app-icon-button>
+    <span class="jcc-separator" [hidden]="!isBackShow">|</span>
+    <app-icon-button faIcon="fa-play-circle-o" (btnClick)="onRunClick()" [isHide]="isRunHide" 
+        [isDisabled]="isViewOnly" tooltipText="Run Process Step" ariaLabel="Run process step"></app-icon-button>&nbsp;&nbsp;
+    <app-icon-button faIcon="fa-floppy-o" (btnClick)="onSaveClick()" [isHide]="isSaveHide" 
+        [isDisabled]="isViewOnly" tooltipText="Save" ariaLabel="Save"></app-icon-button>
+</div>

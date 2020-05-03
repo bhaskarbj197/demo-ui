@@ -1,0 +1,229 @@
+@import '../../../style/common';
+
+.chat-ul{
+    margin-left: 5rem !important;
+    width: 20vw;
+    -webkit-animation: colorchange 20s infinite alternate;
+    animation: colorchange 20s infinite alternate;
+}
+
+.span-chat{
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    color: black !important;
+    font-family: $font-family;
+}
+
+@-webkit-keyframes colorchange {
+    0% { background-color: #85c1e9; }
+    10% { background-color: #76D7C4; }
+    20% { background-color: #F4D03F; }
+    30% { background-color: #F5B041; }
+    40% { background-color: #E5E7E9; }
+    50% { background-color: #D7BDE2; }
+    60% { background-color: #F5B7B1; }
+    70% { background-color: #ABEBC6; }
+    80% { background-color: #D4E6F1; }
+    90% { background-color: #2980b9; }
+    100% { background-color: #F9F994; }
+}
+
+@keyframes colorchange {
+    0% { background-color: #85C1E9; }
+    10% { background-color: #76D7C4; }
+    20% { background-color: #F4D03F; }
+    30% { background-color: #F5B041; }
+    40% { background-color: #E5E7E9; }
+    50% { background-color: #D7BDE2; }
+    60% { background-color: #F5B7B1; }
+    70% { background-color: #ABEBC6; }
+    80% { background-color: #D4E6F1; }
+    90% { background-color: #2980b9; }
+    100% { background-color: #F9F994; }
+}
+
+.li-chat{
+    width: 90%;
+}
+
+.li-chat-icon{
+    width:10%;
+}
+
+.chat-vid{
+    width: 20vw;
+    height: 55vh;
+    position: absolute;
+    z-index: 999;
+    background-color: #ffffff;
+    box-shadow: 0 8px 6px 0px gray;
+}
+
+.chat-div-header{
+    height: 35px;
+    border-bottom: solid 1px black;
+    display: block;
+}
+
+.chat-body-header-text{
+    width: 92%;
+    display: inline-block;
+}
+
+.chat-body-header-icon{
+    width: 6%;
+    display: inline-block;
+}
+
+.chat-body{
+    height: 43vh;
+    width: 98%;
+}
+
+.chat-body-inner{
+    margin: 0px 6px 0px 6px;
+    height: inherit;
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: default;
+}
+
+.chat-inpt{
+    height: 7vh;
+    padding-top: 6px;
+}
+
+.chat-input-tag{
+    width: 15.5vw;
+    margin-left: 12px;
+    border: 0px;
+    height: 33px;
+    position: relative;
+    bottom: 0px;
+    font-size: 0.9rem;
+    resize: none;
+    padding-top: 5px;
+    line-height: 25px;
+    font-family: $font-family;
+}
+
+.chat-input-icn{
+    margin-top: 4px;
+}
+
+textarea:focus, button:focus{
+    box-shadow: none !important;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none !important;
+}
+
+.cht-img{
+    padding-top: 3px;
+    padding-right: 0px;
+}
+
+.cht-txt-err{
+    color: $error-text-color;
+    border-radius: 0.4rem;
+    line-height: 25px;
+    border: solid 2px $error-text-color;
+    padding: 5px 10px;
+}
+
+.cht-txt-lnk{
+    color: $success-color;
+    border-radius: 0.4rem;
+    line-height: 25px;
+    border: solid 2px $success-color;
+    padding: 5px 10px;
+}
+
+.cht-txt{
+    color: black;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 0.4rem;
+    line-height: 25px;
+    font-family: $font-family;
+}
+
+.cht-txt-l{
+    @extend .cht-txt;
+    margin-left: 8px;
+    background-color: #F4D03F;
+}
+
+.cht-txt-l:after, cht-txt-l-ld:after {
+	content: "";
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: #F4D03F;
+    border-left: 0;
+    border-top: 0;
+    margin-top: -6px;
+    margin-left: 15px;
+}
+
+.cht-txt-l-ld{
+    @extend .cht-txt-l;
+    -webkit-animation: colorchangeLoading 5s infinite alternate;
+    animation: colorchangeLoading 5s infinite alternate;
+}
+
+.cht-txt-r{
+    @extend .cht-txt;
+    margin-right: -15px;
+    background-color: #AED6F1;
+}
+
+.cht-txt-r:after, cht-txt-r-ld:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 20px;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-left-color: #AED6F1;
+	border-right: 0;
+	border-top: 0;
+	margin-top: -6px;
+	margin-right: -10px;
+}
+
+.cht-txt-r-ld{
+    @extend .cht-txt-r;
+    -webkit-animation: colorchangeLoading 5s infinite alternate;
+    animation: colorchangeLoading 5s infinite alternate;
+}
+
+@-webkit-keyframes colorchangeLoading {
+    0% { opacity: 1; }
+    33% { opacity: 0.6; }
+    66% { opacity: 0.3; }
+    100% { opacity: 0.6; }
+}
+
+@keyframes colorchangeLoading {
+    0% { opacity: 1; }
+    33% { opacity: 0.6; }
+    66% { opacity: 0.3; }
+    100% { opacity: 0.6; }
+}
+
+.cht-txt-opt{
+    border-radius: 1rem;
+    line-height: 20px;
+    border: solid 2px #AED6F1;
+    padding: 5px 10px;
+    color: black;
+    width:auto;
+    min-width: 210px;
+    max-width: 300px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,29 @@
+[
+	{
+		"id": 1,
+		"code": "SUM",
+		"name": "SUM",
+		"category": "NUMERIC",
+		"isVisible": true,
+		"params": [
+			{
+				"seq": 1001,
+				"typ": "other",
+				"value": "(",
+				"isUserEntry": false
+			},
+			{
+				"seq": 1002,
+				"typ": "value",
+				"value": "@value",
+				"isUserEntry": true
+			},
+			{
+				"seq": 1003,
+				"typ": "other",
+				"value": ")",
+				"isUserEntry": false
+			}
+		]
+	}
+]

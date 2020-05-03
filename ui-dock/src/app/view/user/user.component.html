@@ -1,0 +1,17 @@
+<main role="main" class="h-100 container-fluid p-0">
+    <div class="h-100 row no-gutters">
+        <div class="col-2 bg-menu border-right border-secondary full-h">
+            <app-loader [isLoading]="isTreeLoading"></app-loader>
+            <app-tree-view [nodes]="treeNodes" (nodeClick)="onLeftMenuNodeClick($event)"></app-tree-view>
+        </div>
+        <div class="col">
+            <div class="row div-container">
+                <div class="col">
+                    <app-user-profile *ngIf="mainWindow === 'userProfile'" [heading]="mainWindowHeading"></app-user-profile>
+                    <app-change-pass *ngIf="mainWindow === 'changePass'" [heading]="mainWindowHeading"></app-change-pass>
+                    <app-role-view *ngIf="mainWindow === 'roleAction'" [heading]="mainWindowHeading"></app-role-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,59 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.position-btn{
+    margin-bottom: 5px;
+}
+
+.tbl-area{
+    height: 45vh;
+    max-height: 45vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.card-holder-div{
+    margin-top: 7px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 48vh;
+}
+
+.card-div{
+    min-width: 32rem;
+    max-width: 50rem;
+    margin: 5px;
+}
+
+.card-action-div{
+    max-width: 180px;
+}
+
+.card-header-text{
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.card-title{
+    font-size: 1rem;
+}
+
+.input-span{
+    font-weight: bold;
+}
+
+.step-view-btn{
+    line-height: 32px;
+    margin-right: 30px;
+}
+
+.total-step-count-span{
+    line-height: 33px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.qury-div{
+    word-break: break-all;
+}

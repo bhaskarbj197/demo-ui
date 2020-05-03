@@ -1,0 +1,91 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col">
+                <app-combobox ctrlId="cmbTemplate" label="Template" placeholder="Select template" 
+                    [list]="templateList" key="id" value="name" ariaLabel="Select template"
+                    [(model)]="templateId" (valueChange)="onTemplateChanged($event)" keyInNumber="true"></app-combobox>
+            </div>
+            <div class="col-3">
+                <app-button faIcon="fa fa-plus-circle" isFloatRight="true" (btnClick)="onAddNewFormat()" type="FACEBOOK"
+                    value="Add Format" [isDisabled]="templateId===0" ariaLabel="Add Format"></app-button>
+            </div>
+        </div>
+        <div class="row p-1">
+            <div class="col">
+                <div class="table bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-30 no-border text-center" scope="col">Column</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Format Type</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Length</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Position</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Value</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Decimal Place</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <app-table-no-records [list]="outputFormatters"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let frmt of outputFormatters; let odd=odd; let i=index;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-30" scope="row">
+                                    <app-combobox ctrlId="cmbColumn_{{i}}" label="" placeholder="Select column" ariaLabel="Select column"
+                                        [list]="templateNames" [(model)]="frmt.colName" (valueChange)="onColumnChanged($event, frmt)"></app-combobox>
+                                </div>
+                                <div class="cu-td w-15" scope="row">
+                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="key" value="value" ariaLabel="Select type"
+                                        [list]="formatTypes" [(model)]="frmt.formatType" (valueChange)="onFormatTypeChanged($event, frmt)"></app-combobox>
+                                </div>
+                                <div class="cu-td w-15 ctrl-pos" scope="row">
+                                    <app-number-textbox ctrlId="txtMinLen_{{i}}" label="" fixedLen="60px" [hidden]="!frmt.isMinLenShow"
+                                        [(model)]="frmt.minLength" [isDisabled]="false" ariaLabel="Minimum Length"></app-number-textbox>
+                                </div>
+                                <div class="cu-td w-10 ctrl-pos" scope="row">
+                                    <app-checkbox ctrlId="chkPrefix_{{i}}" label="{{frmt.isPrefix? 'Prefix' : 'Suffix'}}" (valueChange)="onSetPrefixClick(frmt)"
+                                        [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                                        [isChecked]="frmt.isPrefix" [hidden]="!frmt.isPrefixShow"></app-checkbox>
+                                </div>
+                                <div class="cu-td w-10 ctrl-pos" scope="row">
+                                    <app-textbox ctrlId="txtValue_{{i}}" label="" maxLength="1" [(model)]="frmt.char" 
+                                        [hidden]="!frmt.isCharShow" fixedLen="60px" ariaLabel="Value"></app-textbox>
+                                </div>
+                                <div class="cu-td w-10 ctrl-pos" scope="row">
+                                    <app-number-textbox ctrlId="txtDecPlace_{{i}}" label="" [hidden]="!frmt.isDecPlcShow"
+                                        [(model)]="frmt.decimalPlace" fixedLen="60px" ariaLabel="Decimal Place"></app-number-textbox>
+                                </div>
+                                <div class="cu-td w-10 center-icon" [hidden]="deletingId===frmt.id">
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteFormatClick(frmt, null)" 
+                                        tooltipText="Delete" ariaLabel="Delete Format"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-10 center-icon del-row" [hidden]="deletingId!==frmt.id">
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteFormatClick(frmt, true)" 
+                                        tooltipText="Agree to Delete" ariaLabel="Agree to Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteFormatClick(frmt, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <app-button faIcon="fa fa-repeat" type="XING" (btnClick)="onResetAllFormat()" value="Reset" ariaLabel="Reset"></app-button>
+            </div>
+            <div class="col"></div>
+            <div class="col-3">
+                <app-button faIcon="fa fa-floppy-o" isFloatRight="true" type="VIMEO" ariaLabel="Submit"
+                    (btnClick)="onSubmitAllFormat()" value="Submit"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="px-2 py-1 jcc-section-header">
+    <app-main-area-header [headerName]="heading" [isRunHide]="true"
+        (headerActionSaveClick)="onHeaderActionSaveClick()"></app-main-area-header>
+</div>
+<div class="p-3 justify-content-center">
+    <app-loader [isLoading]="isOutputMappingLoading"></app-loader>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="row-50 text-center tbl-heading">
+                DR Template Mapping
+            </div>
+            <div class="row-50 text-center tbl-heading">
+                CR Template Mapping
+            </div>
+        </div>
+        <div class="row">
+            <div class="row-50 text-center p-2 tbl-heading">
+                <app-combobox ctrlId="cmbProcessDataDr" label="Output Table" placeholder="Select Table" [(model)]="outputTableDr"
+                    [list]="outputTableList" key="code" value="name" (valueChange)="onOutputTableChanged($event, 'dr')"
+                    ariaLabel="Select output table for DR"></app-combobox>
+            </div>
+            <div class="row-50 text-center p-2 tbl-heading">
+                <app-combobox ctrlId="cmbProcessDataCr" label="Output Table" placeholder="Select Table" [(model)]="outputTableCr"
+                    [list]="outputTableList" key="code" value="name" (valueChange)="onOutputTableChanged($event, 'cr')"
+                    ariaLabel="Select output table for CR"></app-combobox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row-50">
+                <div class="col" *ngIf="outputTableDr.length>0">
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-50 no-border" scope="col">Column / Value</div>
+                                <div class="cu-th w-50 no-border" scope="col">Template
+                                    <app-button value="New" type="SMPL_DARK" isFloatRight="true" isSmall="true" marginTop="1px" ariaLabel="New mapping for DR" 
+                                        (btnClick)="onNewMappingAddForDr()" [isBlocked]="'jcc' | roleAction: 'outputMapping' : 'add'" isSimpleBtn="true"></app-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tbl-area">
+                        <div class="table table-bordered bg-white cu-tbl">
+                            <div class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let outputDr of mappingDrList; let i = index;">
+                                    <div class="cu-td w-50">
+                                        <app-textbox ctrlId="txtOutputMappingValueDr_{{i}}" *ngIf="!outputDr.isTable" backLabel="Column" fixedLen="280px"
+                                            [(model)]="outputDr.value" [isReadOnly]="isViewOnly" (backLabelClick)="onOutputMappingValueDrBackLabelClick(i)"
+                                            backLabelIcon="fa fa-hand-o-right" ariaLabel="Output mapping value for DR"></app-textbox>
+                                        <app-combobox ctrlId="cmbOutputMappingValueDr_{{i}}" label="" placeholder="Select Column" [(model)]="outputDr.columnName"
+                                            [list]="outputTableColumnListDr" *ngIf="outputDr.isTable" [isDisabled]="isViewOnly" backLabel="Value" fixedLen="280px"
+                                            (keyPress)="onOutputColumnsDrKeypress($event, i)" (backLabelClick)="onOutputMappingColumnDrBackLabelClick(i)"
+                                            backLabelIcon="fa fa-hand-o-right" ariaLabel="Select output mapping column for DR"></app-combobox>
+                                    </div>
+                                    <div class="cu-td w-40">
+                                        <app-combobox ctrlId="cmbTemplateValueDr_{{i}}" label="" placeholder="Select Column" [(model)]="outputDr.templateColum"
+                                            [list]="templateColumnListDr" [markedKeyList]="drRequiredCols" ariaLabel="Select column for DR"></app-combobox>
+                                    </div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-icon-button faIcon="fa-trash-o" tooltipText="Delete Mapping" 
+                                            (btnClick)="onDeleteMappingClick(outputDr, 'dr', i)" ariaLabel="Delete mapping for DR" 
+                                            [isBlocked]="'jcc' | roleAction: 'outputMapping' : 'delete'"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-50">
+                <div class="col" *ngIf="outputTableCr.length>0">
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-50 no-border" scope="col">Column</div>
+                                <div class="cu-th w-50 no-border" scope="col">Template
+                                    <app-button value="New" type="SMPL_DARK" isFloatRight="true" isSmall="true" marginTop="1px" ariaLabel="New mapping for CR"
+                                        (btnClick)="onNewMappingAddForCr()" [isBlocked]="'jcc' | roleAction: 'outputMapping' : 'add'" isSimpleBtn="true"></app-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tbl-area">
+                        <div class="table table-bordered bg-white cu-tbl">
+                            <div class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let outputCr of mappingCrList; let k = index;">
+                                    <div class="cu-td w-50">
+                                        <app-textbox ctrlId="txtOutputMappingValueCr_{{k}}" *ngIf="!outputCr.isTable" backLabel="Column" fixedLen="280px"
+                                            [(model)]="outputCr.value" [isReadOnly]="isViewOnly" (backLabelClick)="onOutputMappingValueCrBackLabelClick(k)"
+                                            backLabelIcon="fa fa-hand-o-right" ariaLabel="Output mapping value for CR"></app-textbox>
+                                        <app-combobox ctrlId="cmbOutputMappingValueCr_{{k}}" label="" placeholder="Select Column" [(model)]="outputCr.columnName"
+                                            [list]="outputTableColumnListCr" *ngIf="outputCr.isTable" [isDisabled]="isViewOnly" backLabel="Value" fixedLen="280px"
+                                            (keyPress)="onOutputColumnsCrKeypress($event, k)" (backLabelClick)="onOutputMappingColumnCrBackLabelClick(k)"
+                                            backLabelIcon="fa fa-hand-o-right" ariaLabel="Select output mapping column for CR"></app-combobox>
+                                    </div>
+                                    <div class="cu-td w-40">
+                                        <app-combobox ctrlId="cmbTemplateValueCr_{{k}}" label="" placeholder="Select Column" [(model)]="outputCr.templateColum"
+                                            [list]="templateColumnListCr" [markedKeyList]="crRequiredCols" ariaLabel="Select column for CR"></app-combobox>
+                                    </div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-icon-button faIcon="fa-trash-o" tooltipText="Delete Mapping" 
+                                            (btnClick)="onDeleteMappingClick(outputCr, 'cr', k)" ariaLabel="Delete mapping for CR"
+                                            [isBlocked]="'jcc' | roleAction: 'outputMapping' : 'delete'"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

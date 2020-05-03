@@ -1,0 +1,199 @@
+[
+	{
+		"name": "Template Master",
+		"code": "templateMaster",
+		"roleCode": "templateMaster",
+		"id": 1,
+		"seq": 4,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Group Master",
+		"code": "groupMaster",
+		"roleCode": "groupMaster",
+		"id": 2,
+		"seq": 2,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Validation Rules Master",
+		"code": "validationRulesMaster",
+		"roleCode": "validationRulesMaster",
+		"id": 3,
+		"seq": 3,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "User Master",
+		"code": "userMaster",
+		"roleCode": "userMaster",
+		"id": 4,
+		"seq": 1,
+		"isExpanded": false,
+		"isSelected": true,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Financial Month Master",
+		"code": "financialMonthMaster",
+		"roleCode": "financialMonthMaster",
+		"id": 5,
+		"seq": 5,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Calendar Master",
+		"code": "calendarMaster",
+		"roleCode": "calendarMaster",
+		"id": 6,
+		"seq": 6,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Activity Log",
+		"code": "activityLog",
+		"roleCode": "activityLog",
+		"id": 7,
+		"seq": 7,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Company Master",
+		"code": "companyMaster",
+		"roleCode": "companyMaster",
+		"id": 8,
+		"seq": 8,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Frequency Master",
+		"code": "frequencyMaster",
+		"roleCode": "frequencyMaster",
+		"id": 9,
+		"seq": 9,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Role Master",
+		"code": "roleMaster",
+		"roleCode": "roleMaster",
+		"id": 10,
+		"seq": 10,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Output Format",
+		"code": "outputFormat",
+		"roleCode": "outputFormat",
+		"id": 12,
+		"seq": 12,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Bulk Upload",
+		"code": "bulkUpload",
+		"roleCode": "bulkUpload",
+		"id": 13,
+		"seq": 13,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"tabs": [
+			{
+				"name": "Journal Upload",
+				"code": "bulkJournalUpload",
+				"id": 131,
+				"seq": 131,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false
+			},
+			{
+				"name": "Financial Month Upload",
+				"code": "bulkFinancialMonthUpload",
+				"id": 132,
+				"seq": 132,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false
+			},
+			{
+				"name": "Calendar Upload",
+				"code": "bulkCalendarUpload",
+				"id": 133,
+				"seq": 133,
+				"isExpanded": false,
+				"isSelected": false,
+				"isVisible": true,
+				"isDisabled": false
+			}
+		]
+	},
+	{
+		"name": "Journal Auto Approver",
+		"code": "journalAutoApprover",
+		"roleCode": "journalAutoApprover",
+		"id": 14,
+		"seq": 14,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Header Template",
+		"code": "outputHeaderTemplate",
+		"roleCode": "outputHeaderTemplate",
+		"id": 15,
+		"seq": 15,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Scheduler History",
+		"code": "schedulerHistory",
+		"roleCode": "schedulerHistory",
+		"id": 16,
+		"seq": 16,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	}
+]

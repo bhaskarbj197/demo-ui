@@ -1,0 +1,87 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<app-loader [isLoading]="isLoading"></app-loader>
+<div class="p-3 row">
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" [activeTab]="activeTab" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" [successBtnLabel]="submitLabel" successBtnType="TUMBLR" successBtnIcon="fa-thumbs-o-up"
+            (successBtnClicked)="onSubmitClick()" [isSuccessBtnHide]="activeTab === tabList[0]" successBtnAreaLabel="Submit" failBtnAreaLabel="Cancel"
+            [isFailBtnHide]="true"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row">
+                    <div class="col-6">
+                        <app-textbox ctrlId="txtGroupName" label="Name" placeholder="Group name" ariaLabel="Group name"
+                            [(model)]="newGroup.name" [isRequired]="true" [isDisabled]="isEditMode"
+                            [isSubmit]="isFormSubmitted" minLabelLen="125px"></app-textbox>
+                    </div>
+                    <div class="col">
+                        <app-checkbox ctrlId="chkGroupActive" label="{{newGroup.isActive? 'Active' : 'Inactive'}}" (valueChange)="onSetActiveClick()"
+                            [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isChecked]="newGroup.isActive" [isDisabled]="isToggleDisable()"></app-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row pt-3">
+                            <div class="col-6">
+                                <app-textbox ctrlId="txtElementName" label="Element Name" placeholder="Element name" 
+                                    backLabel="Add" backLabelIcon="fa" (backLabelClick)="addElementToGroup()" ariaLabel="Element name"
+                                    [(model)]="newElement.name" [isRequired]="true" minLabelLen="125px" [isSubmit]="isFormSubmitted"></app-textbox>
+                            </div>
+                        </div>
+                        <div class="row pt-3" *ngIf="addElementList.length > 0">
+                            <div class="col">
+                                <div *ngFor="let ele of addElementList">
+                                    <span class="spn-filter-sts spn-filter-group float-left pointer" (click)="onRemoveElement(ele)">
+                                        {{ele.name}}&nbsp;&nbsp;
+                                        <app-icon-button faIcon="fa-times" tooltipText="Remove" isFloatRight="true" ariaLabel="Remove Element"></app-icon-button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="table table-bordered bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-30 no-border" scope="col">Group Name</div>
+                            <div class="cu-th w-30 no-border" scope="col">Elements</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Action</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-area">
+                    <app-table-no-records [list]="groupMasterList"></app-table-no-records>
+                    <div class="table table-bordered bg-white cu-tbl">
+                        <div class="cu-tbody form-group row">
+                            <div class="cu-tr" [ngClass]="{'odd-row': odd}" *ngFor="let grp of groupMasterList;let gIndex = index; let odd=odd;">
+                                <div class="cu-td w-30" scope="row">{{grp.name}}</div>
+                                <div class="cu-td w-30">{{grp.elementsToDisplay}}</div>
+                                <div class="cu-td w-15 center-icon"  *ngIf="gmDeleteIndex !== gIndex">
+                                    <app-icon-button [faIcon]="getLockIcon(grp)" tooltipText="Active/Inactive" 
+                                        ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-edit" tooltipText="Edit Group" (btnClick)="onEditGroupMasterClick(grp)" 
+                                        ariaLabel="Edit Group"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteGroupMasterClick(grp, gIndex)" 
+                                        tooltipText="Delete Group" ariaLabel="Delete Group"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-15 center-icon del-row" *ngIf="gmDeleteIndex === gIndex">
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteGroupMasterClick(grp, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteGroupMasterClick(grp, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

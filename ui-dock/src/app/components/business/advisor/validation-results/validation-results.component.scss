@@ -1,0 +1,30 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.graph-div{
+    min-width: 200px; 
+    width: 19%; 
+    height: 270px; 
+    margin: 6px;
+}
+
+.div-grph-cntn{
+    width: 100%;
+    margin: 20px 3px 3px 0px;
+    height: 235px;
+    padding-top: 10px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+}
+
+.chld-div{
+    height: auto; 
+    width: 100%;
+    padding-left: 30px;
+}
+
+.table-area{
+    max-height: 380px;
+    height: 380px;
+    @extend .table-data-area;
+}

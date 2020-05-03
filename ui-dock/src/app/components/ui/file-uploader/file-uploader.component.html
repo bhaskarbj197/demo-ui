@@ -1,0 +1,22 @@
+<div class="input-group input-group-sm" [ngStyle]="{width: getFixedWidth()}">    
+    <div class="input-group-prepend" [hidden]="label.length===0" [ngStyle]="{'min-width': minLabelLen}">
+        <label class="input-group-text font-stndrd" for="{{ctrlId}}" [ngStyle]="{'min-width': minLabelLen}">
+            {{label}}
+            <span *ngIf="isRequired" class="mandatory-star">&nbsp;*</span>
+        </label>
+    </div>
+    <div class="custom-file">
+        <label class="custom-file-label font-stndrd font-uploader" for="{{ctrlId}}">{{uploadedFileInfo}}</label>
+        <input type="file" class="custom-file-input" id="{{ctrlId}}" (change)="handleFileInput($event)"
+            [disabled]="isDisabled" accept="{{acceptedFormat}}" required>
+    </div>
+    <div class="input-group-append" (click)="onUploadClick()" *ngIf="!isDisabled">
+        <span class="input-group-text pointer btn-text font-stndrd btn btn-brand"
+            id="inputGroupFileAddon02" [ngClass]="getUploadBtnType()" [ngStyle]="{'margin-left': uploadBtnLeftMargin}">
+            <small>{{uploadBtnLabel}}</small>
+        </span>
+    </div>
+    <div *ngIf="isFormInValid()" class="invalid-text">
+        {{messageShow}}
+    </div>
+</div>

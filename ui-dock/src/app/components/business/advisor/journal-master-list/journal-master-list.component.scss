@@ -1,0 +1,21 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.table-area{
+    height: 31vh;
+    @extend .table-data-area;
+}
+
+.span-link:hover{
+    color: #3498DB;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.inner-div-bck-clr{
+    width: 100%;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    font-weight: bold;
+    // background-image: radial-gradient(circle, transparent 0%, $fail-box-color 100%);
+}

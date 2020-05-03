@@ -1,0 +1,18 @@
+@import '../../../style/common';
+@import '../../../style/table';
+
+.tbl-footer{
+    border: solid 1px $tbl-border-color;
+    padding-top: 7px;
+    border-top: 0px;
+    height: 50px;
+}
+
+.p-link{
+    color: rgb(67,70,75) !important;
+}
+
+.m-btn-div{
+    display: flex;
+    justify-content: center;
+}

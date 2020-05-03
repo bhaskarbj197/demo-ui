@@ -1,0 +1,35 @@
+<div class="px-2 py-1 jcc-section-header rslt-view">
+    <app-loader [isLoading]="isResultSetLoading"></app-loader>
+    <ul class="nav nav-tabs bg-menu file-hdr" role="tablist">
+        <li class="nav-item jcc-section-header li-content" *ngFor="let tab of resultTabs" 
+            [ngClass]="{'bg-light': tab.isActive, 'pointer': !tab.isActive}" (click)="onTabClick(tab)">
+            <span>{{tab.name}}</span>
+            <span *ngFor="let fType of folderTypes" [hidden]="fType !== tab.folderType">&nbsp;[{{fType | substrConverter:0:1}}]</span>
+            <app-icon-button faIcon="fa-times" tooltipText="Close tab" ariaLabel="Close tab" 
+                (btnClick)="onResultTabCloseClick(tab)" isFloatRight="true"></app-icon-button>
+        </li>
+        <li class="nav-item ml-auto" [hidden]="resultTabs.length===0">
+            <app-button value="Download" faIcon="fa-download" [isSmall]="true" type="TUMBLR" ariaLabel="Download"
+                (btnClick)="onDownloadFile()" marginTop="2px"></app-button>
+        </li>
+    </ul>
+    <div class="tab-content overflow-auto jcc-file-view">
+        <div class="tab-pane fade active show padding-0" *ngIf="resultData">
+            <div class="table table-bordered bg-white cu-tbl table-sm">
+                <div class="cu-thead">
+                    <div class="cu-tr">
+                        <div class="cu-th no-wrap" scope="col" *ngFor="let header of resultData.fileHeader; let i=index;" 
+                            [ngStyle]="{'background-color': getColor(header, i)}">{{header}}</div>
+                    </div>
+                </div>
+                <div class="cu-tbody">
+                    <div *ngIf="resultSetDataErrMsg.length > 0 && resultTabs.length > 0" class="err-msg">{{resultSetDataErrMsg}}</div>
+                    <div class="cu-tr" *ngFor="let row of resultData.fileData" [hidden]="resultSetDataErrMsg.length > 0">
+                        <div class="cu-td text-normal" *ngFor="let value of row; let i=index" 
+                            [ngStyle]="{'background-color': getRowColor(i)}">{{value}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

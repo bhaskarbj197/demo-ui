@@ -1,0 +1,70 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row container-fluid">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="container accordion cu-accdn-cntn">
+                    <div class="card main-card cu-card">
+                        <div class="card-header px-2 py-1 font-stndrd">
+                            <strong>Filter to Get Report</strong>
+                        </div>
+                        <div class="tab-body">
+                            <div class="row m-2">
+                                <div class="col">
+                                    <app-combobox ctrlId="cmbMonths" label="Month" placeholder="Select month" keyInNumber="true"
+                                        [(model)]="searchByOptions.month" [list]="monthList" key="key" value="value" 
+                                        ariaLabel="Select month" (valueChange)="onSearchMonthChanged($event)"></app-combobox>
+                                </div>
+                                <div class="col font-stndrd text-center p-1">
+                                    - Or -
+                                </div>
+                                <div class="col">
+                                    <app-date-picker label="Start Date" [(model)]="searchByOptions.startDate" ariaLabel="Start Date"
+                                        (datePickerClosed)="onSearchStartDateValueChanged($event)"></app-date-picker>
+                                </div>
+                                <div class="col">
+                                    <app-date-picker label="End Date" [(model)]="searchByOptions.endDate" ariaLabel="End Date"></app-date-picker>
+                                </div>
+                            </div>
+                            <div class="row m-2">
+                                <div class="col">
+                                    <app-button value="Search" faIcon="fa-search" type="TUMBLR" ariaLabel="Search" isFloatRight="true"
+                                        (btnClick)="onSearhClick()"></app-button>
+                                    <app-button value="Reset" faIcon="fa-repeat" type="PINTEREST" ariaLabel="Reset" isFloatRight="true"
+                                        (btnClick)="onResetClick()" marginRight="4px"></app-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-1 pt-2">
+            <div class="col">
+                <app-loader [isLoading]="isLoading"></app-loader>
+                <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                <div class="tbl-area">
+                    <app-table-no-records [list]="journalSmryList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let item of journalSmryList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-5 text-center" scope="row">{{item.journalId}}</div>
+                                <div class="cu-td w-30">{{item.journalName}}</div>
+                                <div class="cu-td w-10 text-center">{{item.runDate}}</div>
+                                <div class="cu-td w-10 text-center">{{item.frequency}}</div>
+                                <div class="cu-td w-45">{{item.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalCount" 
+                        [currentPageIndex]="tableConfigModel.pageIndex" mBtnLabel="Download" mBtnIcon="fa-download"
+                        mBtnType="TUMBLR" mBtnAreaLabel="Download" (mBtnClick)="onDownloadClick()"
+                        [isMBtnShow]="journalSmryList.length>0"
+                        (nextClicked)="onPageChangeClicked($event)" (prevClicked)="onPageChangeClicked($event)"></app-table-footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

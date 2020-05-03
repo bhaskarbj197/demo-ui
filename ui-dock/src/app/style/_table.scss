@@ -1,0 +1,102 @@
+@import './defaultValues';
+@import './tableColumnWidth';
+
+.cu-tbl{
+  border-collapse: collapse;
+  display: table;
+  border-spacing: 2px;
+  border-color: $tbl-border-color;
+}
+
+.cu-thead{
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: $tbl-border-color;
+  background-color: #E0E0E0;
+}
+
+.cu-tr{
+  display: table-row;
+  vertical-align: inherit;
+  border-color: $tbl-border-color;
+}
+
+.cu-tr:hover{
+  background-color: $tbl-tr-hover-background-color;
+}
+
+.cu-th{
+  text-align: inherit;
+  display: table-cell;
+  font-weight: bold;
+}
+
+.cu-tbody{
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: $tbl-border-color;
+}
+
+.cu-td, .cu-th {
+  padding: .25rem;
+  vertical-align: top;
+  border: 1px solid $tbl-border-color;
+  font-family: $font-family;
+}
+
+.cu-td {
+  display: table-cell;
+  vertical-align: inherit;
+  border-color: $tbl-border-color;
+}
+
+.odd-row{
+  background-color: $tbl-odd-row-background-color;
+}
+
+.only-head{
+  margin-bottom: 0rem;
+}
+
+.no-border{
+  border: 0px;
+}
+
+.table{
+  margin-bottom: 0rem !important;
+}
+
+.no-background{
+  background-color: transparent;
+}
+
+.cu-tr-error{
+  border: solid 2px rgba(255, 0,0,0.9);
+  background-color: rgba(255, 0,0,0.08);
+}
+
+.cu-td-error{
+  background-color: rgba(255, 0,0,0.2);
+}
+
+.del-row{
+  background-image: radial-gradient(circle, transparent 0%, $del-row-background-color 100%);
+  font-weight: bold;
+}
+
+.primary-row{
+  background-image: radial-gradient(circle, transparent 0%, rgba(30,144,255, 0.3) 100%);
+  font-weight: bold;
+}
+
+.success-row{
+  background-image: radial-gradient(circle, transparent 0%, rgba(0,255,127, 0.4) 100%);
+  font-weight: bold;
+}
+
+.table-data-area{
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  border-bottom: solid 1px $tbl-border-color;
+}

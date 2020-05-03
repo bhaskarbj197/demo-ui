@@ -1,0 +1,71 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+    <div class="col">
+        <app-icon-button faIcon="fa-floppy-o" (btnClick)="onSaveClick()" tooltipText="Save" isFloatRight="true" ariaLabel="Save"></app-icon-button>
+    </div>
+</div>
+<app-loader [isLoading]="isLoading"></app-loader>
+<div class="p-3 row">
+    <div class="col">
+        <div class="row">
+            <div class="col m-1">
+                <app-textbox  ctrlId="txtFirstName" label="First Name" placeholder="first name" isRequired="true"
+                    [(model)]="userInfo.fName" minLabelLen="125px" [isSubmit]="isSubmit" ariaLabel="First Name"></app-textbox>
+            </div>
+            <div class="col m-1">
+                <app-textbox ctrlId="txtLastName" label="Last Name" placeholder="last name" isRequired="true"
+                    [(model)]="userInfo.lName" minLabelLen="125px" [isSubmit]="isSubmit" ariaLabel="Last name"></app-textbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m-1">
+                <app-showbox label="Email" [value]="userInfo.email" minLabelLen="125px" ariaLabel="Email"></app-showbox>
+            </div>
+            <div class="col m-1">
+                <app-showbox label="Role" [value]="userInfo.role.roleName" minLabelLen="125px" ariaLabel="Role"></app-showbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m-1">
+                <div class="row">
+                    <div class="col">
+                        <app-showbox label="Company" [value]="userInfo.company.name" minLabelLen="125px" ariaLabel="Company"></app-showbox>
+                    </div>
+                    <div class="col-3">
+                        <app-checkbox ctrlId="chkUserActive" label="{{userInfo.isActive? 'Active' : 'Inactive'}}"
+                            [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isDisabled]="true"
+                            [isChecked]="userInfo.isActive" class="float-right"></app-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col m-1"></div>
+        </div>
+        <div class="row">
+            <div class="col m-1">
+                <app-showbox label="Created On" [value]="userInfo.createdOn | dateConverter: true : true" minLabelLen="125px" ariaLabel="Created on"></app-showbox>
+            </div>
+            <div class="col m-1">
+                <app-showbox label="Updated On" [value]="userInfo.updatedOn | dateConverter: true : true" minLabelLen="125px" ariaLabel="Updated on"></app-showbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m-1">
+                <app-show-areabox label="Journal(s) as Approver" [value]="journalsAsApprover" minLabelLen="140px" 
+                    ariaLabel="Journal(s) as Approver"></app-show-areabox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m-1">
+                <app-show-areabox label="Journal(s) as Preparer" [value]="journalsAsPreparor" minLabelLen="140px"
+                    ariaLabel="Journal(s) as Preparer"></app-show-areabox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m-1">
+                <app-show-areabox label="Journal(s) as Reviewer" [value]="journalsAsReviewer" minLabelLen="140px"
+                    ariaLabel="Journal(s) as Reviewer"></app-show-areabox>
+            </div>
+        </div>
+    </div>
+</div>

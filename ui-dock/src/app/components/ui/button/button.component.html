@@ -1,0 +1,41 @@
+<button type="button" class="btn btn-brand" [ngClass]="getDynamicClasses()" [disabled]="isDisabled" role="button"
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="!isSmall && !isBlocked && !isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop, 'margin-right': marginRight}">
+    <app-icon-only [faIcon]="faIcon" *ngIf="faIcon.length>0"></app-icon-only>
+    <span class="btn-span">{{value}}</span>
+</button>
+<button type="button" class="btn btn-brand btn-sm small-btn" [ngClass]="getDynamicClasses()" [disabled]="isDisabled" role="button"
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="isSmall && !isBlocked && !isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop}">
+    <app-icon-only [faIcon]="faIcon" *ngIf="faIcon.length>0"></app-icon-only>
+    <span class="btn-span">{{value}}</span>
+</button>
+<button type="button" class="btn btn-brand btn-sm small-btn blkd-btn cursor-not-allowed" [ngClass]="getDynamicClasses()" [disabled]="true" 
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="isSmall && isBlocked && !isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop}" role="button">
+    <app-icon-only [faIcon]="faIcon" *ngIf="faIcon.length>0"></app-icon-only>
+    <span class="btn-span">{{value}}</span>
+</button>
+<button type="button" class="btn btn-brand blkd-btn cursor-not-allowed" [ngClass]="getDynamicClasses()" [disabled]="true" 
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="!isSmall && isBlocked && !isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop, 'margin-right': marginRight}" role="button">
+    <app-icon-only [faIcon]="faIcon" *ngIf="faIcon.length>0"></app-icon-only>
+    <span class="btn-span">{{value}}</span>
+</button>
+
+<button type="button" role="button" class="btn" [ngClass]="getDynamicClasses()" [disabled]="isDisabled"
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="!isSmall && !isBlocked && isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop, 'margin-right': marginRight}">{{value}}
+</button>
+<button type="button" role="button" class="btn btn-sm small-btn" [ngClass]="getDynamicClasses()" [disabled]="isDisabled"
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="isSmall && !isBlocked && isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop, 'margin-right': marginRight}">{{value}}
+</button>
+<button type="button" role="button" class="btn btn-sm small-btn blkd-btn cursor-not-allowed" [ngClass]="getDynamicClasses()" [disabled]="isDisabled"
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="isSmall && isBlocked && isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop, 'margin-right': marginRight}">{{value}}
+</button>
+<button type="button" role="button" class="btn blkd-btn cursor-not-allowed" [ngClass]="getDynamicClasses()" [disabled]="isDisabled"
+    [hidden]="isHide" (click)="onButtonClick()" *ngIf="!isSmall && isBlocked && isSimpleBtn" [attr.aria-label]="ariaLabel"
+    [ngStyle]="{'margin-bottom': marginBottom, 'margin-top': marginTop, 'margin-right': marginRight}">{{value}}
+</button>

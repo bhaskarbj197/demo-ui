@@ -1,0 +1,11 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: 60vh;
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    border-bottom: solid 1px $tbl-border-color;
+}

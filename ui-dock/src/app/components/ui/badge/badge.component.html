@@ -1,0 +1,2 @@
+<span class="badge" [ngClass]="getClass()" *ngIf="!isLink && !isClickable">{{value}}</span>
+<span class="badge pointer ms-ovr" [ngClass]="getClass()" *ngIf="!isLink && isClickable" (click)="onBadgeClick($event)">{{value}}</span>

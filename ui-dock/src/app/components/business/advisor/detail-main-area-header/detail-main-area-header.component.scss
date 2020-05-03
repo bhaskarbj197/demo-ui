@@ -1,0 +1,16 @@
+@import '../../../../style/common';
+
+.action-div{
+    position: absolute;
+    height: 90px;
+    z-index: 23;
+    margin-left: -8px;
+    margin-top: 5px;
+    width: 100%;
+    border-bottom: solid 1px $tbl-border-color;
+    background-image: linear-gradient(to top, #e6ebeb, #eceff0, #f2f4f5, #f8f8f9, #fdfdfd);
+}
+
+.action-div-col{
+    padding-top: 8px;
+}

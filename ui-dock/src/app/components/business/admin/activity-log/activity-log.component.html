@@ -1,0 +1,51 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row p-2">
+            <div class="col-3">
+                <app-number-textbox ctrlId="txtJournalId" label="Journal Id" [(model)]="searchJournalId" ariaLabel="Journal Id"></app-number-textbox>
+            </div>
+            <div class="col-1 text-center font-stndrd">
+                <span>- or -</span>
+            </div>
+            <div class="col-5">
+                <app-combobox ctrlId="cmbUser" label="User" placeholder="Select user" keyCustomType="true"
+                    [(model)]="searchUserId" [list]="userList" key="id" value="nameEmail" ariaLabel="Select User"
+                    (valueChange)="onSearchUserChanged($event)"></app-combobox>
+            </div>
+            <div class="col">
+                <app-button value="Reset" faIcon="fa-repeat" type="YOUTUBE" (btnClick)="onResetClick()"
+                    ariaLabel="Reset search in Activity Log"></app-button>&nbsp;&nbsp;
+                <app-button value="Search" faIcon="fa-search" type="FACEBOOK" (btnClick)="onSearchClick()"
+                    [isDisabled]="searchJournalId===0 && searchUserId===null" ariaLabel="Search in Activity Log"></app-button>
+            </div>
+        </div>
+        <div class="row content-div p-2">
+            <div class="col">
+                <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                <div class="tbl-area">
+                    <app-table-no-records [list]="activityLogList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let log of activityLogList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-10 text-center" scope="row">{{log.activityType}}</div>
+                                <div class="cu-td w-10 text-center">{{log.actionType}}</div>
+                                <div class="cu-td w-15 text-center">{{log.actionSubType}}</div>
+                                <div class="cu-td w-10 text-center">{{getLogParamKey(log)}}</div>
+                                <div class="cu-td w-20">{{log.objectDesc}}</div>
+                                <div class="cu-td w-20 text-center">{{getUser(log)}}</div>
+                                <div class="cu-td w-15 text-center">{{log.activityOn | dateConverter: true : true}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalCount" 
+                    [currentPageIndex]="tableConfigModel.pageIndex"
+                    (nextClicked)="onPageChangeClicked($event)" (prevClicked)="onPageChangeClicked($event)"></app-table-footer>
+            </div>
+        </div>
+    </div>
+</div>

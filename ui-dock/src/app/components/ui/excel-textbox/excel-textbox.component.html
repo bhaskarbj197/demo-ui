@@ -1,0 +1,22 @@
+<div class="m-3 justify-content-center">
+    <app-textbox ctrlId="txtExcelQuery" label="Excel Query" placeholder="" [(model)]="model" minLabelLen="10vw"
+        (textboxKeyup)="onExcelBoxKeyup($event)" (textboxKeydown)="onExcelBoxKeydown($event)" fixedLen="50vw"
+        (textboxBlur)="onExcelBoxBlur($event)" (modelChange)="onValueChange($event)"></app-textbox>
+    <div class="excl-list-div" *ngIf="isDivShow">
+        <div class="row px-0 py-0 ml-1 mr-1 pointer" *ngFor="let item of list" 
+            (click)="onListItemClick(item)">
+            <div class="col-1 justify-content-center center-icon">
+                <app-icon-only faIcon="fa-hashtag" *ngIf="item.typ==='func'"></app-icon-only>
+                <app-icon-only faIcon="fa-columns" *ngIf="item.typ==='col'"></app-icon-only>
+            </div>
+            <div class="col" [ngClass]="{'selct-item': item.isSelected}">
+                <span *ngIf="searchText.length>0">
+                    <strong>{{item.value.substr(0, searchText.length)}}</strong>{{item.value.substr(searchText.length)}}
+                </span>
+                <span *ngIf="searchText.length===0">
+                    {{item.value}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="px-2 py-1 jcc-section-header" *ngIf="!isAdvisor">
+    <app-main-area-header [headerName]="heading" [isRunHide]="true" [isSaveHide]="true"></app-main-area-header>
+</div>
+<div class="row px-2 py-1 jcc-section-header" *ngIf="isAdvisor">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row" [hidden]="'jcc' | roleAction: 'supportingDocs' : 'add'">
+            <div class="col">
+                <div class="container accordion cu-cntr">
+                    <div class="card main-card cu-card">
+                        <div class="card-header px-2 py-1">
+                            <strong>New Supporting Document</strong>
+                        </div>
+                        <div class="tab-body">
+                            <div class="row p-2">
+                                <div class="col">
+                                    <app-textbox ctrlId="txtName" label="Name" placeholder="Name" [(model)]="newDocName"
+                                        isRequired="true" [isSubmit]="isFormSubmitted" ariaLabel="Name"></app-textbox>
+                                </div>
+                                <div class="col-3">
+                                    <app-combobox ctrlId="cmbType" label="Type" placeholder="Select type" isRequired="true"
+                                        [(model)]="docType" [list]="docTypes" ariaLabel="Select type"></app-combobox>
+                                </div>
+                                <div class="col-2">
+                                    <app-checkbox ctrlId="chksuppDoc" label="{{isDocActive? 'Active' : 'Inactive'}}" (valueChange)="onDocProtectClick()"
+                                        [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                                        [isChecked]="isDocActive"></app-checkbox>
+                                </div>
+                                <div class="col">
+                                    <app-file-uploader ctrlId="txtFileUploadNewSuppDoc"
+                                        (uploadFile) = "onUploadSuppDocClick($event)" acceptedFormat=".csv,.xlsx,.xls,.doc,.pdf,.docx,.doc"></app-file-uploader>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div p-2">
+            <div class="col">
+                <div class="table table-bordered bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-5 no-border text-center" scope="col">Sl. No.</div>
+                            <div class="cu-th w-40 no-border" scope="col">Document Name</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Type</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Extension</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Date</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Attachment</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Action</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-area" >
+                    <app-table-no-records [list]="suppDocList"></app-table-no-records>
+                    <div class="table table-bordered bg-white cu-tbl">
+                        <div class="cu-tbody form-group row">
+                            <div class="cu-tr" *ngFor="let suppDoc of suppDocList; let index = index;">
+                                <div class="cu-td w-5 text-center">{{index+1}}</div>
+                                <div class="cu-td w-40">{{suppDoc.fileName}}</div>
+                                <div class="cu-td w-10 text-center">{{suppDoc.type}}</div>
+                                <div class="cu-td w-10 text-center">{{suppDoc.fileType}}</div>
+                                <div class="cu-td w-10 text-center">{{suppDoc.createdDate | dateConverter: false: true}}</div>
+                                <div class="cu-td w-10 center-icon">
+                                    <app-icon-button faIcon="fa-file-excel-o" (btnClick)="onFileDownloadClick(suppDoc)" [tooltipText]="suppDoc.fileName" 
+                                        *ngIf="suppDoc.fileType==='xls' || suppDoc.fileType==='xlsx'" [ariaLabel]="suppDoc.fileName"></app-icon-button>
+                                    <app-icon-button faIcon="fa-file-word-o" (btnClick)="onFileDownloadClick(suppDoc)" [tooltipText]="suppDoc.fileName" 
+                                        *ngIf="suppDoc.fileType ==='doc' || suppDoc.fileType ==='docx'" [ariaLabel]="suppDoc.fileName"></app-icon-button>
+                                    <app-icon-button faIcon="fa-file-pdf-o" (btnClick)="onFileDownloadClick(suppDoc)" [tooltipText]="suppDoc.fileName" 
+                                        *ngIf="suppDoc.fileType==='pdf'" [ariaLabel]="suppDoc.fileName"></app-icon-button>
+                                    <app-icon-button faIcon="fa-file-text-o" (btnClick)="onFileDownloadClick(suppDoc)" [tooltipText]="suppDoc.fileName+'.csv'" 
+                                        *ngIf="suppDoc.fileType==='csv'" [ariaLabel]="suppDoc.fileName"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-15 center-icon" *ngIf="suppDocDeletingIndex !== index">
+                                    <app-icon-button [faIcon]="getLockIcon(suppDoc)" (btnClick)="onSuppDocStatusChangedClick(suppDoc)" tooltipText="Change activeness"
+                                        [isBlocked]="'jcc' | roleAction: 'supportingDocs' : 'edit'" ariaLabel="Change activeness"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteSuppDocClick(index, suppDoc)" ariaLabel="Delete Suporting Document"
+                                        tooltipText="Delete Suporting Document" [isBlocked]="'jcc' | roleAction: 'supportingDocs' : 'delete'"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-15 center-icon del-row" *ngIf="suppDocDeletingIndex === index">
+                                    Delete?&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteSuppDocClick(index, suppDoc, true)" 
+                                        tooltipText="Agree to Delete" ariaLabel="Agree to Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteSuppDocClick(index, suppDoc, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

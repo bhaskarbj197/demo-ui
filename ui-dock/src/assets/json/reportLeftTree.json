@@ -1,0 +1,22 @@
+[
+	{
+		"name": "Journal Posting Summary",
+		"code": "journalPostingSmrRprt",
+		"id": 1,
+		"seq": 1,
+		"isExpanded": true,
+		"isSelected": true,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Not to Post Journals",
+		"code": "notToPostJournalRprt",
+		"id": 2,
+		"seq": 2,
+		"isExpanded": true,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	}
+]

@@ -1,0 +1,46 @@
+[
+	{
+		"name": "Manual Run",
+		"code": "uploadData",
+		"roleCode": "uploadData",
+		"id": 1,
+		"seq": 3,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Post Adhoc Journal",
+		"code": "newAdhocJournal",
+		"roleCode": "newAdhocJournal",
+		"id": 2,
+		"seq": 2,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Adhoc Journal List",
+		"code": "adhocJournalList",
+		"roleCode": "adhocJournalList",
+		"id": 3,
+		"seq": 1,
+		"isExpanded": false,
+		"isSelected": true,
+		"isVisible": true,
+		"isDisabled": false
+	},
+	{
+		"name": "Bulk Input File Upload",
+		"code": "bulkInputFileUpload",
+		"roleCode": "bulkInputFileUpload",
+		"id": 4,
+		"seq": 4,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false
+	}
+]

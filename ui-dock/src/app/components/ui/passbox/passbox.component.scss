@@ -1,0 +1,41 @@
+@import '../../../style/common';
+
+input:focus, button:focus{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.invalid-text {
+    width: 100%;
+    margin-top: .25rem;
+    color: $error-text-color;
+}
+
+.valid-text {
+    width: 100%;
+    margin-top: .25rem;
+    color: $success-box-text-color;
+}
+
+.invalid-textbox{
+    border: solid 1px $error-text-color;
+}
+
+.custom:read-only{
+    background-color: $disable-color;
+}
+
+.mandatory-star{
+    font-size: 1.3rem; 
+    line-height: 10px;
+}
+
+.pass-back{
+    min-width: 40px;
+}
+
+.valid-smry{
+    width: 100%;
+    margin-left: 5px;
+}

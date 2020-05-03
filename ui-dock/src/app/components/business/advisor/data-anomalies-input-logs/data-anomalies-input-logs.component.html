@@ -1,0 +1,76 @@
+<div class="row px-2 py-1 jcc-section-header">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <app-navbar ctrlId="anomalyInputLogTab" [tabList]="tabList" [activeTab]="activeTab"
+            (activeTabChanged)="onChangedActiveTab($event)" [disableTabs]="disableTabList"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="row p-2 head-text">
+                    <div class="col">
+                        <span class="header-span">Total Records:</span>
+                        <app-badge value="{{inputLogs.totalInputFile}}" [type]="'PRIMARY' | enumValueConverter: 'badgeTypes'"
+                            class="anomaly-badge"></app-badge>
+                    </div>
+                    <div class="col">
+                        <span class="header-span">Total Anomalies:</span>
+                        <app-badge value="{{inputLogs.anomaliCountFile}}" [type]="'DANGER' | enumValueConverter: 'badgeTypes'"
+                            *ngIf="inputLogs.anomaliCountFile>0" class="anomaly-badge"></app-badge>
+                        <app-badge value="{{inputLogs.anomaliCountFile}}" [type]="'SUCCESS' | enumValueConverter: 'badgeTypes'"
+                            *ngIf="inputLogs.anomaliCountFile===0" class="anomaly-badge"></app-badge>
+                        <app-button value="Download" faIcon="fa-download" type="YAHOO" isFloatRight="true" ariaLabel="Download"
+                            (btnClick)="onDownloadInputLogAnomalyExcel()" [isDisabled]="inputLogs.anomaliCountFile===0"></app-button>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <app-loader [isLoading]="isInputLogsLoading"></app-loader>
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-20 no-border" scope="col">File Name</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Row Count</div>
+                                <div class="cu-th w-15 no-border text-center" scope="col">Run Date</div>
+                                <div class="cu-th w-47 no-border" scope="col">
+                                    Comments
+                                </div>
+                                <div class="cu-th w-8 no-border text-center" scope="col">Actions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-area">
+                        <app-table-no-records [list]="inputLogs.records"></app-table-no-records>
+                        <div class="table bg-white cu-tbl" *ngFor="let log of inputLogs.records | orderBy: 'asc' : 'inputNo'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" [ngClass]="{'anomaly-tr': log.isAnomaly}">
+                                    <div class="cu-td w-20" scope="row">{{log.fileName}}</div>
+                                    <div class="cu-td w-10 text-center">{{log.rowCount}}</div>
+                                    <div class="cu-td w-15 text-center">{{log.runDate | dateConverter}}</div>
+                                    <div class="cu-td w-47" [ngClass]="{'anomaly-text': log.isAnomaly}">{{log.comment}}</div>
+                                    <div class="cu-td w-8 center-icon">
+                                        <app-icon-button faIcon="fa fa-line-chart" (btnClick)="onShowLogHistoryClick(log)" 
+                                            tooltipText="Show Graph" ariaLabel="Show Graph"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-3 justify-content-center">
+                    <div class="graph-show">
+                        <app-line-chart title="Input Logs Anomaly" [labels]="journalGraphs.labels" 
+                            [data]="journalGraphs.inputLogAnomaly"
+                            [size]="'LARGE' | enumValueConverter : 'chartSizes'" [isLegendShow]="false"
+                            [colors]="journalGraphs.colors"></app-line-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

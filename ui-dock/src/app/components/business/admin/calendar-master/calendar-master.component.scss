@@ -1,0 +1,66 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.cal-box{
+    border: solid 1px $control-border-color;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.mnth-div{
+    border: solid 1px lightgray;
+    border-radius: 5px;
+}
+
+.box-lft{
+    width: 24%;
+    display: inline;
+    height: 100%;
+    background-color: $control-border-color;
+    margin-left: -15px;
+    line-height: 37px;
+    font-family: $font-family;
+}
+
+.box-lft-bc-clr{
+    background-color: transparent;
+}
+
+.lft-bc{
+    @extend .box-lft-bc-clr;
+    border-right: solid 2px $control-border-color;
+}
+
+.box-rth{
+    width: 85%;
+    display: inline-block;
+    float: right;
+    height: 100%;
+    margin-left: 3px;
+    padding-top: 3px;
+}
+
+.mnth-text{
+    font-size: 1.1rem !important;
+    font-family: $font-family;
+    transform: rotate(-90deg);
+}
+
+.weekday-text{
+    height: 35px;
+    line-height: 35px;
+    font-size: 1rem !important;
+    font-weight: bold;
+}
+
+.off-day{
+    color: $inactive-text-color;
+    font-family: $font-family;
+    font-size: 0.9rem;
+    line-height: 32px;
+}
+
+.wd0-marker{
+    background-color: $tbl-odd-row-background-color;
+}

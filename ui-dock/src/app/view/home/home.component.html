@@ -1,0 +1,128 @@
+<main role="main" class="h-100 container-fluid p-0">
+  <div class="p-3">
+    <div class="pb-2">
+      <div class="row">
+        <div class="col-2 mt-2">
+          <h5><span *ngIf="journalTypeCategory === 'adhoc'">{{journalTypeCatList[1]['value']}}&nbsp;</span>Journal List</h5>
+        </div>
+        <div class="col-2 mt-1">           
+          <app-combobox ctrlId="cmbJournalDataMonth" label="By Month" [(model)]="journalListMonth" fixedLen="250px"
+            [list]="journalMonthList" key="key" value="value" (valueChange)="onJournalListMonthChanged($event)"
+            ariaLabel="By Month Filter" keyInNumber="true"></app-combobox>
+        </div>
+        <div class="col-2 mt-1 pl-5">
+          <app-combobox ctrlId="cmbJournalDataCat" label="By Run/Config" [(model)]="journalListCategory" fixedLen="198px"
+            [list]="journalCatList" key="key" value="value" (valueChange)="onJournalListCatChanged($event)"
+            *ngIf="journalTypeCategory === ''" ariaLabel="By Run/Config"></app-combobox>
+        </div>
+        <div class="col-2 mt-1 pl-5">
+          <app-combobox ctrlId="cmbJournalCat" label="Category" [(model)]="journalTypeCategory" fixedLen="198px"
+            [list]="journalTypeCatList" key="key" value="value" (valueChange)="onJournalTypeCatChanged($event)"
+            ariaLabel="Category"></app-combobox>
+        </div>
+        <div class="col">
+          <span class="spn-filter-sts float-right pointer" *ngIf="activeStatus.status!==''" (click)="onCloseFilterStatus()">
+            {{activeStatus.status}}&nbsp;&nbsp;<app-icon-button faIcon="fa-times" tooltipText="Close Filter"
+            ariaLabel="Close Filter"></app-icon-button>
+          </span>
+        </div>
+        <div class="col-2">
+          <app-button value="New Journal" faIcon="fa-external-link" type="FACEBOOK" isFloatRight="true" 
+            (btnClick)="onNewJournalClick()" [isBlocked]="'jcc' | roleAction: 'homeAction' : 'journalAdd'"
+            ariaLabel="New Journal"></app-button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col p-2" *ngIf="journalTypeCategory === ''">
+        <app-table-header [columns]="homeTableHeaders" (sortingClicked)="onSortingClick($event, 'journal')"></app-table-header>
+        <div class="table-area">
+          <app-loader [isLoading]="isLoading"></app-loader>
+          <app-table-no-records [list]="journalList"></app-table-no-records>
+          <div class="table bg-white cu-tbl">
+            <div  class="cu-tbody">
+              <div class="cu-tr" *ngFor="let journal of journalList; let odd=odd; let i=index;" [ngClass]="{'odd-row': odd}">
+                <div class="cu-td w-10 text-center font-bold" scope="row">{{journal.id}}</div>
+                <div class="cu-td w-25">{{journal.name}}</div>
+                <div class="cu-td w-18 text-center" *ngIf="journal.runStatus && journal.runStatus.length>0">
+                  <app-popover [message]="journal.runDate | dateConverter: false: true" [lable]="journal.runStatus"
+                    titleText="Last Run Date" position="right" tooltipText="Click to view last run date"></app-popover>
+                </div>
+                <div class="cu-td w-18 text-center" *ngIf="!(journal.runStatus && journal.runStatus.length>0)">
+                  <div [ngClass]="getStatusBoxCss(journal.journalStatus)">{{journal.journalStatus}}</div>
+                </div>
+                <div class="cu-td w-12 text-center">{{journal.frequency}}</div>
+                <div class="cu-td w-15 text-center">{{journal.template}}</div>
+                <div class="cu-td w-20 center-icon" 
+                  *ngIf="(journalDeletingId !== journal.id) && (journalRunningId !== journal.id) && (journalCopyingId !== journal.id)">
+                  <app-icon-button faIcon="fa-eye" (btnClick)="onViewJournalClick(journal.id, journal.journalStatus)" ctrlId="btnView_{{i}}"
+                    tooltipText="View Journal" ariaLabel="View Journal"></app-icon-button>&nbsp;
+                  <app-icon-button faIcon="fa-edit" (btnClick)="onEditJournalClick(journal.id, journal.journalStatus)" 
+                    tooltipText="Edit Journal" [isBlocked]="'jcc' | roleAction: 'homeAction' : 'journalEdit'" ctrlId="btnEdit_{{i}}"
+                    ariaLabel="Edit Journal"></app-icon-button>&nbsp;
+                  <app-icon-button faIcon="fa-clone" (btnClick)="onCopyJournalClick(journal.id, null)" tooltipText="Copy Journal" ctrlId="btnCopy_{{i}}"
+                    [isBlocked]="'jcc' | roleAction: 'homeAction' : 'journalCopy'" ariaLabel="Copy Journal"></app-icon-button>&nbsp;
+                  <app-icon-button faIcon="fa-calendar-check-o" [isDisabled]="journal.runDate.length === 0" ctrlId="btnRunHistory_{{i}}"
+                    (btnClick)="onRunDateJournalClick(journal.id, journal.journalStatus)" tooltipText="Run history"
+                    ariaLabel="Run history"></app-icon-button>&nbsp;
+                  <app-icon-button faIcon="fa-download" ctrlId="btnDwonloadSteps_{{i}}"
+                    (btnClick)="onDownloadStepsClick(journal.id)" tooltipText="Download steps"
+                    ariaLabel="Download steps"></app-icon-button>&nbsp;                  
+                  <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteJournalClick(journal.id, null)" tooltipText="Delete Journal" ctrlId="btnDelete_{{i}}"
+                    [isBlocked]="'jcc' | roleAction: 'homeAction' : 'journalDelete'" ariaLabel="Delete Journal"></app-icon-button>
+                </div>
+                <div class="cu-td w-15 center-icon del-row" *ngIf="journalDeletingId === journal.id">
+                  Delete?&nbsp;&nbsp;&nbsp;&nbsp;
+                  <app-icon-button faIcon="fa-check" (btnClick)="onDeleteJournalClick(journal.id, true)" 
+                    tooltipText="Agree to Delete" ariaLabel="Agree to Delete"></app-icon-button>&nbsp;&nbsp;
+                  <app-icon-button faIcon="fa-times" (btnClick)="onDeleteJournalClick(journal.id, false)" 
+                    tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                </div>
+                <div class="cu-td w-15 center-icon success-row" *ngIf="journalCopyingId === journal.id">
+                  Copy this Journal?&nbsp;&nbsp;&nbsp;
+                  <app-icon-button faIcon="fa-check" (btnClick)="onCopyJournalClick(journal.id, true)" 
+                    tooltipText="Agree to Copy" ariaLabel="Agree to Copy"></app-icon-button>&nbsp;&nbsp;
+                  <app-icon-button faIcon="fa-times" (btnClick)="onCopyJournalClick(journal.id, false)" 
+                    tooltipText="Cancel Copy" ariaLabel="Cancel Copy"></app-icon-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-table-footer [itemPerPage]="homePageConfig.pageCount" [totalRecords]="totalJournalCount" 
+          [currentPageIndex]="homePageConfig.pageIndex"
+          (nextClicked)="onPageChangeClicked($event, 'journal')" (prevClicked)="onPageChangeClicked($event, 'journal')"></app-table-footer>
+      </div>
+      <div class="col p-2" *ngIf="journalTypeCategory === 'adhoc'">
+        <app-loader [isLoading]="isAdhocLoading"></app-loader>
+        <app-table-header [columns]="adhocTableHeaders" (sortingClicked)="onSortingClick($event, 'adhoc')"></app-table-header>
+        <div class="table-area">
+          <app-table-no-records [list]="journalAdhocList"></app-table-no-records>
+          <div class="table bg-white cu-tbl">
+            <div  class="cu-tbody">
+              <div class="cu-tr" *ngFor="let journal of journalAdhocList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                <div class="cu-td w-15 text-center font-bold" scope="row">{{journal.id}}</div>
+                <div class="cu-td w-33">{{journal.name}}</div>
+                <div class="cu-td w-20 text-center">{{journal.template.name}}</div>
+                <div class="cu-td w-22 text-center">
+                  <div [ngClass]="getStatusBoxCss(journal.status)">{{journal.status}}</div>
+                </div>
+                <div class="cu-td w-10 center-icon">
+                  <app-icon-button faIcon="fa-eye" (btnClick)="onViewAdhocJournalClick(journal.id)" 
+                    tooltipText="View Journal" ariaLabel="View Journal"></app-icon-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-table-footer [itemPerPage]="adhocPageConfig.pageCount" [totalRecords]="totalAdhocCount" 
+          [currentPageIndex]="adhocPageConfig.pageIndex"
+          (nextClicked)="onPageChangeClicked($event, 'adhoc')" (prevClicked)="onPageChangeClicked($event, 'adhoc')"></app-table-footer>
+      </div>
+      <div class="col p-2">
+        <app-journal-status-graphs (statusClick)="onJournalStatusClick($event)" (runStatusClick)="onJournalRunStatusClick($event)"></app-journal-status-graphs>
+      </div>
+    </div>
+    
+  </div>
+</main>

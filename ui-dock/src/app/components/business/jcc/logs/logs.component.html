@@ -1,0 +1,17 @@
+<div class="px-2 py-1 jcc-section-header">
+    <span class="log-tab" *ngFor="let lg of logTypeList" [ngClass]="{'active': lg.isActive, 'pointer': !lg.isActive}" (click)="onTabClick(lg)">
+        {{lg.name}}
+    </span>
+</div>
+<div class="container-fluid log-container" *ngIf="isLogDetailsShowWithId(1)">
+    <dl class="row log-dl" [ngClass]="{'log-dl-fail': !log.isSuccess}" *ngFor="let log of logs">
+        <dt class="col-sm-3"><small><em>{{log.time | date:'HH:mm:ss'}}</em></small></dt>
+        <dd class="col-sm-9"><small>{{log.message}}</small></dd>
+    </dl>
+</div>
+<div class="container-fluid log-container" *ngIf="isLogDetailsShowWithId(2)">
+    <dl class="row log-dl" [ngClass]="{'log-dl-fail': !log.isSuccess}" *ngFor="let log of stepLogs">
+        <dt class="col-sm-4" *ngIf="isLogsAvailable"><small><em>{{log.time | date:'dd/MM/yyyy HH:mm:ss'}}</em></small></dt>
+        <dd [ngClass]="{'col-sm-8': isLogsAvailable, 'col-sm-12': !isLogsAvailable}"><small>{{log.message}}</small></dd>
+    </dl>
+</div>

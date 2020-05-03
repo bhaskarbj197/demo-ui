@@ -1,0 +1,91 @@
+<div class="px-2 py-1 jcc-section-header">
+    <app-main-area-header [headerName]="heading" [isHeaderActionShow]="false"></app-main-area-header>
+</div>
+<div class="p-3 row">
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            [hidden]="'jcc' | roleAction: 'advisorConfig' : 'add'" isBtnBoxShow="true" successBtnLabel="Save" successBtnType="FACEBOOK"
+            successBtnIcon="fa-thumbs-o-up" (successBtnClicked)="onSaveClick()" [isSuccessBtnDisabled]="isViewOnly"
+            [isFailBtnHide]="true" [isSuccessBtnHide]="activeTab === tabList[1]"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]"
+            [hidden]="'jcc' | roleAction: 'advisorConfig' : 'add'">
+            <div class="col">
+                <div class="row">
+                    <div class="col-6">
+                        <app-combobox ctrlId="cmbInputTable" label="Input Table" placeholder="Select Input Table" 
+                            [list]="inputFileList" key="name" value="name" ariaLabel="Select input table"
+                            [(model)]="newAdvisorConfig.fileName" minLabelLen="140px"
+                            [isRequired]="true" (valueChange)="loadColumnList($event)"
+                            [isDisabled]="isDisabledFileInputListInput()"></app-combobox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <app-combobox ctrlId="cmbColumnName" label="Target Variable" placeholder="Select Target variable" 
+                            [list]="inputTableColumns" key="columnName" value="columnName"
+                            [(model)]="newAdvisorConfig.columnName" minLabelLen="140px"
+                            [isRequired]="true" ariaLabel="Select target variable"
+                            [isDisabled]="isDisabledColumnListInput()"></app-combobox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <app-combobox ctrlId="cmbModelName" label="Model" placeholder="Select Model" 
+                            [list]="modelList" [isDisabled]="isDisabledModelListInput()"
+                            [(model)]="newAdvisorConfig.model" minLabelLen="140px"
+                            [isRequired]="true" ariaLabel="Select model name"></app-combobox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <app-textarea ctrlId="txtUrl" label="Url" placeholder="Url" [isDisabled]="isViewOnly"
+                            [pattern]="'URL_PATTERN' | defaultConstantValueConverter: 'regexPatternService'" 
+                            [(model)]="newAdvisorConfig.url" minLabelLen="140px" ariaLabel="Select url"></app-textarea>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="table table-bordered bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-30 no-border" scope="col">Input</div>
+                            <div class="cu-th w-20 no-border" scope="col">Target Variable</div>
+                            <div class="cu-th w-20 no-border" scope="col">Model</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Url</div>
+                            <div class="cu-th w-15 no-border text-center" scope="col">Action</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-area">
+                    <div class="table table-bordered bg-white cu-tbl">
+                        <div class="cu-tbody form-group row">
+                            <div class="cu-tr" *ngFor="let config of advisorConfigList; let fIndex = index; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-30" scope="row">{{config.fileName}}</div>
+                                <div class="cu-td w-20">{{config.columnName}}</div>
+                                <div class="cu-td w-20">{{config.model}}</div>
+                                <div class="cu-td w-15 text-center">
+                                    <app-icon-button faIcon="fa-link" [isDisabled]="config.url === ''" (btnClick)="openUrlClick(config.url)"
+                                        tooltipText="External url link" ariaLabel="External url link"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-15 center-icon" *ngIf="tobeDeleted !== config.fileName">
+                                    <app-icon-button faIcon="fa-edit" tooltipText="Edit Config" [isDisabled]="isViewOnly"
+                                        [isBlocked]="'jcc' | roleAction: 'advisorConfig' : 'edit'" ariaLabel="Edit config"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteConfigClick(config, null, -1)" [isDisabled]="isViewOnly"
+                                        tooltipText="Delete Config" [isBlocked]="'jcc' | roleAction: 'advisorConfig' : 'delete'" ariaLabel="Delete config"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-15 center-icon del-row" *ngIf="tobeDeleted === config.fileName">
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteConfigClick(config, true, fIndex)" 
+                                        tooltipText="Agree to Delete" ariaLabel="Agree to Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteConfigClick(config, false)" 
+                                        tooltipText="Cancel Cancel" ariaLabel="Delete Cancel"></app-icon-button>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

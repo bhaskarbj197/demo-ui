@@ -1,0 +1,14 @@
+<div class="row help-div" [ngClass]="{'hlp-div-w': isHelpWindowShow}" (clickOutside)="onClickedOutsideOfHelp()">
+    <div class="col help-div-cont shadow-effect2" *ngIf="isHelpWindowShow">
+        <div class="help-div-cont1 font-stndrd">
+            <div class="help-header">{{headerName}}</div>
+            <span [innerHTML]="getQuickHelp(listItemValue)"></span>
+        </div>
+    </div>
+    <div class="col-1 help-btn-col">
+        <div class="help-icon pointer" (click)="onHelpOpenClick()">
+            <app-icon-button faIcon="fa-info-circle pointer" ariaLabel="Help" 
+                [hidden]="isHelpIconHidden" tooltipText="help"></app-icon-button>
+        </div>
+    </div>
+</div>

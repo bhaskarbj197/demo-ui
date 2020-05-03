@@ -1,0 +1,5 @@
+<div class="alert shadow-effect1" [ngClass]="[position, type]" *ngIf="!isAlertClose" [@fadeShowNotification]="appearanceState">
+    <app-icon-button faIcon="fa-times" tooltipText="Close notification" isFloatRight="true" dynamicClass="cu-fa-2x"
+        (btnClick)="onCloseAlertClick($event)" ariaLabel="Close notification"></app-icon-button>
+    <div class="msg">{{message}}</div>
+</div>

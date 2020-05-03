@@ -1,0 +1,25 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: 35vh;
+    max-height: 35vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.tab-body{
+    height: 5vh;
+    max-height: 30px;
+}
+
+.cu-card{
+    margin-bottom: 0px;
+    height: 80px;
+    border-bottom: solid 1px lightgray !important;
+}
+
+.cu-cntr{
+    max-width: 100%;
+}

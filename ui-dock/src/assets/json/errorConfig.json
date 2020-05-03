@@ -1,0 +1,35 @@
+[	
+	{
+		"errorSeries":"600",
+		"types": [
+			{				
+				"type":"ValueError",
+				"name":"Value Error",
+				"msg": "Incorrect value provided for the type.",
+				"serviceMsg": ""
+				
+			},
+			{				
+				"type":"TypeError",
+				"name":"Type Error",
+				"msg": "Incorrect type provided.",
+				"serviceMsg": ""
+				
+			},
+			{				
+				"type":"SyntaxError",
+				"name":"Syntax Error",
+				"msg": "Incorrect syntax provided.",
+				"serviceMsg": ""
+				
+			},
+			{				
+				"type":"SystemError",
+				"name":"System Error",
+				"msg": "Internal server error occured.",
+				"serviceMsg": ""
+				
+			}
+		]
+	}
+]

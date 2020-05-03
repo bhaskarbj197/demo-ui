@@ -1,0 +1,65 @@
+<div class="px-2 py-1 jcc-section-header" *ngIf="!isAdvisor">
+    <app-main-area-header [headerName]="heading" [isHeaderActionShow]="false"></app-main-area-header>
+</div>
+<div class="row px-2 py-1 jcc-section-header" *ngIf="isAdvisor">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="row pl-2 pr-2">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row p-1 mt-2">
+            <div class="col">
+                <div class="container accordion cu-accdn-cntn">
+                    <div class="card main-card cu-card">
+                        <div class="card-header px-2 py-1">
+                            <strong>New Comment</strong>
+                        </div>
+                        <div class="tab-body">
+                            <div class="row">
+                                <div class="col m-2">
+                                    <app-textarea ctrlId="txtCommentsPendingApproval" label="Comment" placeholder="Comment" ariaLabel="Comment"
+                                        [(model)]="newComment.comment" maxLength="240" [isRequired]="true" [isSubmit]="isFormSubmitted"></app-textarea>
+                                </div>
+                                <div class="col pt-4 center-icon">
+                                    <app-button value="Submit" faIcon="fa-check" type="YAHOO" (btnClick)="onSubmitNewCommentClick()" ariaLabel="Submit"></app-button>&nbsp;&nbsp;
+                                    <app-button value="Reset" faIcon="fa-repeat" type="YOUTUBE" (btnClick)="onResetNewCommentClick()" ariaLabel="Reset"></app-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row content-div mt-2">
+                    <div class="col">
+                        <div class="table bg-white cu-tbl only-head">
+                            <div class="cu-thead">
+                                <div class="cu-tr">
+                                    <div class="cu-th w-5 no-border text-center" scope="col"></div>
+                                    <div class="cu-th w-50 no-border" scope="col">Comment</div>
+                                    <div class="cu-th w-15 no-border text-center" scope="col">Action</div>
+                                    <div class="cu-th w-15 no-border text-center" scope="col">Commented By</div>
+                                    <div class="cu-th w-15 no-border text-center" scope="col">Commented On</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tbl-area">
+                            <app-table-no-records [list]="commentList"></app-table-no-records>
+                            <div class="table bg-white cu-tbl">
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let comment of commentList; let odd=odd; let idx=index" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td w-5 text-center" scope="row">{{idx+1}}</div>
+                                        <div class="cu-td w-50">{{comment.comment}}</div>
+                                        <div class="cu-td w-15 text-center">{{comment.action}}</div>
+                                        <div class="cu-td w-15 text-center">{{comment.user.nameEmail}}</div>
+                                        <div class="cu-td w-15 text-center">{{comment.commentedOn | dateConverter: true : true}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

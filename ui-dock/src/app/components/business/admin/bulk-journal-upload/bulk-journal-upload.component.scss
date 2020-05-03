@@ -1,0 +1,28 @@
+@import '../../../../style/bulkStepNavbar';
+@import '../../../../style/table';
+
+.table-area{
+    height: 58vh;
+    max-height: 58vh;
+    @extend .table-data-area;
+    border: solid 1px $tbl-border-color;
+}
+
+.tbl-fl{
+    max-width: 80vw;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.txt-show{
+    font-weight: bold;
+}
+
+.cell-gap{
+    padding-top: 10px;
+}
+
+.err-text{
+    color: $error-text-color;
+    font-family: $font-family;
+}

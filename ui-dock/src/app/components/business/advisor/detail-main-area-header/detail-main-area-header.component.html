@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col">{{headerName}}</div>
+    <div class="col-7">
+        <app-run-status-action (activeStatusClick)="onActiveStatusClick()"></app-run-status-action>
+    </div>
+</div>
+<div class="row pt-2 shadow-effect1 action-div" *ngIf="isStatusActionShow" (clickOutside)="onClickedOutsideOfStatusAction()">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col">
+        <app-textarea ctrlId="txtCommentsPendingApproval" label="Comment" placeholder="Comment" ariaLabel="Comments"
+            [(model)]="newComment.comment" maxLength="240"></app-textarea>
+    </div>
+    <div class="col pt-3 action-div-col center-icon" *ngIf="isStatusActionButtonShow('SUBMIT_FOR_REVIEW')">
+        <app-button value="Submit for Review" faIcon="fa-check" type="LINKEDIN" 
+            (btnClick)="onSubmitForReviewClick('PENDING')" ariaLabel="Submit for Review"></app-button>
+    </div>
+    <div class="col action-div-col center-icon" *ngIf="isStatusActionButtonShow('PENDING')">
+        <app-button value="Ready to Post" faIcon="fa-check" type="SPOTIFY" 
+            (btnClick)="onApprovedClick('APPROVED')" ariaLabel="Ready to Post"></app-button>&nbsp;&nbsp;
+        <app-button value="Reject" faIcon="fa-times" type="YOUTUBE" 
+            (btnClick)="onRejectClick('REJECTED')" ariaLabel="Reject"></app-button>
+    </div>
+</div>

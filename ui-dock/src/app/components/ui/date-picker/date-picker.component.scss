@@ -1,0 +1,28 @@
+@import '../../../style/common';
+
+input:focus, button:focus{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.read-only{
+    background-color: #ffffff;
+}
+
+.invalid-textbox{
+    border: solid 1px $error-text-color;
+}
+
+.ngb-dp-weekday{
+    color: #237690 !important;
+}
+
+.text-muted{
+    color: #49545B !important;
+    text-decoration: line-through !important;
+}
+
+.outside{
+    opacity: 1 !important;
+}

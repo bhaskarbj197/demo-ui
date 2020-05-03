@@ -1,0 +1,39 @@
+<main role="main" class="h-100 container-fluid p-0">
+    <div class="h-100 row no-gutters">
+        <div class="col-2 bg-menu border-right border-secondary full-h grph-menu">
+            <app-loader [isLoading]="isLeftMenuGraphLoading"></app-loader>
+            <div class="row div-grph-cntn justify-content-center">
+                <app-bar-chart title="WD wise Journal Status" [labels]="journalStatusByWdGraph.labels" 
+                    *ngIf="journalStatusByWdGraph.data.length > 0" (chartClick)="onJournalStatusByWdGraphClick($event)"
+                    [data]="journalStatusByWdGraph.data" [colors]="journalStatusByWdGraph.colors" [size]="'XSMALL' | enumValueConverter : 'chartSizes'"></app-bar-chart>
+            </div>
+            <div class="row div-grph-cntn justify-content-center">
+                <app-pie-chart title="Journal Validation Status" [labels]="validationStatusGraph.labels" 
+                    *ngIf="validationStatusGraph.data.length > 0" (chartClick)="onJournalValidationStatusGraphClick()"
+                    [data]="validationStatusGraph.data" [colors]="validationStatusGraph.colors" [size]="'XSMALL' | enumValueConverter : 'chartSizes'"></app-pie-chart>
+            </div>
+            <div class="row div-grph-cntn justify-content-center">
+                <app-bar-chart title="# of Data Anomalies" [labels]="dataAnomaliesGraph.labels" *ngIf="dataAnomaliesGraph.data.length > 0"
+                    [data]="dataAnomaliesGraph.data" [colors]="dataAnomaliesGraph.colors" [size]="'XSMALL' | enumValueConverter : 'chartSizes'"
+                    (chartClick)="onDataAnomalyByTypeClick($event)"></app-bar-chart>
+            </div>
+            <div class="row div-grph-cntn justify-content-center">
+                <app-pie-chart title="% of Input File Available" [labels]="inputFileAvailableGraph.labels" *ngIf="inputFileAvailableGraph.data.length > 0"
+                    [data]="inputFileAvailableGraph.data" [colors]="inputFileAvailableGraph.colors" [size]="'XSMALL' | enumValueConverter : 'chartSizes'"
+                    (chartClick)="onInputFileAvailibilityGraphClick()"></app-pie-chart>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row div-container">
+                <div class="col">
+                    <app-journal-validation-status *ngIf="mainWindow === ('JOURNAL_VALIDATION_STATUS' | enumValueConverter: 'detailGraphs')"></app-journal-validation-status>
+                    <app-journal-status-by-workday *ngIf="mainWindow === ('WD_WISE_JOURNAL_STATUS' | enumValueConverter: 'detailGraphs')"
+                        [workdaySelected]="selectedWdForJournalStatusGraph"></app-journal-status-by-workday>
+                    <app-data-anomalies *ngIf="mainWindow === ('DATA_ANOMALY' | enumValueConverter: 'detailGraphs')"
+                        [anomalyTypeSelected]="selectedForDataAnomalyGraph"></app-data-anomalies>
+                    <app-input-file-availibility *ngIf="mainWindow === ('INPUT_FILE_AVAILIBILITY' | enumValueConverter: 'detailGraphs')"></app-input-file-availibility>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

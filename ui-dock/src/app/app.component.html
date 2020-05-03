@@ -1,0 +1,27 @@
+<div>
+  <header>
+    <nav class="navbar navbar-expand-md fixed-top jcc-navbar p-0 px-2" aria-label="main navigation">
+      <span class="navbar-brand">
+        <img height="40" src="../assets/img/IBM_logo®_rev_RGB.png" alt="Logo">
+      </span>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="mr-auto font-stndrd text-white">{{env}}</div>
+        <form class="form-inline mt-2 mt-md-0">
+          <app-top-header-action-panel></app-top-header-action-panel>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <div class="jcc-container">
+    <div class="jcc-section">
+      <app-header-menu [isHeaderMenuShow]="isHeaderMenuShow"></app-header-menu>
+    </div>
+    <div class="jcc-section section-middle">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+  <app-notification [isAlertClose]="isNotificationAlrtClose" (closeNotificationClick)="onNotificationClose()" 
+    [message]="notificationMessage" [type]="notificationType"></app-notification>
+</div>
+<div class="overlay" *ngIf="!isNotificationAlrtClose"></div>

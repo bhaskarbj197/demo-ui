@@ -1,0 +1,47 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: 40vh;
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.tbl-area1{
+    height: 40vh;
+    max-height: 40vh;
+    overflow: auto;
+    width: 33vw;
+    border: solid 1px $tbl-border-color;
+}
+
+.tbl-area-m{
+    height: 30vh;
+}
+
+.content-div{
+    margin-top: 10px;
+}
+
+.edit-box{
+    -webkit-column-span: all;
+    column-span: all;
+}
+
+.modify-file-content-div{
+    line-height: 30px;
+    height: 90px;
+}
+
+.card-header-cu{
+    padding: 0px 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    font-family: $font-family;
+}
+
+.card-body-cu{
+    padding: 6px 15px;
+}

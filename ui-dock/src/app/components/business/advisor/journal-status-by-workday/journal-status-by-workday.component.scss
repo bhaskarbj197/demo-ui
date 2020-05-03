@@ -1,0 +1,21 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.nav-text{
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.table-area{
+    max-height: 480px;
+    @extend .table-data-area;
+}
+
+.graph-show{
+    width: 90%;
+    height: 500px;
+    padding-top: 10px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+}

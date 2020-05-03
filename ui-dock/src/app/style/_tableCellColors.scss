@@ -1,0 +1,77 @@
+@import './defaultValues';
+
+.inner-div-bck-cmn{
+  width: 100%;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.inner-div-bck-clr{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, $fail-box-color 100%);
+}
+
+.inner-div-bck-sc{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, $pass-box-color 100%);
+}
+
+.inner-div-bck-pr{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(30,144,255, 0.2) 100%);
+}
+
+.inner-div-bck-gr{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(47,79,79, 0.15) 100%);
+}
+
+.inner-div-bck-gr{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(47,79,79, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-inproc{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(16,41,205, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-apprv{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(16,207,91, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-penapr{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(207,199,16, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-rtrn{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(184,19,181, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-sbrvw{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(173,135,240, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-rnerr{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(218,148,75, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-pndsgnof{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(35,212,192, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-rjtd{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(226,106,132, 0.15) 100%);
+}
+
+.inner-div-bck-jstatus-rtp{
+  @extend .inner-div-bck-cmn;
+  // background-image: radial-gradient(circle, transparent 0%, rgba(70,203,85, 0.15) 100%);
+}

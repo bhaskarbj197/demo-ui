@@ -1,0 +1,21 @@
+
+.overlay{
+  background-color: rgba(211,211,211, 0.5);
+}
+.no-overlay img{
+  position: absolute;
+  left: 50%;
+  margin-left: -5%;
+  top: 50%;
+}
+
+.no-overlay{
+  position: absolute; 
+  width: 100%; 
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}

@@ -1,0 +1,423 @@
+[
+	{
+		"id": 1,
+		"code": "IFTHENELSE",
+		"name": "If-Then-Else",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 11,
+				"name": "If",
+				"typ": "Condition",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 12,
+				"name": "Then",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			},
+			{
+				"id": 13,
+				"name": "Else",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"code": "FILTER_TABLE",
+		"name": "Filter-Table",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 21,
+				"name": "Exclude",
+				"typ": "Condition",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 22,
+				"name": "But Include",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 3,
+		"code": "PIVOT_TABLE",
+		"name": "Pivot-Table",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 31,
+				"name": "Rows",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 32,
+				"name": "Values",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide",
+				"isNewColumnMandatory": true
+			},
+			{
+				"id": 33,
+				"name": "Conditions",
+				"typ": "Condition",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 4,
+		"code": "SEARCH_MAP",
+		"name": "Search-Map",
+		"isVisible": false,
+		"tabs":[
+			{
+				"id": 41,
+				"name": "Column",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 42,
+				"name": "Values",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			},
+			{
+				"id": 43,
+				"name": "Criteria",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 5,
+		"code": "FINDREPLACE",
+		"name": "Find-Replace",
+		"isVisible": false,
+		"tabs":[
+			{
+				"id": 51,
+				"name": "Columns",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 52,
+				"name": "Find",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			},
+			{
+				"id": 53,
+				"name": "Replace",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 6,
+		"code": "MATH",
+		"name": "Math",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 61,
+				"name": "Formula",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 62,
+				"name": "Condition",
+				"typ": "Condition",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 7,
+		"code": "TEXT_STRING",
+		"name": "Text-String",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 71,
+				"name": "Formula",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 72,
+				"name": "Condition",
+				"typ": "Condition",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 8,
+		"code": "UNIQUE_COLUMNS",
+		"name": "Unique-Columns",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 81,
+				"name": "Columns",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 82,
+				"name": "Condition",
+				"typ": "Condition",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 9,
+		"code": "MERGE_TABLES",
+		"name": "Merge Tables",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 91,
+				"name": "On Lookup",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 92,
+				"name": "Criteria",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 10,
+		"code": "COMBINE_TABLES",
+		"name": "Combine Tables",
+		"isVisible": true,
+		"isInputTableDisabled": true,
+		"isNoCommand": true,
+		"tabs":[
+			{
+				"id": 101,
+				"name": "Tables",
+				"typ": "Expression",
+				"isFunctionBox": false,
+				"isColumnBox": false,
+				"isOperatorBox": false,
+				"isValueBox": false,
+				"isTableBox": true,
+				"isNewColumnMandatory": false,
+				"isNewColumnDisabled": true,
+				"displayStatus": "show"
+			}
+		]
+	},
+	{
+		"id": 11,
+		"code": "SEARCH_MAP",
+		"name": "Search Map",
+		"isVisible": true,
+		"tabs":[
+			{
+				"id": 111,
+				"name": "Column",
+				"typ": "Expression",
+				"isFunctionBox": false,
+				"isColumnBox": true,
+				"isOperatorBox": false,
+				"isValueBox": false,
+				"isTableBox": false,
+				"displayStatus": "show"
+			},
+			{
+				"id": 112,
+				"name": "Value",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			},
+			{
+				"id": 113,
+				"name": "Criteria",
+				"typ": "Expression",
+				"isFunctionBox": true,
+				"isColumnBox": true,
+				"isOperatorBox": true,
+				"isValueBox": true,
+				"isTableBox": false,
+				"displayStatus": "hide"
+			}
+		]
+	},
+	{
+		"id": 12,
+		"code": "SEARCH_PDF",
+		"name": "Search PDF",
+		"isVisible": true,
+		"isManualEntryBox": true,
+		"tabs":[
+			{
+				"id": 121,
+				"name": "Search Value",
+				"typ": "Expression",
+				"isFunctionBox": false,
+				"isColumnBox": false,
+				"isOperatorBox": false,
+				"isValueBox": false,
+				"isTableBox": false,
+				"displayStatus": "show"
+			}
+		]
+	},
+	{
+		"id": 13,
+		"code": "EXCEL_FUNCTION",
+		"name": "Excel Function",
+		"isVisible": true,
+		"isManualEntryBox": false,
+		"isExcelFunction": true,
+		"tabs":[
+			{
+				"id": 131,
+				"name": "Excel Function",
+				"typ": "Expression",
+				"isFunctionBox": false,
+				"isColumnBox": false,
+				"isOperatorBox": false,
+				"isValueBox": false,
+				"isTableBox": false,
+				"displayStatus": "show",
+				"isNewColumnMandatory": true
+			}
+		]
+	}
+]

@@ -1,0 +1,19 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.req-header{
+    font-weight: bold;
+    line-height: 30px;
+    background-color: #E0E0E0;
+}
+
+.table-area{
+    height: auto;
+    max-height: 30vh;
+    @extend .table-data-area;
+}
+
+.manl-col-typ-span{
+    font-weight: normal;
+    font-style: italic;
+}

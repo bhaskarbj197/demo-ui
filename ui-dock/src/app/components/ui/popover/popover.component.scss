@@ -1,0 +1,21 @@
+@import '../../../style/common';
+.btn-no-show{
+    padding: 0px;
+    background-color: transparent;
+    border: 0px;
+}
+
+input:focus, button:focus{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none !important;
+}
+
+button{
+    outline:none !important
+}
+
+button::-moz-focus-inner {
+    border: 0 !important;
+}

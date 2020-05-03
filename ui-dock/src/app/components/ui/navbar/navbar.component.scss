@@ -1,0 +1,12 @@
+@import '../../../style/common';
+
+.nav-text{
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: #6B7785;
+}
+.disabled {
+    pointer-events: none; 
+    color: #6B7785;        
+}

@@ -1,0 +1,604 @@
+[	
+	{
+		"code": "activityLogList",
+		"itemPerPage": 15,
+		"columns": [
+			{				
+				"value":"Activity",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "activityType"
+			},
+			{				
+				"value":"Action",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "actionType"
+			},
+			{				
+				"value":"Sub-Action",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "actionSubType"
+			},
+			{				
+				"value":"Action For",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			},
+			{				
+				"value":"Description",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "objectDesc"
+			},
+			{				
+				"value":"Acted By",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			},
+			{				
+				"value":"Acted On",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "activityOn"
+			}
+		]
+	},
+	{
+		"code": "adhocList",
+		"itemPerPage": 15,
+		"columns": [
+			{				
+				"value":"Id",
+				"css":"",
+				"isCenter": true,
+				"width": 7,
+				"isAbleToSort": true,
+				"linkedProperty": "id"
+			},
+			{				
+				"value":"Journal Name",
+				"css":"",
+				"isCenter": false,
+				"width": 35,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Template",
+				"css":"",
+				"isCenter": true,
+				"width": 21,
+				"isAbleToSort": true,
+				"linkedProperty": "templateName"
+			},
+			{				
+				"value":"Status",
+				"css":"",
+				"isCenter": true,
+				"width": 27,
+				"isAbleToSort": true,
+				"linkedProperty": "runStatus"
+			},
+			{				
+				"value":"Actions",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
+	},
+	{
+		"code": "adhocHomeList",
+		"itemPerPage": 16,
+		"columns": [
+			{				
+				"value":"Journal Id",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "id"
+			},
+			{				
+				"value":"Journal Name",
+				"css":"",
+				"isCenter": false,
+				"width": 33,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Template",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "templateName"
+			},
+			{				
+				"value":"Status",
+				"css":"",
+				"isCenter": true,
+				"width": 22,
+				"isAbleToSort": true,
+				"linkedProperty": "runStatus"
+			},
+			{				
+				"value":"Actions",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
+	},
+	{
+		"code": "journalHomeList",
+		"itemPerPage": 16,
+		"columns": [
+			{				
+				"value":"Id",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "id"
+			},
+			{				
+				"value":"Name",
+				"css":"",
+				"isCenter": false,
+				"width": 25,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Status",
+				"css":"",
+				"isCenter": true,
+				"width": 18,
+				"isAbleToSort": true,
+				"linkedProperty": "journalStatus"
+			},
+			{				
+				"value":"Frequency",
+				"css":"",
+				"isCenter": true,
+				"width": 12,
+				"isAbleToSort": true,
+				"linkedProperty": "frequency"
+			},
+			{				
+				"value":"Template",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "template"
+			},
+			{				
+				"value":"Actions",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
+	},
+	{
+		"code": "advisorJournalList",
+		"itemPerPage": 10,
+		"columns": [
+			{				
+				"value":"Journal Id",
+				"css":"",
+				"isCenter": true,
+				"width": 7,
+				"isAbleToSort": true,
+				"linkedProperty": "id"
+			},
+			{				
+				"value":"Run Date",
+				"css":"",
+				"isCenter": true,
+				"width": 7,
+				"isAbleToSort": true,
+				"linkedProperty": "runDate"
+			},
+			{				
+				"value":"Name",
+				"css":"",
+				"isCenter": false,
+				"width": 25,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Status",
+				"css":"",
+				"isCenter": true,
+				"width": 12,
+				"isAbleToSort": true,
+				"linkedProperty": "status"
+			},
+			{				
+				"value":"Frequency",
+				"css":"",
+				"isCenter": true,
+				"width": 8,
+				"isAbleToSort": true,
+				"linkedProperty": "runType"
+			},
+			{				
+				"value":"Validation Status",
+				"css":"",
+				"isCenter": true,
+				"width": 8,
+				"isAbleToSort": true,
+				"linkedProperty": "validationStatus"
+			},
+			{				
+				"value":"Data Anomalies",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "dataAnomalies"
+			},
+			{				
+				"value":"Doc Evidence",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "doccumentaryEvidence"
+			},
+			{				
+				"value":"Financial Impact",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "financialImpact"
+			}
+		]
+	},
+	{
+		"code": "userMasterList",
+		"itemPerPage": 15,
+		"columns": [
+			{				
+				"value":"Name",
+				"css":"",
+				"isCenter": false,
+				"width": 30,
+				"isAbleToSort": true,
+				"linkedProperty": "firstName"
+			},
+			{				
+				"value":"Role",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "roleName"
+			},
+			{				
+				"value":"Email",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "email"
+			},
+			{				
+				"value":"Company",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": true,
+				"linkedProperty": "companyName"
+			},
+			{				
+				"value":"Actions",
+				"css":"",
+				"isCenter": true,
+				"width": 20,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
+	},
+	{
+		"code": "advisorAdhocList",
+		"itemPerPage": 10,
+		"columns": [
+			{				
+				"value":"Journal Id",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "id"
+			},
+			{				
+				"value":"Run Date",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "runDate"
+			},
+			{				
+				"value":"Name",
+				"css":"",
+				"isCenter": false,
+				"width": 25,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Status",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "status"
+			},
+			{				
+				"value":"Frequency",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "runType"
+			},
+			{				
+				"value":"Validation Status",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "validationStatus"
+			},
+			{				
+				"value":"Financial Impact",
+				"css":"",
+				"isCenter": true,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "financialImpact"
+			}
+		]
+	},
+	{
+		"code": "validationRuleList",
+		"itemPerPage": 12,
+		"columns": [
+			{				
+				"value":"Name",
+				"css":"",
+				"isCenter": false,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Category",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "category"
+			},
+			{				
+				"value":"Template(s)",
+				"css":"",
+				"isCenter": false,
+				"width": 20,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			},
+			{				
+				"value":"Rule",
+				"css":"",
+				"isCenter": false,
+				"width": 45,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			},
+			{				
+				"value":"Actions",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
+	},
+	{
+		"code": "validationRuleListByJournal",
+		"itemPerPage": 6,
+		"columns": [
+			{				
+				"value":"Name",
+				"css":"",
+				"isCenter": false,
+				"width": 15,
+				"isAbleToSort": true,
+				"linkedProperty": "name"
+			},
+			{				
+				"value":"Category",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "category"
+			},
+			{				
+				"value":"Template(s)",
+				"css":"",
+				"isCenter": false,
+				"width": 20,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			},
+			{				
+				"value":"Rule",
+				"css":"",
+				"isCenter": false,
+				"width": 45,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			},
+			{				
+				"value":"Actions",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": ""
+			}
+		]
+	},
+	{
+		"code": "reprtJournalPostingSummary",
+		"itemPerPage": 10,
+		"columns": [
+			{				
+				"value":"Id",
+				"css":"",
+				"isCenter": true,
+				"width": 5,
+				"isAbleToSort": true,
+				"linkedProperty": "jId"
+			},
+			{				
+				"value":"Journal Name",
+				"css":"",
+				"isCenter": false,
+				"width": 30,
+				"isAbleToSort": true,
+				"linkedProperty": "journalName"
+			},
+			{				
+				"value":"Run date",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": "runDate"
+			},
+			{				
+				"value":"Run Status",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "runStatus"
+			},
+			{				
+				"value":"Frequency",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "runType"
+			},
+			{				
+				"value":"Document Id",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "documentId"
+			},
+			{				
+				"value":"Posting Date",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": "postingDateErp"
+			},
+			{				
+				"value":"Posting Status",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "postingStatus"
+			}
+		]
+	},
+	{
+		"code": "reprtNotToPostingJournal",
+		"itemPerPage": 10,
+		"columns": [
+			{				
+				"value":"Id",
+				"css":"",
+				"isCenter": true,
+				"width": 5,
+				"isAbleToSort": true,
+				"linkedProperty": "jId"
+			},
+			{				
+				"value":"Journal Name",
+				"css":"",
+				"isCenter": false,
+				"width": 30,
+				"isAbleToSort": true,
+				"linkedProperty": "journalName"
+			},
+			{				
+				"value":"Run date",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": false,
+				"linkedProperty": "runDate"
+			},
+			{				
+				"value":"Frequency",
+				"css":"",
+				"isCenter": true,
+				"width": 10,
+				"isAbleToSort": true,
+				"linkedProperty": "runType"
+			},
+			{				
+				"value":"Message",
+				"css":"",
+				"isCenter": false,
+				"width": 45,
+				"isAbleToSort": false,
+				"linkedProperty": "message"
+			}
+		]
+	}
+]

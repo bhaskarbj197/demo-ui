@@ -1,0 +1,23 @@
+[
+	{
+		"value": "Not to be Posted",
+		"code": "notToPosted",
+		"isReview2ListShow": false,
+		"isShowInActionArea": false,
+		"isShowInExceptionArea": true
+	},
+	{
+		"value": "Auto Approved",
+		"code": "autoApproved",
+		"isReview2ListShow": false,
+		"isShowInActionArea": true,
+		"isShowInExceptionArea": false
+	},
+	{
+		"value": "2nd Reviewer",
+		"code": "2ndReviewer",
+		"isReview2ListShow": true,
+		"isShowInActionArea": true,
+		"isShowInExceptionArea": false
+	}
+]

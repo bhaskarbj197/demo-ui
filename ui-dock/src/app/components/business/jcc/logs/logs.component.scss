@@ -1,0 +1,63 @@
+@import '../../../../style/common';
+
+.jcc-section-header {
+    @extend .jcc-section-header;
+}
+
+.log-dl{
+    margin-bottom: 0px;
+    line-height: 10px;
+    font-size: 0.9rem;
+
+    background-color: transparent;
+    -webkit-animation-name: animation-log-new-entry; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+    animation-name: animation-log-new-entry;
+    animation-duration: 2s;
+}
+
+.log-dl-fail{
+    color: $error-text-color;
+    -webkit-animation-name: animation-log-new-entry-f;
+    animation-name: animation-log-new-entry-f;
+}
+
+.log-container{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 56vh;
+    margin-top: 3px;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes animation-log-new-entry {
+    from {background-color: transparent;}
+    to {background-color: #7EB6FF;}
+}
+  
+/* Standard syntax */
+@keyframes animation-log-new-entry {
+    from {background-color: transparent;}
+    to {background-color: #7EB6FF;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes animation-log-new-entry-f {
+    from {background-color: transparent;}
+    to {background-color: rgb(255,99,71, 0.2);}
+}
+  
+/* Standard syntax */
+@keyframes animation-log-new-entry-f {
+    from {background-color: transparent;}
+    to {background-color: rgb(255,99,71, 0.2);}
+}
+
+.log-tab{
+    border-right: solid 1px #C0C0C0;
+    padding: 4px 10px;
+}
+
+.active{
+    background-color: #d3d3d3;
+}

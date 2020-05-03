@@ -1,0 +1,149 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.justify-content-center {
+    -ms-flex-pack: center!important;
+    justify-content: center!important;
+}
+
+.content-area{
+    height: 60vh; 
+    overflow-x: auto;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.jcc-card-body {
+    height: 150px;
+    overflow-x: auto;
+}
+
+.functional-card{
+    width: 250px;
+    max-width: 250px;
+}
+
+.col-2{
+    width: 20%;
+}
+
+.col-6{
+    width: 60%;
+}
+
+.col-1{
+    width: 10%;
+}
+
+.main-card{
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+}
+
+.tab-body{
+    height: 40vh;
+    max-height: 40vh;
+}
+
+.param-block{
+    display: block;
+    margin: 3px;
+    padding: 1px;
+}
+
+.param-block-b{
+    border: solid 1px #ffffff;
+}
+.param-block-b:hover{
+    border: solid 1px lightgray;
+}
+.param-bld{
+    font-weight: bold;
+}
+
+.param-cont{
+    display: flex;
+}
+
+.value-box-input{
+    margin-top: 10px;
+}
+
+.param-block-i{
+    font-style: italic;
+    color: #647373;
+}
+
+.query-bldr-td{
+    overflow-x: auto;
+    max-width: 500px;
+    overflow-y: hidden;
+}
+
+.no-overflow{
+    overflow-x: unset;
+}
+
+.query-entry-div{
+    position: absolute;
+    border: solid 1px #2E86C1;
+    left: 46%;
+    bottom: 0px;
+    background-color: #D6EAF8;
+    padding: 1px 8px;
+    border-bottom: 0px;
+    border-radius: 6px 6px 0px 0px;
+}
+
+.query-entry-div:hover{
+    background-color: rgba(0,0,0,.03);
+    border-color: rgba(0,0,0,.125);
+}
+
+.query-builder-textbox-card{
+    padding-top: 30px;
+}
+
+.cu-card{
+    margin-bottom: 0px;
+}
+
+.crd-hd-txt{
+    font-family: $font-family;
+}
+
+.box-card{
+    width: 17vw;
+    background-color: aliceblue;
+}
+
+.box-crd-left{
+    padding-right: 0px;
+}
+
+.box-crd-rgt{
+    padding-left: 0px;
+}
+
+.crd-fx{
+    width: initial;
+    max-width: 17vw;
+    min-width: 17vw;
+    max-height: 41px;
+}
+
+.crd-act{
+    height: 38px;
+}
+
+.cdeck{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 20vh;
+}

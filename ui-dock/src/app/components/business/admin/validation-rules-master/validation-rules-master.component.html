@@ -1,0 +1,379 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" successBtnLabel="Submit" failBtnLabel="Reset" successBtnType="TUMBLR" failBtnType="YOUTUBE"
+            successBtnIcon="fa-thumbs-o-up" failBtnIcon="fa-thumbs-o-down" (successBtnClicked)="onSubmitRule()"
+            (failBtnClicked)="onResetRule()" [isFailBtnHide]="activeTab !== tabList[1]" [isSuccessBtnHide]="activeTab === tabList[0]"
+            successBtnAreaLabel="Submit" failBtnAreaLabel="Reset"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                <div class="table-area">
+                    <app-table-no-records [list]="validationRules"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let rule of validationRules; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-15" scope="row">{{rule.name}}</div>
+                                <div class="cu-td w-10 text-center">{{rule.category}}</div>
+                                <div class="cu-td w-20">{{getTemplatesInString(rule.templates)}}</div>
+                                <div class="cu-td w-45">{{rule.ruleCommand}}</div>
+                                <div class="cu-td w-10 center-icon" *ngIf="deletingRuleId != rule.id">
+                                    <app-icon-button [faIcon]="getLockIcon(rule)" (btnClick)="onUpdateActivity(rule)" 
+                                        tooltipText="Active/Inactive" ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteRuleClick(rule.id)" 
+                                        tooltipText="Delete Rule" ariaLabel="Delete Rule"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-10 center-icon del-row" *ngIf="deletingRuleId === rule.id">
+                                    Delete?&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteRuleClick(rule.id, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteRuleClick(rule.id, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalRulesCount" 
+                    [currentPageIndex]="tableConfigModel.pageIndex"
+                    (nextClicked)="onPageChangeClicked($event)" (prevClicked)="onPageChangeClicked($event)"></app-table-footer>
+            </div>
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-1">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <app-textbox ctrlId="txtRuleName" label="Rule Name" placeholder="Rule name" isRequired="true" ariaLabel="Rule name"
+                                    [(model)]="newRule.name" minLabelLen="125px" [isSubmit]="isSubmit && (activeTab === tabList[1])"></app-textbox>
+                            </div>
+                            <div class="col-3">
+                                <app-checkbox ctrlId="chkRuleActive" label="{{newRule.isActive? 'Active' : 'Inactive'}}" (valueChange)="onSetActiveClick()"
+                                    [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                                    [isChecked]="newRule.isActive" class="float-right"></app-checkbox>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col">
+                                <app-combobox ctrlId="cmbRuleCategory" label="Category" placeholder="Select Category" isRequired="true"
+                                    [list]="validationRuleCategoryList" key="code" value="name" (valueChange)="onCategoryChanged($event)"
+                                    [(model)]="newRule.category" minLabelLen="125px" [isSubmit]="isSubmit && (activeTab === tabList[1])"
+                                    ariaLabel="Select Category"></app-combobox>
+                            </div>
+                            <div class="col-3">
+                                <app-checkbox ctrlId="chkCondition" label="{{newRule.isCondition? 'Condition' : 'Simple'}}" (valueChange)="onSetConditionClick()"
+                                    [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'" *ngIf="newRule.category !== 'combined'"
+                                    [isChecked]="newRule.isCondition" class="float-right"></app-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <app-textarea ctrlId="txtRuleDesc" label="Description" placeholder="Description" 
+                            [(model)]="newRule.description" minLabelLen="125px" ariaLabel="Description"></app-textarea>
+                    </div>
+                </div>
+                <div class="row pl-1">
+                    <div class="col-4">
+                        <app-combobox ctrlId="cmbTemplateList" label="Template" placeholder="Select & Add Template" 
+                            [list]="templateList" key="id" value="name" isRequired="true" ariaLabel="Select & Add Template"
+                            backLabel="Add" backLabelIcon="fa fa-plus-circle" (backLabelClick)="addTemplateToRule()"
+                            [(model)]="selectedTemplate" minLabelLen="125px"></app-combobox>
+                    </div>
+                    <div class="col">
+                        <div class="row pr-1">
+                            <div class="col">
+                                <span class="anomaly-text" *ngIf="isSubmit && selectedTemplateList.length === 0">Please add at least one template!</span>
+                                <span class="spn-filter-sts spn-filter-group float-left pointer" *ngFor="let template of selectedTemplateList">
+                                    {{template.name}}&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" tooltipText="Remove" (btnClick)="onRemoveTemplate(template)"
+                                        ariaLabel="Remove Template"></app-icon-button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">
+                        <app-show-areabox label="Rule Query" [(value)]="finalQuery" minLabelLen="125px" ariaLabel="Rule Query"></app-show-areabox>
+                    </div>
+                </div>
+                <div class="row p-1 mt-2">
+                    <div class="col">
+                        <div class="container accordion cu-accdn-cntn">
+                            <div class="card main-card cu-card">
+                                <div class="card-header px-2 py-1">
+                                    <strong>Validation Rule Creator</strong>
+                                </div>
+                                <div class="tab-body p-2"  *ngIf="newRule.category === 'combined'">
+                                    <div class="container accordion max-wid-100">
+                                        <div class="card main-card cu-card mb-2" >
+                                            <div class="card-header px-2 py-1 font-stndrd font-bold exprs-head" >
+                                                <strong>Expression 1</strong>
+                                            </div>
+                                            <div class="tab-body" *ngIf="newRule.combinedQueries.length && newRule.combinedQueries[0].ruleProperties.length > 0">
+                                                <div class="row p-1 mt-2" *ngFor="let ruleProp of newRule.combinedQueries[0].ruleProperties; let idx=index;">
+                                                    <div class="col-1">
+                                                        <app-combobox ctrlId="cmbAndOrWhere_0_{{idx}}" label="" placeholder="Select" (valueChange)="onAndOrChanged(newRule.combinedQueries[0])"
+                                                            [hidden]="isSpecificRuleQueryItemHide('isAndOrShow') || idx===0" ariaLabel="Select Logical operator"
+                                                            [(model)]="ruleProp.andOr" [list]="andOrWhereList" key="code" value="name"></app-combobox>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <app-combobox ctrlId="cmbTemplateColList_0_{{idx}}" label="Column" placeholder="Select column" 
+                                                            [list]="columnList" key="code" value="name" (valueChange)="onTemplateColumChanged(newRule.combinedQueries[0])"
+                                                            [(model)]="ruleProp.columnName" ariaLabel="Select column"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-combobox ctrlId="cmbOprtStrtEnd_0_{{idx}}" label="" placeholder="Select" ariaLabel="Select Operator"
+                                                            [hidden]="isSpecificRuleQueryItemHide('isOperatorShow')" (valueChange)="onOprtStrtEndValueChanged($event, ruleProp, newRule.combinedQueries[0])"
+                                                            [(model)]="ruleProp.operation" [list]="operationList" key="name" value="name"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-combobox ctrlId="cmbOprtValue_0_{{idx}}" label="" placeholder="Select" 
+                                                            (valueChange)="onValueChanged(newRule.combinedQueries[0])" ariaLabel="Select Operator Value"
+                                                            [(model)]="ruleProp.operationValue" [list]="operatorList" key="value" value="value"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-textbox ctrlId="txtValue_0_{{idx}}" label="" placeholder="Value" (textboxKeyup)="onValueChanged(newRule.combinedQueries[0])"
+                                                            backLabel="{{ruleProp.valueTypeText}}" ariaLabel="Value"
+                                                            [hidden]="ruleProp.valueControlHidden"
+                                                            [(model)]="ruleProp.value" backLabelIcon="fa fa-arrow-right" (backLabelClick)="onChangeValueType(ruleProp)"></app-textbox>
+                                                        
+                                                        <app-combobox ctrlId="cmbValue_0_{{idx}}" label="" placeholder="Select" *ngIf="ruleProp.valueControlHidden" 
+                                                            [(model)]="ruleProp.value" [list]="operatorList" key="value" value="value" ariaLabel="Select value"
+                                                            (valueChange)="onValueChanged()"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2 pt-1">
+                                                        <app-icon-button faIcon="fa-minus-circle cu-fa-2x" (btnClick)="onDeleteRuleProperty(idx, newRule.combinedQueries[0])" 
+                                                            dynamicClass="text-danger ml-2" ariaLabel="Delete Expression"
+                                                            tooltipText="Delete Expression" isFloatRight="true"></app-icon-button>
+                                                        <app-icon-button faIcon="fa-plus-circle cu-fa-2x" (btnClick)="onAddNewRuleProperty('combined', 0)" 
+                                                            [hidden]="!isNewRule(idx, 0) || newRule.category.length<=0" ariaLabel="Add Expression"
+                                                            [isDisabled]="ruleProp.andOr.length===0 && idx>0" isFloatRight="true"
+                                                            tooltipText="Add Expression"></app-icon-button>&nbsp;&nbsp;&nbsp;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card main-card cu-card" >
+                                            <div class="card-header px-2 py-1 font-stndrd font-bold exprs-head">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <strong>Expression 2</strong>
+                                                    </div>
+                                                    <div class="col">
+                                                        <app-combobox ctrlId="cmbCombinedOprtValue" label="" placeholder="Select" isFloatRight="true" ariaLabel="Select oprator value"
+                                                            (valueChange)="onValueChanged(newRule.combinedQueries[1])" *ngIf="newRule.combinedQueries.length > 0"
+                                                            [(model)]="newRule.combinedQueries[1].operator" [list]="operatorList" key="value" value="value"></app-combobox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-body" *ngIf="newRule.combinedQueries.length > 0 && newRule.combinedQueries[1].ruleProperties.length > 0">
+                                                <div class="row p-1 mt-2" *ngFor="let ruleProp of newRule.combinedQueries[1].ruleProperties; let idx=index;">
+                                                    <div class="col-1">
+                                                        <app-combobox ctrlId="cmbAndOrWhere_1_{{idx}}" label="" placeholder="Select" (valueChange)="onAndOrChanged(newRule.combinedQueries[1])"
+                                                            [hidden]="isSpecificRuleQueryItemHide('isAndOrShow') || idx===0" ariaLabel="Select Logical Operator"
+                                                            [(model)]="ruleProp.andOr" [list]="andOrWhereList" key="code" value="name"></app-combobox>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <app-combobox ctrlId="cmbTemplateColList_1_{{idx}}" label="Column" placeholder="Select column" 
+                                                            [list]="columnList" key="code" value="name" (valueChange)="onTemplateColumChanged(newRule.combinedQueries[1])"
+                                                            [(model)]="ruleProp.columnName" ariaLabel="Select Column"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-combobox ctrlId="cmbOprtStrtEnd_1_{{idx}}" label="" placeholder="Select" ariaLabel="Select Operator Value"
+                                                            [hidden]="isSpecificRuleQueryItemHide('isOperatorShow')" (valueChange)="onOprtStrtEndValueChanged($event, ruleProp, newRule.combinedQueries[1])"
+                                                            [(model)]="ruleProp.operation" [list]="operationList" key="name" value="name"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-combobox ctrlId="cmbOprtValue_1_{{idx}}" label="" placeholder="Select" 
+                                                            (valueChange)="onValueChanged(newRule.combinedQueries[1])" ariaLabel="Select Value"
+                                                            [(model)]="ruleProp.operationValue" [list]="operatorList" key="value" value="value"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-textbox ctrlId="txtValue_1_{{idx}}" label="" placeholder="Value" (textboxKeyup)="onValueChanged(newRule.combinedQueries[1])"
+                                                            backLabel="{{ruleProp.valueTypeText}}" ariaLabel="Value"
+                                                            [hidden]="ruleProp.valueControlHidden"
+                                                            [(model)]="ruleProp.value" backLabelIcon="fa fa-arrow-right" (backLabelClick)="onChangeValueType(ruleProp)"></app-textbox>
+                                                        
+                                                        <app-combobox ctrlId="cmbValue_1_{{idx}}" label="" placeholder="Select" *ngIf="ruleProp.valueControlHidden" 
+                                                            [(model)]="ruleProp.value" [list]="operatorList" key="value" value="value" ariaLabel="Value"
+                                                            (valueChange)="onValueChanged()"></app-combobox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <app-icon-button faIcon="fa-minus-circle cu-fa-2x" (btnClick)="onDeleteRuleProperty(idx, newRule.combinedQueries[1])" 
+                                                            dynamicClass="text-danger ml-2" ariaLabel="Delete Expression" 
+                                                            tooltipText="Delete Expression" isFloatRight="true"></app-icon-button>
+                                                        <app-icon-button faIcon="fa-plus-circle cu-fa-2x" (btnClick)="onAddNewRuleProperty('combined', 1)" 
+                                                            [hidden]="!isNewRule(idx, 1) || newRule.category.length<=0" ariaLabel="Add Expression"
+                                                            [isDisabled]="ruleProp.andOr.length===0 && idx>0" isFloatRight="true"
+                                                            tooltipText="Add Expression"></app-icon-button>&nbsp;&nbsp;&nbsp;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-body"  *ngIf="newRule.category !== 'combined'">  
+                                    <div class="row p-1 mt-2" *ngFor="let prop of newRule.ruleProperties; let idx=index;">
+                                        <div class="col-1">
+                                            <app-combobox ctrlId="cmbAndOr_{{idx}}" label="" placeholder="Select" (valueChange)="onAndOrChanged()"
+                                                [hidden]="isSpecificRuleQueryItemHide('isAndOrShow') || idx===0" ariaLabel="Select Logical Operator"
+                                                [(model)]="prop.andOr" [list]="andOrList" key="code" value="name"></app-combobox>
+                                        </div>
+                                        <div class="col-3">
+                                            <app-combobox ctrlId="cmbTemplateColList_{{idx}}" label="Column" placeholder="Select column" 
+                                                [hidden]="isSpecificRuleQueryItemHide('isColumnListShow')" (valueChange)="onTemplateColumChanged()"
+                                                [(model)]="prop.columnName" [list]="columnList" key="code" value="name"
+                                                ariaLabel="Select Column"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-combobox ctrlId="cmbOprtStrtEnd_{{idx}}" label="" placeholder="Select" ariaLabel="Select Operator Value"
+                                                [hidden]="isSpecificRuleQueryItemHide('isOperatorShow')" (valueChange)="onOprtStrtEndValueChanged($event, prop)"
+                                                [(model)]="prop.operation" [list]="operationList" key="name" value="name"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-combobox ctrlId="cmbOprtValue_{{idx}}" label="" placeholder="Select" ariaLabel="Select Value"
+                                                [hidden]="isOperatorValueHide('isOperatorShow', prop, 'list') || prop.valueControlHidden" (valueChange)="onValueChanged()"
+                                                [(model)]="prop.operationValue" [list]="operatorList" key="value" value="value"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-textbox ctrlId="txtValue_{{idx}}" label="" placeholder="Value" (textboxKeyup)="onValueChanged()" ariaLabel="Value"
+                                                [hidden]="isSpecificRuleQueryItemHide('isDestColumnValueShow') || prop.valueControlHidden" backLabel="{{prop.valueTypeText}}"
+                                                [(model)]="prop.value" backLabelIcon="fa fa-arrow-right" (backLabelClick)="onChangeValueType(prop)"></app-textbox>
+                                            
+                                            <app-combobox ctrlId="cmbValue_{{idx}}" label="" placeholder="Select" *ngIf="prop.valueControlHidden" 
+                                                [(model)]="prop.value" [list]="operatorList" key="value" value="value"
+                                                (valueChange)="onValueChanged()" ariaLabel="Select Value"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-button value="Add" faIcon="fa-plus" type="FACEBOOK" ariaLabel="Add new rule expression"
+                                                [hidden]="idx<newRule.ruleProperties.length-1 || newRule.category.length<=0" isFloatRight="true"
+                                                (btnClick)="onAddNewRuleProperty()" [isDisabled]="prop.andOr.length===0 && idx>0"></app-button>
+                                            <app-button value="Del" faIcon="fa-minus" type="YOUTUBE" ariaLabel="Del rule expression"
+                                                [hidden]="newRule.category.length<=0" marginRight="4px"
+                                                isFloatRight="true" (btnClick)="onDeleteRuleProperty(idx)"></app-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 mt-2" *ngIf="newRule.isCondition">
+                    <div class="col">
+                        <div class="container accordion cu-accdn-cntn">
+                            <div class="card main-card cu-card">
+                                <div class="card-header px-2 py-1">
+                                    <strong>Condition Creator</strong>
+                                </div>
+                                <div class="tab-body">
+                                    <div class="row p-1 mt-2" *ngFor="let propc of newRule.conditionProperties; let idx=index;">
+                                        <div class="col-1">
+                                            <app-combobox ctrlId="cmbAndOrCond_{{idx}}" label="" placeholder="Select" (valueChange)="onAndOrChanged()"
+                                                [hidden]="isSpecificRuleQueryItemHide('isAndOrShow') || idx===0" ariaLabel="Select Logical Operator"
+                                                [(model)]="propc.andOr" [list]="andOrList" key="code" value="name"></app-combobox>
+                                        </div>
+                                        <div class="col-3">
+                                            <app-combobox ctrlId="cmbTemplateColListCond_{{idx}}" label="Column" placeholder="Select column" 
+                                                [hidden]="isSpecificRuleQueryItemHide('isColumnListShow')" (valueChange)="onTemplateColumChanged()"
+                                                [(model)]="propc.columnName" [list]="columnList" key="code" value="name"
+                                                ariaLabel="Select Column"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-combobox ctrlId="cmbOprtStrtEndCond_{{idx}}" label="" placeholder="Select" 
+                                                (valueChange)="onOprtStrtEndValueChanged($event, propc)" ariaLabel="Select Operator"
+                                                [(model)]="propc.operation" [list]="operationList" key="name" value="name"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-combobox ctrlId="cmbOprtValueCond_{{idx}}" label="" placeholder="Select" ariaLabel="Select Operator Value"
+                                                [hidden]="isOperatorValueHideForCondition(propc, 'list') || propc.valueControlHidden" (valueChange)="onValueChanged()"
+                                                [(model)]="propc.operationValue" [list]="operatorList" key="value" value="value"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-textbox ctrlId="txtCValueCond_{{idx}}" label="" placeholder="Value" (textboxKeyup)="onValueChanged()"
+                                                backLabel="{{propc.valueTypeText}}" ariaLabel="Value"
+                                                [(model)]="propc.value" backLabelIcon="fa fa-arrow-right" (backLabelClick)="onChangeValueType(propc)"></app-textbox>
+
+                                            <app-combobox ctrlId="cmbCValueCond_{{idx}}" label="" placeholder="Select" *ngIf="propc.valueControlHidden" 
+                                                [(model)]="propc.value" [list]="operatorList" key="value" value="value" ariaLabel="Select Value"
+                                                (valueChange)="onValueChanged()"></app-combobox>
+                                        </div>
+                                        <div class="col-2">
+                                            <app-button value="Add" faIcon="fa-plus" type="FACEBOOK" ariaLabel="Add new rule expression"
+                                                [hidden]="idx<newRule.conditionProperties.length-1 || newRule.category.length<=0" isFloatRight="true"
+                                                (btnClick)="onAddNewRuleConditionProperty()" [isDisabled]="propc.andOr.length===0 && idx>0"></app-button>
+                                            <app-button value="Del" faIcon="fa-minus" type="YOUTUBE" ariaLabel="Del rule expression"
+                                                isFloatRight="true" (btnClick)="onDeleteRuleConditionProperty(idx)" marginRight="5px"></app-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[2]">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-5">
+                                <app-combobox ctrlId="cmbTemplateList" label="Template" placeholder="Select Template" 
+                                    [list]="templateList" key="id" value="name" keyInNumber="true"
+                                    (valueChange)="onRuleSetLoadByTemplateChanged($event)" ariaLabel="Select Template"
+                                    [isSubmit]="isSubmit && (activeTab === tabList[2])" isRequired="true"
+                                    [(model)]="validationRuleSet.template.id" minLabelLen="125px"></app-combobox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <app-combobox ctrlId="cmbRulesetList" label="Rule Set" placeholder="Select Rule Set" 
+                                    [list]="ruleSetList" key="id" value="name" *ngIf="!isNewRuleSet" keyInNumber="true"
+                                    backLabel="New" (backLabelClick)="onNewRuleSetClick(true)" backLabelMinLabelLen="55px"
+                                    (valueChange)="onRuleSetChanged($event)" isRequired="true"
+                                    [isSubmit]="isSubmit && (activeTab === tabList[2])" ariaLabel="Select Rule Set"
+                                    [(model)]="validationRuleSet.id" minLabelLen="125px"></app-combobox>
+                                <app-textbox ctrlId="txtRuleSetName" label="Rule Set" placeholder="Rule Set"
+                                    *ngIf="isNewRuleSet" backLabel=" Old " minLabelLen="125px" backLabelMinLabelLen="55px"
+                                    [isSubmit]="isSubmit && (activeTab === tabList[2])" ariaLabel="Rule Set"
+                                    [(model)]="validationRuleSet.name" (backLabelClick)="onNewRuleSetClick()"></app-textbox>
+                            </div>
+                            <div class="col-2">
+                                <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteRuleSetClick(validationRuleSet.id, null)" class="del-btn"
+                                    tooltipText="Delete Rule Set" ariaLabel="Delete Rule Set"
+                                    *ngIf="!isNewRuleSet && validationRuleSet && (validationRuleSet.id>0) && !isDeletingRuleset"></app-icon-button>
+                                <div class="del-row text-center font-stndrd del-btn"
+                                    *ngIf="!isNewRuleSet && validationRuleSet && (validationRuleSet.id>0) && isDeletingRuleset">
+                                    Delete Rule Set?&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteRuleSetClick(validationRuleSet.id, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteRuleSetClick(validationRuleSet.id, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col">
+                        <div class="row" *ngFor="let rule of ruleListByTemplate">
+                            <div class="col-1 d-flex justify-content-end">
+                                <app-checkbox ctrlId="chkRule_{{rule.id}}" label="" ariaLabel="check rule" (valueChange)="onRuleSelectionClick(rule)"
+                                    [isChecked]="rule.isSelected" [(model)]="rule.isSelected"></app-checkbox>
+                            </div>
+                            <div class="col">
+                                <app-showbox [value]="getRuleViewValue(rule)" ariaLabel="Rule view value"></app-showbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

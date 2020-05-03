@@ -1,0 +1,17 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: auto;
+    max-height: 43vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    border-bottom: solid 1px $tbl-border-color;
+}
+
+.cu-card{
+    margin-bottom: 0px;
+    height: auto;
+    border-bottom: solid 1px $tbl-border-color !important;
+}

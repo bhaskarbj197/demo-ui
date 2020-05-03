@@ -1,0 +1,12 @@
+<ng-template #popContent>
+    <div *ngFor="let msg of popMessages" [hidden]="popMessages.length===0">
+        <b><i>{{msg.key}}:</i></b> {{msg.value}} <br>
+    </div>
+    <div *ngIf="message.length>0">{{message}}</div>
+</ng-template>
+<ng-template #popTitle><strong>{{titleText}}</strong></ng-template>
+<button type="button" class="btn-no-show" [placement]="position"
+    [ngbPopover]="popContent" [popoverTitle]="popTitle" [tooltip]="tooltipText" [attr.aria-label]="btnAriaLabel">
+    <app-icon-only [faIcon]="faIcon" *ngIf="faIcon.length>0"></app-icon-only>
+    <span *ngIf="lable.length>0">{{lable}}</span>
+</button>

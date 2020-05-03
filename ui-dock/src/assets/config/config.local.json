@@ -1,0 +1,29 @@
+{
+    "env": "local",
+    "apiBaseUrl": "https://localhost:8000",
+    "envDisplayName": "Local",
+    "isEnvNameShow": true,
+    "advisorHardcodeSetting": false,
+    "keyCloak": {
+        "url": "https://dgasyddev2401.sl.bluecloud.ibm.com:31681",
+        "realm": "journal",
+        "clientId": "journal-web-app",
+        "credentials": {
+            "secret":"2ea0cbcf-2053-4726-a5ec-22068df36929"
+        },
+        "enable-cors": true    
+    },
+    "helpUrl": "http://9.220.132.10:30046/proxy-server/api/code/pearson/dev1",
+    "isKeyCloakUse": false,
+    "keycloakAccName": "journal",
+    "encrpKey": "123456$#@$^@1ERF",
+    "encrpPlusReplaceKey": "AAAB000WERDF",
+    "isConnectToOrct": true,
+    "orctBaseUrl": "https://localhost:3000",
+    "isOrctUrlEncrp": false,
+    "orctGetUrl": "/getServices?url=",
+    "orctPsttUrl": "/postServices?url=",
+    "orctPostFormUrl": "/PostFormServices?url=",
+    "orctPutUrl": "/putServices?url=",
+    "orctDeleteUrl": "/deleteServices?url="
+}

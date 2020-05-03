@@ -1,0 +1,37 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row content-div p-2">
+            <div class="col">
+                <div class="row p-1">
+                    <div class="col-4">
+                        <app-combobox ctrlId="cmbYear" label="Year" placeholder="Select year"
+                            [list]="yearList" (valueChange)="onYearChanged($event)" ariaLabel="Select year"
+                            [(model)]="financialMonth.year" minLabelLen="125px"></app-combobox>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col">
+                        <app-button value="Submit" faIcon="fa-thumbs-o-up" type="TUMBLR" ariaLabel="Submit"
+                            isFloatRight="true" (btnClick)="onSubmitBtnClick()"></app-button>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let month of financialMonth.months">
+                    <div class="col month-name-text">
+                        {{month.name}}
+                    </div>
+                    <div class="col-4">
+                        <app-date-picker label="Start Date" [(model)]="month.startDate" [isInvalid]="isSubmit && !month.startDate['day']"
+                            [ariaLabel]="'Start Date of ' + month.name"></app-date-picker>
+                    </div>
+                    <div class="col-4">
+                        <app-date-picker label="End Date" [(model)]="month.endDate" [isInvalid]="isSubmit && !month.endDate['day']"
+                            [ariaLabel]="'End Date of ' + month.name"></app-date-picker>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Mandatory",
+		"code": "mandatory",
+		"isDisabled": false,
+		"isColumnListShow": true,
+		"isOperatorShow": false,
+		"isDestColumnValueShow": false,
+		"isAndOrShow": true
+	},
+	{
+		"name": "Threshold",
+		"code": "threshold",
+		"isDisabled": false,
+		"isColumnListShow": true,
+		"isOperatorShow": true,
+		"isDestColumnValueShow": true,
+		"isAndOrShow": true
+	},
+	{
+		"name": "Invalid Data",
+		"code": "invalidData",
+		"isDisabled": false,
+		"isColumnListShow": true,
+		"isOperatorShow": true,
+		"isDestColumnValueShow": true,
+		"isAndOrShow": true
+	},
+	{
+		"name": "Combined",
+		"code": "combined",
+		"isDisabled": false,
+		"isColumnListShow": true,
+		"isOperatorShow": true,
+		"isDestColumnValueShow": true,
+		"isAndOrShow": true
+	}
+]

@@ -1,0 +1,18 @@
+<div class="jcc-section footer-position">
+    <footer class="footer mt-auto py-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8 font-stndrd text-left footer-text">
+                    LICENSED MATERIALS - PROPERTY OF IBM 6949-80Q © COPYRIGHT IBM CORP. 2020 ALL RIGHTS RESERVED
+                </div>
+                <div class="col font-stndrd text-right footer-text">
+                    <span class="lbl-margin-0 pointer tm-txt" (click)="onTermsConditionsClick()">
+                        TERMS & CONDITIONS
+                    </span>
+                    <app-terms-conditions *ngIf="isTmOpen" (clickOutside)="onTmOutsideClicked()"></app-terms-conditions>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;v17.3.20
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

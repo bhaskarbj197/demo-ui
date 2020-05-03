@@ -1,0 +1,64 @@
+<div class="input-group mb-1" [ngClass]="size" [hidden]="isHide" [ngStyle]="{width: getFixedWidth()}">
+    <div class="input-group-prepend" *ngIf="label.length>0">
+        <span class="input-group-text font-stndrd" [ngStyle]="{'min-width': minLabelLen}" [ngClass]="{'invalid-textbox':isValidInput() || isValidMinimumInput()}">
+            {{label}}
+            <span *ngIf="isRequired" class="mandatory-star">&nbsp;*</span></span>
+    </div>
+    
+    <input type="text" class="form-control custom cntrl-any font-stndrd" name="{{ctrlId}}" id="{{ctrlId}}" [(ngModel)]="model" 
+        [ngClass]="{'invalid-textbox':isValidInput() || isValidMinimumInput()}"
+        placeholder="{{placeholder}}" (ngModelChange)="onValueChange($event)" [readonly]="isReadOnly" 
+        [disabled]="isDisabled" [required]="isRequired" (click)="onTextboxClick($event)" 
+        (blur)="onTextboxBlur($event)" (focus)="onTextboxFocus($event)" autocomplete="off"
+        (keydown)="onTextboxKeydown($event)" (keyup)="onTextboxKeyup($event)" [attr.aria-label]="ariaLabel"
+        (keypress)="onTextboxKeypress($event)" (mousedown)="onTextboxMousedown($event)"
+        (mouseup)="onTextboxMouseup($event)" (mouseenter)="onTextboxMouseenter($event)"
+        (mouseleave)="onTextboxMouseleave($event)" (mouseover)="onTextboxMouseover($event)"
+        (dblclick)="onTextboxDblClick($event)" [maxlength]="maxLength" [minlength]="minLength" *ngIf="isPassView" />
+    <input type="password" class="form-control custom cntrl-any font-stndrd" name="{{ctrlId}}" id="{{ctrlId}}" [(ngModel)]="model" 
+        [ngClass]="{'invalid-textbox':isValidInput() || isValidMinimumInput()}"
+        placeholder="{{placeholder}}" (ngModelChange)="onValueChange($event)" [readonly]="isReadOnly" 
+        [disabled]="isDisabled" [required]="isRequired" (click)="onTextboxClick($event)" 
+        (blur)="onTextboxBlur($event)" (focus)="onTextboxFocus($event)" autocomplete="off"
+        (keydown)="onTextboxKeydown($event)" (keyup)="onTextboxKeyup($event)" [attr.aria-label]="ariaLabel"
+        (keypress)="onTextboxKeypress($event)" (mousedown)="onTextboxMousedown($event)"
+        (mouseup)="onTextboxMouseup($event)" (mouseenter)="onTextboxMouseenter($event)"
+        (mouseleave)="onTextboxMouseleave($event)" (mouseover)="onTextboxMouseover($event)"
+        (dblclick)="onTextboxDblClick($event)" [maxlength]="maxLength" [minlength]="minLength" *ngIf="!isPassView" />
+
+    <div class="input-group-prepend pointer" (click)="onBackLabelClick()">
+        <span class="input-group-text font-stndrd pass-back">
+            <app-icon-only faIcon="fa-eye" *ngIf="isPassView"></app-icon-only>
+            <app-icon-only faIcon="fa-eye-slash" *ngIf="!isPassView"></app-icon-only>
+            &nbsp;{{backLabel}}</span>
+    </div>
+    
+    <div *ngIf="isValidInput()" class="invalid-text">
+        {{messageShow}}
+    </div>
+    <div *ngIf="isValidMinimumInput() && !isSummaryBox" class="invalid-text">
+        Minimum lenght is {{minLength}}.
+    </div>
+    <div class="valid-smry" *ngIf="isSummaryBox" [ngStyle]="{'padding-left': minLabelLen}">
+        <div class="font-stndrd" [ngClass]="getSummaryBoxCss(summaryBoxValidation.hasUpperCase)">
+            <app-icon-only [faIcon]="getSummaryBoxIcon(summaryBoxValidation.hasUpperCase)"></app-icon-only>&nbsp;&nbsp;
+            At least one upper case letter
+        </div>
+        <div class="font-stndrd" [ngClass]="getSummaryBoxCss(summaryBoxValidation.hasSmallCase)">
+            <app-icon-only [faIcon]="getSummaryBoxIcon(summaryBoxValidation.hasSmallCase)"></app-icon-only>&nbsp;&nbsp;
+            At least one small case letter
+        </div>
+        <div class="font-stndrd" [ngClass]="getSummaryBoxCss(summaryBoxValidation.hasNumber)">
+            <app-icon-only [faIcon]="getSummaryBoxIcon(summaryBoxValidation.hasNumber)"></app-icon-only>&nbsp;&nbsp;
+            At least one number
+        </div>
+        <div class="font-stndrd" [ngClass]="getSummaryBoxCss(summaryBoxValidation.hasNotSpcChar)">
+            <app-icon-only [faIcon]="getSummaryBoxIcon(summaryBoxValidation.hasNotSpcChar)"></app-icon-only>&nbsp;&nbsp;
+            {{"Should not use % ^ & * ( ) , . ' ` ? / \\ \" : { } | < > [ ] = + - ; ~"}}
+        </div>
+        <div class="font-stndrd" [ngClass]="getSummaryBoxCss(summaryBoxValidation.hasMinLen)">
+            <app-icon-only [faIcon]="getSummaryBoxIcon(summaryBoxValidation.hasMinLen)"></app-icon-only>&nbsp;&nbsp;
+            Minimum length is {{minLength}}
+        </div>
+    </div>
+</div>

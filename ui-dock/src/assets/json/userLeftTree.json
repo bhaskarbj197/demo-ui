@@ -1,0 +1,41 @@
+[
+	{
+		"name": "My Profile",
+		"code": "userProfile",
+		"id": 1,
+		"seq": 1,
+		"isExpanded": false,
+		"isSelected": true,
+		"isVisible": true,
+		"isDisabled": false,
+		"isInUserInfoList": true,
+		"userInfoListIcon": "fa fa-address-card-o",
+		"isKeyCloakAccess": true
+	},
+	{
+		"name": "Change Password",
+		"code": "changePass",
+		"id": 2,
+		"seq": 2,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isInUserInfoList": true,
+		"userInfoListIcon": "fa fa-key",
+		"isKeyCloakAccess": false
+	},
+	{
+		"name": "Role Action",
+		"code": "roleAction",
+		"id": 3,
+		"seq": 3,
+		"isExpanded": false,
+		"isSelected": false,
+		"isVisible": true,
+		"isDisabled": false,
+		"isInUserInfoList": false,
+		"userInfoListIcon": "",
+		"isKeyCloakAccess": true
+	}
+]

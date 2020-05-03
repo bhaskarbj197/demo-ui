@@ -1,0 +1,231 @@
+[
+	{
+		"value": "=",
+		"code": "equal",
+		"typ": "assignment",
+		"help": "(Equal)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false,
+		"functionsApplicable": ["Operator"]
+	},
+	{
+		"value": "==",
+		"code": "dblequal",
+		"typ": "comparison",
+		"help": "(Double Equal)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": true,
+		"functionsApplicable": ["Length", "Operator", "Sum", "Max", "Min", "Avg"]
+	},
+	{
+		"value": "<",
+		"code": "less",
+		"typ": "comparison",
+		"help": "(Less than)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": true,
+		"functionsApplicable": ["Length", "Operator", "Sum", "Max", "Min", "Avg" ]
+	},
+	{
+		"value": ">",
+		"code": "greater",
+		"typ": "comparison",
+		"help": "(Greater than)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": true,
+		"functionsApplicable": ["Length", "Operator", "Sum", "Max", "Min", "Avg"]
+	},
+	{
+		"value": ">=",
+		"code": "greaterEqual",
+		"typ": "comparison",
+		"help": "(Greater than Equal)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": true,
+		"functionsApplicable": ["Operator"]
+	},
+	{
+		"value": "<=",
+		"code": "lessEqual",
+		"typ": "comparison",
+		"help": "(Less than Equal)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": true,
+		"functionsApplicable": ["Operator"]
+	},
+	{
+		"value": "!=",
+		"code": "notEqual",
+		"typ": "comparison",
+		"help": "(Not Equal)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": true,
+		"functionsApplicable": ["Length", "Operator", "Sum", "Max", "Min", "Avg"]
+	},
+	{
+		"value": "+",
+		"code": "add",
+		"typ": "arithmetic",
+		"help": "(Addition)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": "-",
+		"code": "minus",
+		"typ": "arithmetic",
+		"help": "(Subtraction)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": "*",
+		"code": "multiply",
+		"typ": "arithmetic",
+		"help": "(Multiplication)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": "/",
+		"code": "divide",
+		"typ": "arithmetic",
+		"help": "(Divide)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": " OR ",
+		"code": "or",
+		"typ": "logical",
+		"help": "",
+		"isValueCoded": true,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": " AND ",
+		"code": "and",
+		"typ": "logical",
+		"help": "",
+		"isValueCoded": true,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": " IN ",
+		"code": "in",
+		"typ": "logical",
+		"help": "",
+		"isValueCoded": true,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": " NOT IN ",
+		"code": "notIn",
+		"typ": "logical",
+		"help": "",
+		"isValueCoded": true,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": "(",
+		"code": "startBracket",
+		"typ": "unknown",
+		"help": "(Start bracket)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": ")",
+		"code": "endBracket",
+		"typ": "unknown",
+		"help": "(End bracket)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": ",",
+		"code": "comma",
+		"typ": "unknown",
+		"help": "(Comma)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false
+	},
+	{
+		"value": "char",
+		"code": "char",
+		"typ": "value",
+		"help": "(Alpha)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false,
+		"functionsApplicable": ["Type"]
+	},
+	{
+		"value": "numeric",
+		"code": "numeric",
+		"typ": "value",
+		"help": "(Numeric)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": true,
+		"isApplyInStepCreation": true,
+		"isApplyInAutoApproverRule": false,
+		"functionsApplicable": ["Type"]
+	},
+	{
+		"value": "Starts with",
+		"code": "startsWith",
+		"typ": "comparison",
+		"help": "(Starts with)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": false,
+		"isApplyInAutoApproverRule": true
+	},
+	{
+		"value": "Ends with",
+		"code": "endsWith",
+		"typ": "comparison",
+		"help": "(Ends with)",
+		"isValueCoded": false,
+		"isApplyInValidationRule": false,
+		"isApplyInStepCreation": false,
+		"isApplyInAutoApproverRule": true
+	}
+]

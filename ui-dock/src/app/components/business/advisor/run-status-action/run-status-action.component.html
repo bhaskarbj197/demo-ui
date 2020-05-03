@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col">
+        <span class="bc-text" [ngClass]="setStatusCss('SUBMIT_FOR_REVIEW')" *ngIf="!isRunErrorShow()"  (click)="onStatusClick('SUBMIT_FOR_REVIEW')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('SUBMIT_FOR_REVIEW')"></app-icon-only>
+            {{'SUBMIT_FOR_REVIEW' | enumValueConverter: 'journalStatusByWorkday'}}
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('RUN_ERROR')" *ngIf="isRunErrorShow()">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('RUN_ERROR')"></app-icon-only>
+            {{'RUN_ERROR' | enumValueConverter: 'journalStatusByWorkday'}}
+        </span>
+
+        <span class="bc-arrow" [ngClass]="setStatusCss('PENDING')" (click)="onStatusClick('PENDING')">
+            >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('PENDING')" (click)="onStatusClick('PENDING')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('PENDING')"></app-icon-only>
+            {{'PENDING' | enumValueConverter: 'journalStatusByWorkday'}}
+        </span>
+
+        <span class="bc-arrow" [ngClass]="setStatusCss('APPROVED')" *ngIf="!isRejectedShow()" (click)="onStatusClick('APPROVED')">
+            >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('APPROVED')" *ngIf="!isRejectedShow()" (click)="onStatusClick('APPROVED')">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('APPROVED')"></app-icon-only>
+            {{'APPROVED' | enumValueConverter: 'journalStatusByWorkday'}}
+        </span>
+
+        <span class="bc-arrow" [ngClass]="setStatusCss('REJECTED')" *ngIf="isRejectedShow()">
+            >>
+        </span>
+        <span class="bc-text" [ngClass]="setStatusCss('REJECTED')" *ngIf="isRejectedShow()">
+            <app-icon-only faIcon="fa-check-circle" [dynamicClass]="setStatusIcon('REJECTED')"></app-icon-only>
+            {{'REJECTED' | enumValueConverter: 'journalStatusByWorkday'}}
+        </span>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="input-group mb-1">
+    <div class="input-group-prepend" *ngIf="label.length>0">
+        <span class="input-group-text font-stndrd" [ngStyle]="{'min-width': minLabelLen}">{{label}}</span>
+    </div>
+    <input class="form-control read-only cntrl-any font-stndrd" placeholder="yyyy-mm-dd" autocomplete="off" readonly="true"
+        [ngClass]="{'invalid-textbox': isInvalid}" [attr.aria-label]="ariaLabel"
+        name="dp" [(ngModel)]="model" ngbDatepicker container="body" #d="ngbDatepicker" placement="auto" (closed)="onDatePickerClosed()">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar cntrl-any" (click)="d.toggle()" type="button" 
+            [disabled]="isDisabled" [attr.aria-label]="ariaLabel">
+            <app-icon-only faIcon="fa-calendar"></app-icon-only>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<app-loader [isLoading]="isLoading"></app-loader>
+<div class="p-3 row">
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" [activeTab]="activeTab" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" successBtnLabel="Submit" successBtnType="TUMBLR" successBtnIcon="fa-thumbs-o-up"
+            failBtnLabel="Cancel" failBtnType="YOUTUBE" successBtnAreaLabel="Submit" failBtnAreaLabel="Cancel" failBtnIcon="fa-thumbs-o-down"
+            (successBtnClicked)="onSubmitTemplateClick()" [isSuccessBtnHide]="activeTab === tabList[0] || !isFormSubmitEnabled"
+            (failBtnClicked)="discardChanges()" [isFailBtnHide]="activeTab === tabList[0] || !isEditMode"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <app-textbox ctrlId="txtTemplateName" label="Template Name" placeholder="Template name" minLabelLen="135px"
+                            [(model)]="newTemplate.name" [isRequired]="true" [isSubmit]="isFormSubmitted" [isDisabled]="isEditMode"
+                            ariaLabel="Template Name"></app-textbox>
+                    </div>
+                    <div class="col">
+                        <app-checkbox ctrlId="chkGroupActive" label="{{newTemplate.isActive? 'Active' : 'Inactive'}}" (valueChange)="onSetActiveClick()"
+                            [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isChecked]="newTemplate.isActive"></app-checkbox>
+                    </div>                   
+                </div>
+                <div class="row pt-4">
+                    <div class="col-4">
+                        <app-file-uploader ctrlId="txtTemplateFile" (uploadFile)="onUploadTemplate($event)" uploadBtnLeftMargin="5px"
+                            [isDisabled]="updateCrDR || isEditMode" uploadBtnLabel="Create Template" uploadBtnType="FACEBOOK"></app-file-uploader>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row pt-4" *ngIf="updateCrDR">
+                    <div class="col-4">
+                        <app-combobox ctrlId="cmbTemplateCr" label="CR Mandatory Column" placeholder="Select & Add req field"
+                            backLabel="Add" [(model)]="crColName" (backLabelClick)="addMandateColumn('cr')"
+                            [list]="columnList" [isValid]="isCrValid" errorMessageType="Select" [isSubmit]="crAddSubmit"
+                            ariaLabel="CR Mandatory Column"></app-combobox>
+                    </div>
+                    <div class="col-4">
+                        <app-combobox ctrlId="cmbTemplateDr" label="DR Mandatory Column" placeholder="Select & Add req field"
+                            backLabel="Add" [(model)]="drColName" (backLabelClick)="addMandateColumn('dr')"
+                            [isValid]="isDrValid" errorMessageType="Select" [isSubmit]="drAddSubmit"
+                            [list]="columnList" ariaLabel="DR Mandatory Column"></app-combobox>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row" *ngIf="newTemplate.crReq.length > 0 || newTemplate.drReq.length > 0">
+                    <div class="col-4">
+                        <div *ngFor="let col of newTemplate.crReq">
+                            <span class="spn-filter-sts spn-filter-group float-left pointer" (click)="onRemoveFromList(col, 'cr')">
+                                {{col}}&nbsp;&nbsp;<app-icon-button faIcon="fa-times" tooltipText="Remove CR Column" ariaLabel="Remove CR Column"></app-icon-button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div *ngFor="let col of newTemplate.drReq">
+                            <span class="spn-filter-sts spn-filter-group float-left pointer" (click)="onRemoveFromList(col, 'dr')">
+                                {{col}}&nbsp;&nbsp;<app-icon-button faIcon="fa-times" tooltipText="Remove DR Column" ariaLabel="Remove DR Column"></app-icon-button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="table table-bordered bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-22 no-border" scope="col">Template Name</div>
+                            <div class="cu-th w-35 no-border" scope="col">CR Mandatory Fields</div>
+                            <div class="cu-th w-35 no-border" scope="col">DR Mandatory Fields</div>
+                            <div class="cu-th w-8 no-border text-center" scope="col">Action</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tbl-area">
+                    <app-table-no-records [list]="templateMasterList"></app-table-no-records>
+                    <div class="table table-bordered bg-white cu-tbl">
+                        <div class="cu-tbody form-group row">
+                            <div class="cu-tr" [ngClass]="{'odd-row': odd}" *ngFor="let template of templateMasterList; let tIndex = index; let odd=odd;">
+                                <div class="cu-td w-22" scope="row">{{template.name}}</div>
+                                <div class="cu-td w-35">{{template.crToDisplay}}</div>
+                                <div class="cu-td w-35">{{template.drToDisplay}}</div>
+                                <div class="cu-td w-8 center-icon" *ngIf="templateDeleteIndex !== tIndex">
+                                    <app-icon-button [faIcon]="getLockIcon(template)" tooltipText="Active/Inactive" 
+                                        ariaLabel="Active or Inactive" (btnClick)="onActiveTemplateClick(template)"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-edit" (btnClick)="onEditTemplateClick(template)" tooltipText="Edit Template"
+                                        ariaLabel="Edit Template"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteTemplateClick(template, null)" 
+                                        tooltipText="Delete Template" ariaLabel="Delete Template"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-8 center-icon del-row" *ngIf="templateDeleteIndex === tIndex">
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteTemplateClick(template, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteTemplateClick(template, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

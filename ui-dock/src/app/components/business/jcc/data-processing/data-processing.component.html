@@ -1,0 +1,236 @@
+<div class="px-2 py-1 jcc-section-header">
+    <app-main-area-header [headerName]="'Data Processing'" [isBackShow]="true" [isSaveHide]="true"
+        (headerActionRunClick)="onHeaderActionRunClick()" (headerActionBackClick)="onHeaderActionBackClick()"></app-main-area-header>
+</div>
+<div class="p-2 justify-content-center content-area">
+    <app-quick-help [headerName]="activeFunction.name" [helpList]="quickHelpList" [listItemValue]="activeFunction.code"
+        [isHelpIconHidden]="isEditablCtrlDisabled" *ngIf="activeFunction && activeFunction.code.length>0"></app-quick-help>
+    <app-loader [isLoading]="isDataProcessLoading"></app-loader>
+    <div class="container-fluid">
+        <div class="row" *ngIf="processStepDetails">
+            <div class="col-sm">
+                <app-textbox ctrlId="txtStepComment" label="Name" placeholder="Step Name" [(model)]="processStepDetails.comment"
+                    [isReadOnly]="isEditablCtrlDisabled" ariaLabel="Step Name"></app-textbox>
+            </div>
+            <div class="col-xs">
+                <app-combobox ctrlId="cmbStepFunction" label="Function" placeholder="Select function" [model]="processStepDetails.operation.func"
+                    [list]="functionList | orderBy: 'asc' : 'name'" key="code" value="name" ariaLabel="Select function" 
+                    (valueChange)="onFunctionChanged($event)" [isDisabled]="isEditablCtrlDisabled"></app-combobox>
+            </div>
+            <div class="col-sm-3">
+                <app-combobox ctrlId="cmbStepInputTab" label="Input Table" placeholder="Select Input Table" [(model)]="inputTableName"
+                    [isDisabled]="isEditablCtrlDisabled || isHeaderInputTableSelectionDisabled" ariaLabel="Select input table"
+                    [list]="inputFiles" key="name" value="name" (valueChange)="onInputTableChanged($event)"></app-combobox>
+            </div>
+            <div class="col-lrg">
+                <app-textbox ctrlId="txtStepOututTab" label="Output Table" placeholder="Output Table" backLabel="New" 
+                    [(model)]="processStepDetails.resultTab.tabName" [isReadOnly]="isEditablCtrlDisabled" ariaLabel="Output table"
+                    backLabelIcon="fa fa-check" (backLabelClick)="onOutputTableBackLabelClick()" [hidden]="!isNewOutputTable"></app-textbox>
+                <app-combobox ctrlId="cmbStepOutputTab" label="Output Table" placeholder="Select Output Table"
+                    [list]="inputFiles" key="name" value="name" backLabel="New" backLabelIcon="fa fa-times" 
+                    [(model)]="processStepDetails.resultTab.tabName" [isDisabled]="isEditablCtrlDisabled" ariaLabel="Select output table"
+                    (backLabelClick)="onOutputTableBackLabelClick()" [hidden]="isNewOutputTable"></app-combobox>
+            </div>
+        </div>
+        <div class="container accordion" *ngIf="activeFunction">
+            <div class="card main-card cu-card" *ngFor="let tab of activeFunction.tabs; let i = index;">
+                <div class="card-header px-2 py-1" (click)="onTabHeaderClick(i, tab)">
+                    <strong>{{tab.name}}</strong>
+                </div>
+                <div class="tab-body" [@changeDataProcessingTabsView]="tab.displayStatus">
+                    <div *ngIf="activeFunction.isExcelFunction">
+                        <div class="m-3 justify-content-center">
+                            <app-textbox ctrlId="txtExcelNewColumn" label="New Column" placeholder="New column name" 
+                                [(model)]="excelNewCol" minLabelLen="10vw" fixedLen="40vw"
+                                (textboxBlur)="onExcelBoxBlur()" ariaLabel="New column"></app-textbox>
+                        </div>
+                        <app-excel-textbox [columnFunctionList]="excelFuncColList" [(model)]="excelModel"
+                            [inputTable]="inputTableName" (excelBoxBlur)="onExcelBoxBlur()" ariaLabel="Excel function query"></app-excel-textbox>
+                    </div>
+                    <div *ngIf="!activeFunction.isExcelFunction">
+                        <div class="table table-bordered bg-white table-sm cu-tbl">
+                            <div class="cu-thead">
+                                <div class="cu-tr">
+                                    <div class="cu-th col-2" scope="col">
+                                        New column name&nbsp;&nbsp;
+                                        <app-icon-button faIcon="fa-plus-circle cu-fa-lg" (btnClick)="onAddNewColumnForStepDataClick(tab.stepDataList)" 
+                                            [hidden]="isEditablCtrlDisabled" *ngIf="!isAnyStepDataEditing(tab.stepDataList)" 
+                                            tooltipText="Add new query" ariaLabel="Add new query"></app-icon-button>
+                                    </div>
+                                    <div class="cu-th col-6" scope="col">{{tab.typ}}</div>
+                                    <div class="cu-th col-1 text-center" scope="col">Actions</div>
+                                </div>
+                            </div>
+                            <div class="cu-tbody" *ngFor="let sData of tab.stepDataList">
+                                <div class="cu-tr">
+                                    <div class="cu-td">
+                                        <span *ngIf="!sData.isEditing">{{sData.column}}</span>
+                                        <app-textbox ctrlId="txtStepDatacol" label="" placeholder="Column Name" [(model)]="sData.column" 
+                                            *ngIf="sData.isEditing" [isDisabled]="tab.isNewColumnDisabled" ariaLabel="Column name"></app-textbox>
+                                    </div>
+                                    <div class="cu-td query-bldr-td">
+                                        <span *ngIf="!sData.isEditing">{{getStepDataParamStringFromArray(sData.params) | stepValueConverter}}</span>
+                                        <div *ngIf="sData.isEditing" class="param-cont">
+                                            <div class="param-block" *ngFor="let param of sData.params" (click)="onRuleParamClick(param)"
+                                                [ngClass]="{'pointer param-block-b': param.isUserEntry, 'param-bld': !param.isUserEntry, 
+                                                    'border border-primary': param.isActive, 'param-block-i': param.typ==='any'}"
+                                                [ngStyle]="{'background-color': getPraramColor(param)}">
+                                                {{param.value}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cu-td text-center">
+                                        <app-icon-button faIcon="fa-edit cu-fa-lg" (btnClick)="onEditStepDataClick(sData)" 
+                                            [hidden]="isEditablCtrlDisabled" ariaLabel="Edit query"
+                                            *ngIf="!sData.isEditing && !isAnyStepDataEditing(tab.stepDataList)" tooltipText="Edit query"></app-icon-button>
+                                        <app-icon-button faIcon="fa-reply cu-fa-lg" (btnClick)="onClearStepDataClick()"
+                                            ariaLabel="Clear query"
+                                            *ngIf="sData.isEditing" tooltipText="Clear query"></app-icon-button>&nbsp;&nbsp;
+                                        <app-icon-button faIcon="fa-check cu-fa-lg" (btnClick)="onSaveStepDataClick(sData)" 
+                                            [isDisabled]="isQueryCompleted(sData, tab)" ariaLabel="Save query"
+                                            *ngIf="sData.isEditing" tooltipText="Save query"></app-icon-button>&nbsp;&nbsp;
+                                        <app-icon-button faIcon="fa-times cu-fa-lg" (btnClick)="onCancelStepDataClick(sData, tab.stepDataList)"
+                                            *ngIf="sData.isEditing" tooltipText="Delete query" ariaLabel="Delete query"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-deck m-1 justify-content-center query-builder-textbox-card" 
+                            *ngIf="isAnyStepDataEditing(tab.stepDataList) && isEntryManual==='active' && !activeFunction.isManualEntryBox">
+                            <app-textbox ctrlId="txtQueryValue" label="" placeholder="Query" backLabel="Add" [(model)]="queryBuildingValue" 
+                                backLabelIcon="fa fa-circle-o-notch" (backLabelClick)="onParamValueBackLabelClick()" 
+                                fixedLen="100vh" ariaLabel="Query"></app-textbox>
+                            <div class="query-entry-div pointer" (click)="onManualOrBuilderEntryClick()" *ngIf="tab.displayStatus === 'show'">Build Query</div>
+                        </div>
+                        <div class="row m-1" *ngIf="isAnyStepDataEditing(tab.stepDataList) && activeFunction.isManualEntryBox">
+                            <div class="col">
+                                <div class="row crd-act">
+                                    <div class="col"></div>
+                                    <div class="col-2">
+                                        <app-button value="Add" faIcon="fa-plus" type="YAHOO" isFloatRight="true"
+                                            (btnClick)="onAddSearchPdfTextClick()" ariaLabel="Add search pdf text"></app-button>
+                                    </div>
+                                    <div class="col-3">
+                                        <app-button value="Add Query" faIcon="fa-check" type="FACEBOOK" isFloatRight="true" 
+                                            [isDisabled]="searchPdfTextList.length===0" ariaLabel="Create query"
+                                            (btnClick)="onCreateQueryClick(tab.stepDataList)"></app-button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col card-deck cdeck">
+                                        <div class="card box-card crd-fx p-1 mt-1" *ngFor="let pdf of searchPdfTextList; let i = index;">
+                                            <div class="row">
+                                                <div class="col box-crd-left">
+                                                    <app-textbox ctrlId="txtSearchPdfText_{{i}}" label="" placeholder="Key name" 
+                                                        [(model)]="pdf.searchText" ariaLabel="Serch pdf key name"></app-textbox>
+                                                </div>
+                                                <div class="col-4 box-crd-rgt">
+                                                    <app-number-textbox ctrlId="txtCellNumber_{{i}}" label="" backLabelIcon="fa fa-times" 
+                                                        [(model)]="pdf.cellNumber" (backLabelClick)="onPdfBackLabelClick(i)" ariaLabel="Search pdf back level"></app-number-textbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-deck m-1" *ngIf="isAnyStepDataEditing(tab.stepDataList) && isEntryManual==='inactive' && !activeFunction.isManualEntryBox" >
+                            <div class="card functional-card" *ngIf="tab.isFunctionBox">
+                                <div class="card-header p-1">
+                                    <div class="row">
+                                        <div class="col-5 crd-hd-txt">
+                                            {{'FUNCTION' | defaultConstantValueConverter: 'queryBuilderBoxTypes'}}
+                                        </div>
+                                        <div class="col">
+                                            <app-textbox ctrlId="txtRuleSearch" label="" placeholder="Search" *ngIf="ruleList.length>0" 
+                                                [(model)]="ruleFilterText" fixedHeight="20px" ariaLabel="Filter rule"></app-textbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body list-group list-group-flush p-0 jcc-card-body">
+                                    <app-listbox ctrlId="lstFunctions" key="code" val="name"
+                                        [list]="ruleList | orderBy: 'asc' : 'name' | filterListWithColumn: 'name' : ruleFilterText : false"
+                                        (valueChange)="onRuleValueChanged($event)" helpText="helpText"></app-listbox>
+                                </div>
+                            </div>
+                            <div class="card functional-card" *ngIf="tab.isTableBox">
+                                <div class="card-header p-1">
+                                    <div class="row">
+                                        <div class="col-5 crd-hd-txt">
+                                            {{'TABLE' | defaultConstantValueConverter: 'queryBuilderBoxTypes'}}
+                                        </div>
+                                        <div class="col">
+                                            <app-textbox ctrlId="txtTableSearch" label="" placeholder="Search" *ngIf="inputFiles.length>0" 
+                                                [(model)]="tableFilterText" fixedHeight="20px" ariaLabel="Filter table"></app-textbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body list-group list-group-flush p-0 jcc-card-body">
+                                    <app-listbox ctrlId="lstTables" key="name" val="name"
+                                        [list]="inputFiles | orderBy: 'asc' : 'name' | filterListWithColumn: 'name' : tableFilterText : false"
+                                        (valueChange)="onTableListValueChanged($event)"></app-listbox>
+                                </div>
+                            </div>
+                            <div class="card functional-card" *ngIf="tab.isColumnBox">
+                                <div class="card-header p-1">
+                                    <div class="row">
+                                        <div class="col-5 crd-hd-txt">
+                                            {{'COLUMN' | defaultConstantValueConverter: 'queryBuilderBoxTypes'}}
+                                        </div>
+                                        <div class="col">
+                                            <app-textbox ctrlId="txtColumnSearch" label="" placeholder="Search" *ngIf="columnsInfo.length>0" 
+                                                [(model)]="columnFilterText" fixedHeight="20px" ariaLabel="Filter column"></app-textbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body list-group list-group-flush p-0 jcc-card-body">
+                                    <app-listbox ctrlId="lstColumns" key="columnCode" val="columnName"
+                                        [list]="columnsInfo | filterListWithColumn: 'columnName' : columnFilterText : false"
+                                        (valueChange)="onColumnListValueChanged($event)"></app-listbox>
+                                </div>
+                            </div>
+                            <div class="card functional-card" *ngIf="tab.isOperatorBox">
+                                <div class="card-header p-1">
+                                    <div class="row">
+                                        <div class="col-5 crd-hd-txt">
+                                            {{'OPERATOR' | defaultConstantValueConverter: 'queryBuilderBoxTypes'}}
+                                        </div>
+                                        <div class="col">
+                                            <app-textbox ctrlId="txtOperatorSearch" label="" placeholder="Search" *ngIf="operatorList.length>0" 
+                                                [(model)]="operatorFilterText" fixedHeight="20px" ariaLabel="Filter opertor"></app-textbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body list-group list-group-flush p-0 jcc-card-body">
+                                    <app-listbox ctrlId="lstOperators" key="code" val="value" helpText="help"
+                                        [list]="operatorList | filterListWithColumn: 'value' : operatorFilterText : false"
+                                        (valueChange)="onOperatorListValueChanged($event)"></app-listbox>
+                                </div>
+                            </div>
+                            <div class="card functional-card" *ngIf="tab.isValueBox">
+                                <div class="card-header p-1">
+                                    <div class="row">
+                                        <div class="col crd-hd-txt">
+                                            {{'VALUE' | defaultConstantValueConverter: 'queryBuilderBoxTypes'}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body list-group list-group-flush p-0 jcc-card-body no-overflow">
+                                    <div class="col-sm value-box-input">
+                                        <app-textbox ctrlId="txtParamValue" label="" placeholder="Value" backLabel="Add" [(model)]="queryBuildingValue"
+                                            backLabelIcon="fa fa-circle-o-notch" (backLabelClick)="onParamValueBackLabelClick()" ariaLabel="Query Param value"></app-textbox>
+                                    </div>
+                                    <div class="col-sm value-box-input">
+                                        <app-date-picker label="" (datePickerClosed)="onQueryBuildingDateValueChanged($event)" ariaLabel="Query param date"></app-date-picker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="query-entry-div pointer" (click)="onManualOrBuilderEntryClick()" *ngIf="tab.displayStatus === 'show'">Manual Query</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

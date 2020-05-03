@@ -1,0 +1,8 @@
+@import '../../style/table';
+@import '../../style/common';
+
+.table-area{
+    height: 65vh;
+    max-height: 65vh;
+    @extend .table-data-area;
+}

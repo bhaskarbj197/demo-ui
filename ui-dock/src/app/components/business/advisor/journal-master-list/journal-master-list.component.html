@@ -1,0 +1,77 @@
+<div class="row p-1">
+    <div class="col">
+        <app-combobox ctrlId="cmbJournalCat" label="Category" [(model)]="journalTypeCategory" fixedLen="198px"
+            [list]="journalTypeCatList" key="key" value="value" isFloatRight="true" ariaLabel="Select journal category"
+            (valueChange)="onJournalTypeCatChanged($event)"></app-combobox>
+    </div>
+</div>
+<div class="row" *ngIf="journalTypeCategory === ''">
+    <div class="col">
+        <app-table-header [columns]="homeTableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+        <div class="table-area">
+            <app-loader [isLoading]="isDataLoading"></app-loader>
+            <app-table-no-records [list]="journalList"></app-table-no-records>
+            <div class="table bg-white cu-tbl">
+                <div class="cu-tbody">
+                    <div class="cu-tr" *ngFor="let journal of journalList | orderBy: 'asc' : 'id'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                        <div class="cu-th w-7 text-center" scope="row">{{journal.id}}</div>
+                        <div class="cu-th w-7 text-center" scope="row">{{journal.runDate | dateConverter: false : true}}</div>
+                        <div class="cu-td w-25">{{journal.name}}</div>
+                        <div class="cu-td w-12 text-center" [ngClass]="{'error-box': journal.runStatus.toLowerCase()==='fail'}">
+                            {{journal.runStatus}}
+                        </div>
+                        <div class="cu-td w-8 text-center">{{journal.runType}}</div>
+                        <div class="cu-td w-8 text-center">
+                            <div [ngClass]="{'inner-div-bck-clr': journal.validationStatus.toLowerCase()==='fail'}">
+                                <span class="span-link pointer" (click)="onJournalItemClick(journal, 'validationResults')">{{journal.validationStatus}}</span>
+                            </div>
+                        </div>
+                        <div class="cu-td w-10 text-center">
+                            <span class="span-link pointer" (click)="onJournalItemClick(journal, 'inputLogs')">{{journal.dataAnomalies}}</span>
+                        </div>
+                        <div class="cu-td w-10 text-center">
+                            <span class="span-link pointer" (click)="onJournalItemClick(journal, 'inputSources')">{{journal.docEvidence}}</span>
+                        </div>
+                        <div class="cu-td w-10 text-center">
+                            <span class="span-link pointer" (click)="onJournalItemClick(journal, 'profitLoss')">{{journal.financialImpact}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-table-footer [itemPerPage]="homePageConfig.pageCount" [totalRecords]="totalJournalCount" 
+            [currentPageIndex]="homePageConfig.pageIndex"
+            (nextClicked)="onPageChangeClicked($event)" (prevClicked)="onPageChangeClicked($event)"></app-table-footer>
+    </div>
+</div>
+<div class="row" *ngIf="journalTypeCategory === 'adhoc'">
+    <div class="col">
+        <app-loader [isLoading]="isAdhocLoading"></app-loader>
+        <app-table-header [columns]="adhocTableHeaders" (sortingClicked)="onSortingClick($event, true)"></app-table-header>
+        <div class="table-area">
+            <app-table-no-records [list]="journalAdhocList"></app-table-no-records>
+            <div class="table bg-white cu-tbl">
+                <div  class="cu-tbody">
+                    <div class="cu-tr" *ngFor="let journal of journalAdhocList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                        <div class="cu-td w-10 text-center font-bold" scope="row">{{journal.id}}</div>
+                        <div class="cu-td w-10 text-center font-bold">{{journal.runDate | dateConverter: false: true}}</div>
+                        <div class="cu-td w-25">{{journal.name}}</div>
+                        <div class="cu-td w-15 text-center">{{journal.status}}</div>
+                        <div class="cu-td w-10 text-center">{{journal.frequency}}</div>
+                        <div class="cu-td w-15 text-center">
+                            <div [ngClass]="{'inner-div-bck-clr': journal.validationStatus.toLowerCase() === 'fail'}">
+                                <span class="span-link pointer" (click)="onJournalItemClick(journal, 'validationResults', true)">{{journal.validationStatus}}</span>
+                            </div>
+                        </div>
+                        <div class="cu-td w-15 text-center">
+                            <span class="span-link pointer" (click)="onJournalItemClick(journal, 'profitLoss', true)">{{journal.financialImpact}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-table-footer [itemPerPage]="adhocPageConfig.pageCount" [totalRecords]="totalAdhocCount" 
+            [currentPageIndex]="adhocPageConfig.pageIndex"
+            (nextClicked)="onPageChangeClicked($event, true)" (prevClicked)="onPageChangeClicked($event, true)"></app-table-footer>
+    </div>
+</div>

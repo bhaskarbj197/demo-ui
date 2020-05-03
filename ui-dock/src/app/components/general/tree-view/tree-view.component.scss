@@ -1,0 +1,96 @@
+@import '../../../style/common';
+
+.tv-container{
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    font-family: $font-family;
+    margin-top: 2px;
+    overflow-x: hidden;
+}
+
+.tv-node{
+    width: auto;
+    line-height: 25px;
+    margin-left: 15px;
+}
+
+.tv-node-text{
+    font-size: 14px;
+    padding-left: 5px;
+    font-weight: normal;
+    color: #212121;
+}
+.tv-node-text:hover{
+    color: #B71C1C;
+}
+
+.active-menu{
+    font-weight: bold;
+}
+
+.tv-chld-div{
+    padding-left: 20px;
+    margin: 3px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 85%;
+}
+
+.white-icon {
+    color: transparent !important;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.action-btn-text{
+    float: right;
+    padding-right: 15px;
+    padding-top: 9px;
+}
+.action-btn-text:hover{
+    color: gray;
+}
+
+.arrow-icon{
+    min-width: 8px;
+}
+
+.set-area{
+    max-height: 86vh;
+}
+
+.disabled-span, .disabled-spa:hover{
+    color: #FFFFFF !important;
+    cursor: default;
+}
+
+.cmb-holder{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-holder{
+    border-bottom: solid 1px gray;
+}
+
+.cmb-status-text{
+    font-size: 0.8rem;
+    line-height: 30px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.cmb-status-text-suc{
+    color: $success-color;
+}
+
+.cmb-status-text-fail{
+    color: $failure-color;
+}
+
+.jeva-log-icon{
+    line-height: 35px;
+}

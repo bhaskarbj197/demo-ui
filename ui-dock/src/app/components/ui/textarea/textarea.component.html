@@ -1,0 +1,44 @@
+<div class="input-group mb-1" [ngClass]="size" [hidden]="isHide">
+    <div class="input-group-prepend" *ngIf="label.length>0">
+        <span class="input-group-text font-stndrd" [ngStyle]="{'min-width': minLabelLen}">{{label}}<span *ngIf="isRequired">&nbsp;*</span></span>
+    </div>
+    
+    <textarea class="form-control custom cntrl-any font-stndrd" name="{{ctrlId}}" id="{{ctrlId}}" [(ngModel)]="model" 
+        [ngClass]="{'invalid-textbox':isValidInput() || isValidMinimumInput(), 'resize': !isResizable}" rows="3"
+        placeholder="{{placeholder}}" (ngModelChange)="onValueChange($event)" [readonly]="isReadOnly"
+        [pattern]="pattern" [attr.aria-label]="ariaLabel"
+        [disabled]="isDisabled" [required]="isRequired" (click)="onTextboxClick($event)" 
+        (blur)="onTextboxBlur($event)" (focus)="onTextboxFocus($event)" autocomplete="off"
+        (keydown)="onTextboxKeydown($event)" (keyup)="onTextboxKeyup($event)" 
+        (keypress)="onTextboxKeypress($event)" (mousedown)="onTextboxMousedown($event)"
+        (mouseup)="onTextboxMouseup($event)" (mouseenter)="onTextboxMouseenter($event)"
+        (mouseleave)="onTextboxMouseleave($event)" (mouseover)="onTextboxMouseover($event)"
+        (dblclick)="onTextboxDblClick($event)" [maxlength]="maxLength" [minlength]="minLength" ></textarea>
+
+    <div class="input-group-prepend" *ngIf="backLabel.length>0">
+        <span class="input-group-text font-stndrd">{{backLabel}}</span>
+    </div>
+    <div class="input-group-append" *ngIf="endSuccessBtnText.length>0">
+        <app-button value="{{endSuccessBtnText}}" type="SMPL_LIGHT" isSmall="true" 
+            (btnClick)="onEndSuccessBtnClick()" [ariaLabel]="endSuccessBtnText"></app-button>
+    </div>
+    <div class="input-group-append" *ngIf="endFailBtnText.length>0">
+        <app-button value="{{endFailBtnText}}" type="SMPL_DANGER" isSmall="true" 
+            (btnClick)="onEndFailBtnClick()" [ariaLabel]="endFailBtnText"></app-button>
+    </div>
+    <div class="input-group-append" *ngIf="endSuccessBtnIcon.length>0">
+        <app-icon-button [faIcon]="endSuccessBtnIcon" [tooltipText]="endSuccessBtnIconToolTip" 
+            (btnClick)="onEndSuccessBtnClick()" [ariaLabel]="endSuccessBtnIconAreaLabel"></app-icon-button>
+    </div>
+    <div class="input-group-append" *ngIf="endFailBtnIcon.length>0">
+        <app-icon-button [faIcon]="endFailBtnIcon" [tooltipText]="endFailBtnIconToolTip" 
+            (btnClick)="onEndFailBtnClick()" [ariaLabel]="endFailBtnIconAreaLabel"></app-icon-button>
+    </div>
+
+    <div *ngIf="isValidInput()" class="invalid-text">
+        {{messageShow}}
+    </div>
+    <div *ngIf="isValidMinimumInput()" class="invalid-text">
+        Minimum lenght is {{minLength}}.
+    </div>
+</div>

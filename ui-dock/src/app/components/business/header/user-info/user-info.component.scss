@@ -1,0 +1,66 @@
+@import '../../../../style/common';
+
+.info-div{
+    width: 200px;
+    min-height: 265px;
+    height: auto;
+    right: 100px;
+    position: absolute;
+    z-index: 1001;
+    margin-top: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 6px 0px grey;
+}
+
+.up-arrow {
+    border-color: white transparent;
+    border-style: solid;
+    border-width: 0px 7px 7px 7px;
+    height: 0px;
+    width: 0px;
+    margin-top: -3px;
+    margin-left: 14px;
+    position: absolute;
+    z-index: 1002;
+}
+
+.seperator{
+    border-bottom: solid 1px lightgray;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.name-show{
+    font-size: 1.1rem;
+    font-family: $font-family;
+    word-break: break-all;
+}
+
+.role-show{
+    font-size: 0.9rem;
+    color: $gray-text;
+    font-family: $font-family;
+}
+
+.u-optn{
+    font-size: 0.8rem;
+    line-height: 37px;
+    font-family: $font-family;
+    padding-left: 20px;
+}
+.u-optn:hover{
+    color: blue;
+}
+
+.optn-r{
+    color: rgb(185, 10, 10);
+}
+.optn-r:hover{
+    color: rgba(85, 3, 3, 0.5);
+}
+
+.seperator-o{
+    @extend .seperator;
+    border-bottom: solid 1px rgba(209, 204, 204, 0.5);
+}

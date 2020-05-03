@@ -1,0 +1,17 @@
+<main role="main" class="h-100 container-fluid p-0">
+    <div class="h-100 row no-gutters">
+        <div class="col-2 bg-menu border-right border-secondary full-h">
+            <app-tree-view [nodes]="treeNodes" (nodeClick)="onLeftMenuNodeClick($event)" mainRoleNode="jevan"></app-tree-view>
+        </div>
+        <div class="col">
+            <div class="row div-container">
+                <div class="col">
+                    <app-upload-data [heading]="mainWindowHeading" *ngIf="mainWindow === 'uploadData'"></app-upload-data>
+                    <app-adhoc [heading]="mainWindowHeading" *ngIf="mainWindow === 'newAdhocJournal'"></app-adhoc>
+                    <app-adhoc-list [heading]="mainWindowHeading" *ngIf="mainWindow === 'adhocJournalList'"></app-adhoc-list>
+                    <app-bulk-file-upload [heading]="mainWindowHeading" *ngIf="mainWindow === 'bulkInputFileUpload'"></app-bulk-file-upload>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

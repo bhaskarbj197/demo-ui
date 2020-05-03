@@ -1,0 +1,31 @@
+<main role="main" class="h-100 container-fluid p-0">
+    <div class="h-100 row no-gutters">
+        <div class="col-2 bg-menu border-right border-secondary full-h">
+            <app-loader [isLoading]="isTreeLoading"></app-loader>
+            <app-tree-view [nodes]="treeNodes" (nodeClick)="onLeftMenuNodeClick($event)" mainRoleNode="admin"></app-tree-view>
+        </div>
+        <div class="col">
+            <div class="row div-container">
+                <div class="col">
+                    <app-template-master *ngIf="mainWindow === 'templateMaster'" [heading]="mainWindowHeading"></app-template-master>
+                    <app-group-master *ngIf="mainWindow === 'groupMaster'" [heading]="mainWindowHeading"></app-group-master>
+                    <app-validation-rules-master *ngIf="mainWindow === 'validationRulesMaster'" [heading]="mainWindowHeading"></app-validation-rules-master>
+                    <app-user-master *ngIf="mainWindow === 'userMaster'" [heading]="mainWindowHeading"></app-user-master>
+                    <app-financial-month-master *ngIf="mainWindow === 'financialMonthMaster'" [heading]="mainWindowHeading"></app-financial-month-master>
+                    <app-calendar-master *ngIf="mainWindow === 'calendarMaster'" [heading]="mainWindowHeading"></app-calendar-master>
+                    <app-activity-log *ngIf="mainWindow === 'activityLog'" [heading]="mainWindowHeading"></app-activity-log>
+                    <app-company-master *ngIf="mainWindow === 'companyMaster'" [heading]="mainWindowHeading"></app-company-master>
+                    <app-frequency-master *ngIf="mainWindow === 'frequencyMaster'" [heading]="mainWindowHeading"></app-frequency-master>
+                    <app-role-master *ngIf="mainWindow === 'roleMaster'" [heading]="mainWindowHeading"></app-role-master>
+                    <app-bulk-journal-upload *ngIf="mainWindow === 'bulkJournalUpload'" [heading]="mainWindowHeading"></app-bulk-journal-upload>
+                    <app-output-format *ngIf="mainWindow === 'outputFormat'" [heading]="mainWindowHeading"></app-output-format>
+                    <app-bulk-calendar-upload *ngIf="mainWindow === 'bulkCalendarUpload'" [heading]="mainWindowHeading"></app-bulk-calendar-upload>
+                    <app-bulk-financial-month-upload *ngIf="mainWindow === 'bulkFinancialMonthUpload'" [heading]="mainWindowHeading"></app-bulk-financial-month-upload>
+                    <app-journal-auto-approver *ngIf="mainWindow === 'journalAutoApprover'" [heading]="mainWindowHeading"></app-journal-auto-approver>
+                    <app-output-header-template *ngIf="mainWindow === 'outputHeaderTemplate'" [heading]="mainWindowHeading"></app-output-header-template>
+                    <app-scheduler-run-history *ngIf="mainWindow === 'schedulerHistory'" [heading]="mainWindowHeading"></app-scheduler-run-history>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

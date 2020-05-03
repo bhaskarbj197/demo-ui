@@ -1,0 +1,84 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col">
+                <app-combobox ctrlId="cmbTemplate" label="Template" placeholder="Select template" 
+                    [list]="templateList" key="id" value="name" ariaLabel="Select template"
+                    [(model)]="templateId" (valueChange)="onTemplateChanged($event)" keyInNumber="true"></app-combobox>
+            </div>
+            <div class="col-3">
+                <app-button faIcon="fa fa-plus-circle" isFloatRight="true" (btnClick)="onAddNewHeaderItem()" type="FACEBOOK"
+                    value="Add Header Item" [isDisabled]="templateId===0" ariaLabel="Add Header Item"></app-button>
+            </div>
+        </div>
+        <div class="row p-1">
+            <div class="col">
+                <div class="table bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-10 no-border text-center" scope="col">Sequence</div>
+                            <div class="cu-th w-25 no-border text-center" scope="col">Label</div>
+                            <div class="cu-th w-25 no-border text-center" scope="col">Type</div>
+                            <div class="cu-th w-30 no-border text-center" scope="col">Mapping Column / Value</div>
+                            <div class="cu-th w-10 no-border text-center" scope="col">Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <app-table-no-records [list]="outputHeaders"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let item of outputHeaders; let odd=odd; let i=index;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-10 text-center" scope="row">
+                                    {{item.seq}}
+                                </div>
+                                <div class="cu-td w-25 text-center" scope="row">
+                                    <app-textbox ctrlId="txtLabel_{{i}}" label="" maxLength="50" [(model)]="item.label" ariaLabel="Label"></app-textbox>
+                                </div>
+                                <div class="cu-td w-25 text-center" scope="row">
+                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="code" value="value" ariaLabel="Select type"
+                                        [list]="headerTypes" [(model)]="item.typ" (valueChange)="onHeaderItemTypeChanged($event, item)"></app-combobox>
+                                </div>
+                                <div class="cu-td w-30 text-center" scope="row">
+                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="code" value="value" ariaLabel="Select type"
+                                        [list]="headerTypes" [(model)]="item.typ" (valueChange)="onHeaderItemTypeChanged($event, item)"></app-combobox>
+                                </div>
+                                <div class="cu-td w-10 center-icon" [hidden]="deletingIndex===i">
+                                    <app-icon-button faIcon="fa-arrow-down" (btnClick)="onSequenceChangedClick(item, 1, i)"
+                                        [isDisabled]="item.seq === getMaxSequence()"
+                                        tooltipText="Sequence down" ariaLabel="Sequence down"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-arrow-up" (btnClick)="onSequenceChangedClick(item, -1, i)"
+                                        [isDisabled]="item.seq === 1"
+                                        tooltipText="Sequence up" ariaLabel="Sequence up"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteFormatClick(item, null, i)" 
+                                        tooltipText="Delete" ariaLabel="Delete" [isDisabled]="deletingIndex>=0"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-10 center-icon del-row" [hidden]="deletingIndex!==i">
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteFormatClick(item, true, i)" 
+                                        tooltipText="Agree to Delete" ariaLabel="Agree to Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteFormatClick(item, false, i)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <app-button faIcon="fa fa-repeat" type="XING" (btnClick)="onResetAll()" value="Reset" ariaLabel="Reset"></app-button>
+            </div>
+            <div class="col"></div>
+            <div class="col-3">
+                <app-button faIcon="fa fa-floppy-o" isFloatRight="true" type="VIMEO" ariaLabel="Submit"
+                    (btnClick)="onSubmitHeaderTemplate()" value="Submit"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

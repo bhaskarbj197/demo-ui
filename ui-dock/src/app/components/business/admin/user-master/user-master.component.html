@@ -1,0 +1,141 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <app-navbar ctrlId="advisorConfigTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" successBtnLabel="Submit" failBtnLabel="Reset" successBtnType="TUMBLR" failBtnType="YOUTUBE"
+            successBtnIcon="fa-thumbs-o-up" failBtnIcon="fa-thumbs-o-down" (successBtnClicked)="onSubmitUser()" [activeTab]="activeTab"
+            (failBtnClicked)="onResetUser()" [isFailBtnHide]="activeTab === tabList[0]" [isSuccessBtnHide]="activeTab === tabList[0]"
+            successBtnAreaLabel="Submit" failBtnAreaLabel="Reset"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col" *ngIf="!('isKeyCloakUse' | storedValueConverter)">
+                <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                <div class="table-area">
+                    <app-table-no-records [list]="userList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let user of userList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-30" scope="row">{{user.fName + ' ' + user.lName}}</div>
+                                <div class="cu-td w-15 text-center">{{user.role.roleName}}</div>
+                                <div class="cu-td w-20 text-center">{{user.email}}</div>
+                                <div class="cu-td w-20 text-center">{{user.company.name}}</div>
+                                <div class="cu-td w-15 center-icon">
+                                    <app-icon-button [faIcon]="getLockIcon(user)" (btnClick)="onUpdateActivity(user)" 
+                                        tooltipText="Active/Inactive" ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-edit" (btnClick)="onEditUser(user)" 
+                                        tooltipText="Edit User" ariaLabel="Edit user"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalUsersCount" 
+                    [currentPageIndex]="tableConfigModel.pageIndex"
+                    (nextClicked)="onUserListPageChangeClicked($event)" (prevClicked)="onUserListPageChangeClicked($event)"></app-table-footer>
+            </div>
+            <div class="col" *ngIf="('isKeyCloakUse' | storedValueConverter)">
+                <div class="table table-bordered bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-40 no-border" scope="col">Name</div>
+                            <div class="cu-th w-25 no-border text-center" scope="col">Role Name</div>
+                            <div class="cu-th w-35 no-border text-center" scope="col">Email</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <app-table-no-records [list]="userList"></app-table-no-records>
+                    <div class="table table-bordered bg-white cu-tbl">
+                        <div class="cu-tbody form-group row">
+                            <div class="cu-tr" [ngClass]="{'odd-row': odd}" *ngFor="let user of userList; let odd=odd;">
+                                <div class="cu-td w-40" scope="row">{{user.fName + ' ' + user.lName}}</div>
+                                <div class="cu-td w-25 text-center">{{user.role.roleName}}</div>
+                                <div class="cu-td w-35 text-center">{{user.email}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row">
+                    <div class="col m-1">
+                        <app-textbox ctrlId="txtFirstName" label="First Name" placeholder="first name" isRequired="true"
+                            [(model)]="userInfo.fName" minLabelLen="125px" [isSubmit]="isSubmit" ariaLabel="First Name"></app-textbox>
+                    </div>
+                    <div class="col m-1">
+                        <app-textbox ctrlId="txtLastName" label="Last Name" placeholder="last name" isRequired="true"
+                            [(model)]="userInfo.lName" minLabelLen="125px" [isSubmit]="isSubmit" ariaLabel="Last Name"></app-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m-1">
+                        <app-textbox ctrlId="txtEmail" label="Email" placeholder="email" [isRequired]="!isEdit"
+                            [(model)]="userInfo.email" minLabelLen="125px" [isSubmit]="isSubmit" [isReadOnly]="isEdit"
+                            [pattern]="'EMAIL' | defaultConstantValueConverter: 'regexPatternService'"
+                            ariaLabel="Email"></app-textbox>
+                    </div>
+                    <div class="col m-1">
+                        <app-checkbox ctrlId="chkUserActive" label="{{userInfo.isActive? 'Active' : 'Inactive'}}"
+                            [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isChecked]="userInfo.isActive" (valueChange)="onSetActiveClick()"></app-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m-1">
+                        <app-combobox ctrlId="cmbRole" label="Role" placeholder="Select role" isRequired="true" keyInNumber="true"
+                            [(model)]="userInfo.role.id" minLabelLen="125px" [list]="roleList" key="id" value="name"
+                            ariaLabel="Select role"></app-combobox>
+                    </div>
+                    <div class="col m-1">
+                        <app-combobox ctrlId="cmbClient" label="Company" placeholder="Select company" isRequired="true" keyCustomType="true"
+                            [(model)]="userInfo.company.id" minLabelLen="125px" [list]="companyList" key="id" value="name"
+                            ariaLabel="Select company" *ngIf="isCompanySelectable"></app-combobox>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isEdit">
+                    <div class="col m-1">
+                        <app-showbox label="Created On" [value]="userInfo.createdOn | dateConverter: true : true" minLabelLen="125px"
+                            ariaLabel="Created on"></app-showbox>
+                    </div>
+                    <div class="col m-1">
+                        <app-showbox label="Updated On" [value]="userInfo.updatedOn | dateConverter: true : true" minLabelLen="125px"
+                            ariaLabel="Updated On"></app-showbox>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isEdit">
+                    <div class="col m-1">
+                        <app-show-areabox label="Journal as Approver" [value]="getConcatSingleArray(userInfo.journalIdsAsApprover)" 
+                            minLabelLen="140px" ariaLabel="Journal as Approver"></app-show-areabox>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isEdit">
+                    <div class="col m-1">
+                        <app-show-areabox label="Journal as Preparer" [value]="getConcatSingleArray(userInfo.journalIdsAsPreparer)" 
+                            minLabelLen="140px" ariaLabel="Journal as Preparer"></app-show-areabox>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isEdit">
+                    <div class="col m-1">
+                        <app-show-areabox label="Journal as Reviewer" [value]="getConcatSingleArray(userInfo.journalIdsAsReviewer)" 
+                            minLabelLen="140px" ariaLabel="Journal as Reviewer"></app-show-areabox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m-1">
+                        <app-passbox ctrlId="txtPassword" label="Password" placeholder="password" [isRequired]="!isEdit" *ngIf="!isEdit"
+                            [(model)]="userInfo.password" minLabelLen="150px" [isSubmit]="isSubmit" isSummaryBox="true" 
+                            [minLength]="minimumPassLength" (boxSmryUpdate)="onBoxSummaryUpdate($event)" ariaLabel="Password"></app-passbox>
+                    </div>
+                    <div class="col m-1">
+                        <app-passbox ctrlId="txtConfirmPassword" label="Confirm Password" placeholder="password" [isRequired]="!isEdit" *ngIf="!isEdit"
+                            [(model)]="confirmPass" minLabelLen="150px" [isSubmit]="isSubmit" ariaLabel="Confirm Password"></app-passbox>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

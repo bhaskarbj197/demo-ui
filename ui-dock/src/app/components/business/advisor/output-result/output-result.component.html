@@ -1,0 +1,36 @@
+<div class="row px-2 py-1 jcc-section-header">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="row">
+    <div class="col mt-2">
+        <app-button value="Download" faIcon="fa-download" [isSmall]="true" type="TUMBLR" ariaLabel="Download"
+            [isFloatRight]="true" (btnClick)="onDownloadFile()"></app-button>
+    </div>
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <div class="row content-div">
+            <app-loader [isLoading]="isLoading"></app-loader>
+            <div class="col">
+                <div class="row p-2">
+                    <div class="table-area" *ngIf="resultData">
+                        <div class="table table-bordered bg-white cu-tbl table-sm">
+                            <div class="cu-thead">
+                                <div class="cu-tr">
+                                    <div class="cu-th no-wrap" scope="col" *ngFor="let header of resultData.fileHeader">{{header}}</div>
+                                </div>
+                            </div>
+                            <div class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let row of resultData.fileData">
+                                    <div class="cu-td text-normal" *ngFor="let value of row">{{value}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

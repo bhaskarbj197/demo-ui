@@ -1,0 +1,43 @@
+@import '../../../style/common';
+
+.btn-no-show{
+    padding: 0px;
+    background-color: transparent;
+    border: 0px;
+}
+
+input:focus, button:focus{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none !important;
+}
+
+button{
+    outline:none !important
+}
+
+button::-moz-focus-inner {
+    border: 0 !important;
+}
+
+.cu-fa{
+    font-size: 1rem;
+}
+
+.cu-fa-lg{
+    font-size: 1.2rem;
+}
+
+.cu-fa-2x{
+    font-size: 1.4rem;
+}
+
+button:disabled{
+    opacity: $disabled-opacity;
+}
+
+.not-allowed-icon{
+    color: red;
+    opacity: 0.6;
+}

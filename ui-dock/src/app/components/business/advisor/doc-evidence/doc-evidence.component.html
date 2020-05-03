@@ -1,0 +1,48 @@
+<div class="row px-2 py-1 jcc-section-header">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <div class="row content-div">
+            <app-loader [isLoading]="isLoading"></app-loader>
+            <div class="col">
+                <div class="row p-2">
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-40 no-border" scope="col">File Name</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Original File</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Marked up file</div>
+                                <div class="cu-th w-40 no-border" scope="col">Warnings</div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="table-area">
+                        <app-table-no-records [list]="docEvidenceList"></app-table-no-records>
+                        <div class="table bg-white cu-tbl">
+                            <div  class="cu-tbody">                                
+                                <div class="cu-tr" *ngFor="let doc of docEvidenceList | orderBy: 'asc' : 'fileName'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                    <div class="cu-td w-40" scope="row">{{doc.fileName}}</div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-icon-button faIcon="fa-file-excel-o" (btnClick)="onFileDownloadClick('original', doc.fileName)" 
+                                            [tooltipText]="doc.fileName" *ngIf="doc.fileType==='xls' || doc.fileType==='xlsx'"
+                                            [ariaLabel]="doc.fileName"></app-icon-button>
+                                        <app-icon-button faIcon="fa-file-text-o" (btnClick)="onFileDownloadClick('original', doc.fileName)" 
+                                            [tooltipText]="doc.fileName+'.csv'" *ngIf="doc.fileType==='csv'" [ariaLabel]="doc.fileName+'.csv'"></app-icon-button>
+                                    </div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-icon-button faIcon="fa-file-pdf-o" (btnClick)="onFileDownloadClick('marked', doc.fileName)" 
+                                            [tooltipText]="doc.fileName+'.pdf'" *ngIf="doc.markedUpFileName.length>0" [ariaLabel]="doc.fileName+'.pdf'"></app-icon-button>
+                                    </div>
+                                    <div class="cu-td w-40 anomaly-text">{{doc.comments}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

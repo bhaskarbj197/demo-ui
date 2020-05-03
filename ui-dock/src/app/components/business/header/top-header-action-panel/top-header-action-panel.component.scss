@@ -1,0 +1,29 @@
+@import '../../../../style/common';
+
+.nav-link{
+    color:white;
+}
+
+.user-info{
+    color: #ffffff;
+    letter-spacing: 0.08rem;
+    line-height: 30px;
+    font-size: 1rem;
+    font-family: $font-family;
+}
+
+.user-name{
+    font-weight: bold;
+}
+
+.item-space{
+    min-width: 30px;
+}
+
+.com-text{
+    font-size: 0.8rem;
+    font-family: $font-family;
+    color: #ffffff;
+    letter-spacing: 0.08rem;
+    font-style: italic;
+}

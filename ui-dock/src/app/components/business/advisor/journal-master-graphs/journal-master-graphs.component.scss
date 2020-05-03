@@ -1,0 +1,53 @@
+@import '../../../../style/common';
+
+.chld-div{
+    height: 50%; 
+    width: 100%;
+    padding-left: 30px;
+}
+
+.graph-div{
+    min-width: 200px; 
+    width: 19%;
+}
+
+.div-grph-text{
+    width: 100%;
+    margin: 3px 3px 3px 0px;
+    height: 60px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+}
+
+.div-grph-cntn{
+    width: 100%;
+    margin: 0px 3px 15px 0px;
+    height: 235px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+    padding-top: 10px;
+}
+
+.div-head-main-text{
+    color: #0278DC;
+    font-size: 0.9rem;
+    font-weight: bold;
+    width: 100%;
+    line-height: 25px;
+}
+
+.div-head-main-desc, .error-head-main-desc{
+    color: #B1ADAD;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.error-head-main-desc{
+    color: $error-text-color;
+}
+
+.graph-not-available-text{
+    color: $error-text-color;
+    height: 100%;
+    padding-top: 90px;
+}

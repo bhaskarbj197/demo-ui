@@ -1,0 +1,161 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <app-navbar ctrlId="calendarMasterTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            isBtnBoxShow="true" successBtnLabel="Submit" failBtnLabel="Reset" successBtnType="TUMBLR" failBtnType="YOUTUBE"
+            successBtnIcon="fa-thumbs-o-up" failBtnIcon="fa-thumbs-o-down" (successBtnClicked)="onSubmitCalendar()" [activeTab]="activeTab"
+            (failBtnClicked)="onResetCalendar()" [isFailBtnHide]="activeTab === tabList[0]" [isSuccessBtnHide]="activeTab === tabList[0]"
+            successBtnAreaLabel="Submit" failBtnAreaLabel="Reset"></app-navbar>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="table bg-white cu-tbl only-head">
+                    <div class="cu-thead">
+                        <div class="cu-tr">
+                            <div class="cu-th w-80 no-border" scope="col">Name</div>
+                            <div class="cu-th w-20 no-border text-center" scope="col">Actions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-area">
+                    <app-table-no-records [list]="calendarList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let calendar of calendarList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-80" scope="row">{{calendar.name}}</div>
+                                <div class="cu-td w-20 center-icon" *ngIf="deletingCalendarId !== calendar.id">
+                                    <app-icon-button [faIcon]="getLockIcon(calendar)" (btnClick)="onUpdateActivity(calendar)" 
+                                        tooltipText="Active/Inactive" ariaLabel="Active or Inactive"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-caret-square-o-right" (btnClick)="onCalendarYearMonthClick(calendar)" 
+                                        tooltipText="Details" ariaLabel="Calendar Details"></app-icon-button>&nbsp;
+                                    <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteCalendarClick(calendar.id, null)" 
+                                        tooltipText="Delete Calendar" ariaLabel="Delete Calendar"></app-icon-button>
+                                </div>
+                                <div class="cu-td w-20 center-icon del-row" *ngIf="deletingCalendarId === calendar.id">
+                                    Delete?&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-check" (btnClick)="onDeleteCalendarClick(calendar.id, true)" 
+                                        tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                    <app-icon-button faIcon="fa-times" (btnClick)="onDeleteCalendarClick(calendar.id, false)" 
+                                        tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row" [hidden]="calendarDetail.name.length===0">
+                    <div class="col">
+                        <app-showbox label="Calendar Name" [(value)]="calendarDetail.name" minLabelLen="145px" ariaLabel="Calendar Name"></app-showbox>
+                    </div>
+                </div>
+                <div class="row" [hidden]="calendarDetail.name.length===0">
+                    <div class="col">
+                        <div class="table bg-white cu-tbl only-head">
+                            <div class="cu-thead">
+                                <div class="cu-tr">
+                                    <div class="cu-th w-20 no-border text-center" scope="col">Year</div>
+                                    <div class="cu-th w-30 no-border text-center" scope="col">Month</div>
+                                    <div class="cu-th w-30 no-border text-center" scope="col">WD0</div>
+                                    <div class="cu-th w-20 no-border text-center" scope="col">Actions</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-area">
+                            <app-table-no-records [list]="calendarDetail.yearMonthDetail"></app-table-no-records>
+                            <div class="table bg-white cu-tbl">
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let yMonth of calendarDetail.yearMonthDetail; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td w-20 text-center" scope="row">{{yMonth.year}}</div>
+                                        <div class="cu-td w-30 text-center">{{yMonth.month.name}}</div>
+                                        <div class="cu-td w-30 text-center">{{yMonth.workday0}}</div>
+                                        <div class="cu-td w-20 center-icon">
+                                            <app-icon-button faIcon="fa-edit" (btnClick)="onEditCalendarClick(yMonth)" 
+                                                tooltipText="Edit Calendar" ariaLabel="Edit Calendar"></app-icon-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div p-2" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <app-textbox ctrlId="txtCalendarName" label="Name" placeholder="Calendar name" isRequired="true"
+                            [(model)]="calendarInfo.name" [isSubmit]="isSubmit" [isDisabled]="calendarInfo.id>0"
+                            ariaLabel="Calendar name"></app-textbox>
+                    </div>
+                    <div class="col-2">
+                        <app-combobox ctrlId="cmbYear" label="Year" placeholder="Select year"
+                            keyInNumber="true" (valueChange)="onYearChanged($event)" ariaLabel="Select year"
+                            [list]="yearList" [(model)]="calendarInfo.year"></app-combobox>
+                    </div>
+                    <div class="col-3">
+                        <app-combobox ctrlId="cmbMonth" label="Month" placeholder="Select month" [markedKeyList]="monthMarkedKeyList"
+                            keyInNumber="true" [list]="monthList" key="monthNumber" value="name" (valueChange)="onMonthChanged($event)"
+                            [(model)]="calendarInfo.month.monthNumber" markedText="(added)" ariaLabel="Select month"></app-combobox>
+                    </div>
+                    <div class="col-1">
+                        <app-checkbox ctrlId="chkCalendarActive" label="{{calendarInfo.isActive? 'Active' : 'Inactive'}}" 
+                            (valueChange)="onSetActiveClick()" [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"
+                            [isChecked]="calendarInfo.isActive" class="float-right"></app-checkbox>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col text-center" *ngIf="errorMsg !== ''">
+                        <span class="error-box">{{errorMsg}}</span>
+                    </div>
+                    <div class="col" *ngIf="calendarMonths.length>0">
+                        <div class="row">
+                            <div class="col-1">
+                                <app-checkbox ctrlId="chkCalendarManual" [isChecked]="calendarInfo.isNotManual"
+                                    label="{{calendarInfo.isNotManual? 'Auto' : 'Manual'}}" 
+                                    (valueChange)="onSetManualClick()" 
+                                    [category]="'ROUND_TOGGLE_TEXT' | enumValueConverter: 'checkboxCategries'"></app-checkbox>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col text-center font-stndrd weekday-text" *ngFor="let day of weekDays">{{day}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mnth-div" [ngClass]="{'mt-3': (idx>0)}" *ngFor="let month of calendarMonths; let idx=index;">
+                            <div class="col-1 text-center my-auto mnth-text">
+                                {{month.month.name}}
+                            </div>
+                            <div class="col">
+                                <div class="row" *ngFor="let dArr of month.dayArray">
+                                    <div class="col m-1 cal-box" [ngClass]="{'wd0-marker': day.workday === workdayText+'0'}" *ngFor="let day of dArr">
+                                        <div class="box-lft text-center" *ngIf="day.day>0" [ngClass]="{'lft-bc': !day.isWorkday}">{{day.day}}</div>
+                                        <div class="box-lft box-lft-bc-clr" *ngIf="day.day===0"></div>
+                                        <div class="box-rth">
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <app-checkbox ctrlId="chkWorkdayAvailable_{{day.day}}" label="" 
+                                                        (valueChange)="onWorkdayAvailableClick(day, calendarMonths)" [ariaLabel]="day.day"
+                                                        [isChecked]="day.isWorkday" *ngIf="day.day>0" [(model)]="day.isWorkday"></app-checkbox>
+                                                </div>
+                                                <div class="col">
+                                                    <app-combobox ctrlId="cmbWorkday_{{day.day}}" label="" placeholder="Select" ariaLabel="Select workday"
+                                                        [list]="workdayList" *ngIf="day.day>0" (valueChange)="onWorkdayChanged(day, $event, month, calendarMonths)"
+                                                        [(model)]="day.workday" [hidden]="!day.isWorkday"></app-combobox>
+                                                    <span class="off-day" [hidden]="day.isWorkday" *ngIf="day.day>0">Off-day</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

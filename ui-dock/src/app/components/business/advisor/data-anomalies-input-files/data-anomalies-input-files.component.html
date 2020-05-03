@@ -1,0 +1,67 @@
+<div class="row px-2 py-1 jcc-section-header">
+    <div class="col">
+        <app-detail-main-area-header [headerName]="heading"></app-detail-main-area-header>
+    </div>
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <app-navbar ctrlId="profitAndLossTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="row p-2 head-text">
+                    <div class="col">
+                        <span class="header-span">Total Records:</span>
+                        <app-badge value="{{inputDataAnomalyInfo.totalCount}}" [type]="'PRIMARY' | enumValueConverter: 'badgeTypes'"
+                            class="anomaly-badge"></app-badge>
+                    </div>
+                    <div class="col btn-dnwld">
+                        <span class="header-span">Total Anomalies:</span>
+                        <app-badge value="{{inputDataAnomalyInfo.anomalyCount}}" [type]="'DANGER' | enumValueConverter: 'badgeTypes'"
+                            *ngIf="inputDataAnomalyInfo.anomalyCount>0" class="anomaly-badge"></app-badge>
+                        <app-badge value="{{inputDataAnomalyInfo.anomalyCount}}" [type]="'SUCCESS' | enumValueConverter: 'badgeTypes'"
+                            *ngIf="inputDataAnomalyInfo.anomalyCount===0" class="anomaly-badge"></app-badge>
+                        <app-button value="Download" faIcon="fa-download" type="YAHOO" isFloatRight="true" 
+                            (btnClick)="onDownloadClick()" ariaLabel="Download"></app-button>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="table-area">
+                        <div class="table table-bordered bg-white cu-tbl table-sm">
+                            <div class="cu-thead">
+                                <div class="cu-tr">
+                                    <div class="cu-th w-20" scope="col">Anomaly Comments</div>
+                                    <div *ngFor="let header of inputDataAnomalyInfo.fileHeader"
+                                        class="cu-th w-12 text-center" scope="col">
+                                        {{header}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let data of inputDataAnomalyInfo.fileData; let odd=odd;" 
+                                    [ngClass]="{'odd-row': odd, 'cu-tr-error': data.isAnomaly}">
+                                    <div class="cu-td w-20" scope="row" [ngClass]="{'anomaly-text': data.isAnomaly}">
+                                        {{data.anomalyComments}}
+                                    </div>
+                                    <div class="cu-td w-12 text-normal" *ngFor="let value of data.dataValue; let i=index;" 
+                                        [ngClass]="{'cu-td-error': ((inputDataAnomalyInfo.targetNameIndex === i) && data.isAnomaly)}">
+                                        {{value}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-3 justify-content-center">
+                    <div class="graph-show">
+                        <app-pie-chart title="Normal data vs Anomaly data" [labels]="graphData.labels" [data]="graphData.data" 
+                            [colors]="graphData.colors" [size]="'LARGE' | enumValueConverter: 'chartSizes'"></app-pie-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

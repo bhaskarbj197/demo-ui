@@ -1,0 +1,13 @@
+<div class="table bg-white cu-tbl only-head">
+    <div class="cu-thead">
+        <div class="cu-tr">
+            <div [ngClass]="getCssClass(col)" scope="col" *ngFor="let col of columns">
+                <span (click)="onSortClick(col)" class="header-span" [ngClass]="{'pointer': col.isAbleToSort}">{{col.value}}</span>
+                <app-icon-button faIcon="fa-long-arrow-up" (btnClick)="onSortClick(col)" tooltipText="Sorting" ariaLabel="Sorting"
+                    *ngIf="col.isAbleToSort && col.isSorted && col.sortDirection==='asc'"></app-icon-button>
+                <app-icon-button faIcon="fa-long-arrow-down" (btnClick)="onSortClick(col)" tooltipText="Sorting" ariaLabel="Sorting"
+                    *ngIf="col.isAbleToSort && col.isSorted && col.sortDirection==='desc'"></app-icon-button>
+            </div>
+        </div>
+    </div>
+</div>

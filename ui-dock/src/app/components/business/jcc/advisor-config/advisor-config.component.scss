@@ -1,0 +1,10 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.tbl-area{
+    height: 40vh;
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}

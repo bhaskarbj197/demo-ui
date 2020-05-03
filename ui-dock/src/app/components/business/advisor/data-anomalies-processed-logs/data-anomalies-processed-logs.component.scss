@@ -1,0 +1,25 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.table-area{
+    max-height: 470px;
+    height: 470px;
+    @extend .table-data-area;
+}
+
+.header-span{
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.head-text{
+    font-size: 0.9rem;
+}
+
+.graph-show{
+    width: 90%;
+    height: 500px;
+    padding-top: 10px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+}

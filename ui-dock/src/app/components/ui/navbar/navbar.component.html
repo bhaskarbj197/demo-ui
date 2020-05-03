@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs sub-header-div" id="{{ctrlId}}" role="list">
+    <li class="nav-item pointer" [ngClass]="{'disabled': isDisableTab(tab)}" *ngFor="let tab of tabList" (click)="onTabClick(tab)">
+        <div class="nav-link nav-text" [ngClass]="{'active': activeTab===tab}">
+            {{tab}}
+        </div>
+    </li>
+    <li class="nav-item pointer ml-auto" [hidden]="isComboHidden" *ngIf="comboLable.length > 0">
+        <app-combobox ctrlId="cmb_{{ctrlId}}" label="{{comboLable}}" [list]="comboList" fixedLen="220px" 
+            [(model)]="comboModel" (valueChange)="onComboValueChanged($event)" [ariaLabel]="comboAreaLabel"></app-combobox>
+    </li>
+    <li class="nav-item pointer ml-auto" *ngIf="isBtnBoxShow">
+        <app-button [value]="successBtnLabel" [faIcon]="successBtnIcon" [type]="successBtnType" [isDisabled]="isSuccessBtnDisabled"
+            isFloatRight="true" (btnClick)="onSuccessBtnClick()" [hidden]="isSuccessBtnHide" [ariaLabel]="successBtnAreaLabel"></app-button>
+        <app-button [value]="failBtnLabel" [faIcon]="failBtnIcon" [type]="failBtnType" [hidden]="isFailBtnHide" [isDisabled]="isFailBtnDisabled"
+            isFloatRight="true" (btnClick)="onFailBtnClick()" marginRight="10px" [ariaLabel]="failBtnAreaLabel"></app-button>
+    </li>
+</ul>

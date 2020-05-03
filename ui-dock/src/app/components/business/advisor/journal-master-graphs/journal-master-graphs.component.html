@@ -1,0 +1,51 @@
+<div class="row chld-div">
+    <div class="col graph-div">
+        <div class="row div-grph-cntn justify-content-center">
+            <app-loader [isOverlay]="false" [isLoading]="isWorkDayWiseJournalStatusGraphLoading"></app-loader>
+            <app-bar-chart title="WD wise Journal Status(43%)" [labels]="journalStatusByWdGraph.labels" *ngIf="journalStatusByWdGraph.data.length > 0"
+                [data]="journalStatusByWdGraph.data" [colors]="journalStatusByWdGraph.colors"
+                (chartClick)="onJournalStatusByWdGraphClick($event)"></app-bar-chart>
+            <div class="graph-not-available-text" *ngIf="!isWorkDayWiseJournalStatusGraphAvailable">
+                <strong>WD wise Journal Status</strong><br />graph is not available now
+            </div>
+        </div>
+    </div>
+    <div class="col graph-div">
+        <div class="row div-grph-cntn justify-content-center">
+            <app-loader [isOverlay]="false" [isLoading]="isJournalValidationStatusGraphLoading"></app-loader>
+            <app-pie-chart title="Journal Validation Status(15%)" [labels]="validationStatusGraph.labels" *ngIf="validationStatusGraph.data.length > 0"
+                [data]="validationStatusGraph.data" [colors]="validationStatusGraph.colors" (chartClick)="onValidationStatusChartClick()"></app-pie-chart>
+            <div class="graph-not-available-text" *ngIf="!isJournalValidationStatusGraphAvailable">
+                <strong>Journal Validation Status</strong><br />graph is not available now
+            </div>
+        </div>
+    </div>
+    <div class="col graph-div">
+        <div class="row div-grph-cntn justify-content-center">
+            <app-loader [isOverlay]="false" [isLoading]="isDataAnomaliesGraphLoading"></app-loader>
+            <app-bar-chart title="# of Data Anomalies(3)" [labels]="dataAnomaliesGraph.labels" *ngIf="dataAnomaliesGraph.data.length > 0"
+                [data]="dataAnomaliesGraph.data" [colors]="dataAnomaliesGraph.colors" (chartClick)="onDataAnomalyChartClick($event)"></app-bar-chart>
+            <div class="graph-not-available-text" *ngIf="!isDataAnomaliesGraphAvailable">
+                <strong># of Data Anomalies</strong><br />graph is not available now
+            </div>
+        </div>
+    </div>
+    <div class="col graph-div">
+        <div class="row div-grph-cntn justify-content-center">
+            <app-loader [isOverlay]="false" [isLoading]="isInputFileAvailabilityGraphLoading"></app-loader>
+            <app-pie-chart title="90% of Input File Available" [labels]="inputFileAvailableGraph.labels" *ngIf="inputFileAvailableGraph.data.length > 0"
+                [data]="inputFileAvailableGraph.data" [colors]="inputFileAvailableGraph.colors"
+                (chartClick)="onInputAvailabilityChartClick()"></app-pie-chart>
+            <div class="graph-not-available-text" *ngIf="!isInputFileAvailabilityGraphAvailable">
+                <strong>"% of Input File Available</strong><br />graph is not available now
+            </div>
+        </div>
+    </div>
+    <div class="col graph-div">
+        <div class="row div-grph-cntn justify-content-center">
+            <app-doughnut-chart title="Financial Impact Status(37%)" [labels]="financialImpactGraph.labels" 
+                *ngIf="financialImpactGraph.data.length > 0" [backColors]="financialImpactGraph.colors"
+                [data]="financialImpactGraph.data"></app-doughnut-chart>
+        </div>
+    </div>
+</div>

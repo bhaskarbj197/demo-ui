@@ -1,0 +1,108 @@
+<div class="row smr-card">
+    <app-loader [isLoading]="isStatusLoading"></app-loader>
+    <div class="col-6 smr-icon-cntnr" [hidden]="!isSummaryShow">
+        <div class="row">
+            <div class="col text-center status-cnt-heading">Journal Config Status</div>
+        </div>
+        <div class="row">
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalStatusClick('IN_PROGRESS')">
+                    {{journalStatusesCount.inProgressCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalStatusClick('IN_PROGRESS')">
+                    In Progress
+                </div>
+            </div>
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalStatusClick('PENDING_APPROVAL')">
+                    {{journalStatusesCount.pendingApprovalCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalStatusClick('PENDING_APPROVAL')">
+                    Pending Approval
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalStatusClick('APPROVED')">
+                    {{journalStatusesCount.approvedCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalStatusClick('APPROVED')">
+                    Approved
+                </div>
+            </div>
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalStatusClick('RETURNED')">
+                    {{journalStatusesCount.returnedCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalStatusClick('RETURNED')">
+                    Returned
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <app-bar-chart title="" [labels]="journalStatusGraph.labels" *ngIf="journalStatusGraph.data.length > 0"
+            [data]="journalStatusGraph.data" [colors]="journalStatusGraph.colors" [isLegendShow]="false" 
+            [size]="'HOME' | enumValueConverter : 'chartSizes'" [isTitleShow]="false"></app-bar-chart>
+    </div>
+</div>
+<div class="row smr-card smr-card-btm">
+    <div class="col-6 smr-icon-cntnr-btm" [hidden]="!isSummaryShow">
+        <div class="row">
+            <div class="col text-center status-cnt-heading">Journal Run Status</div>
+        </div>
+        <div class="row">
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalRunStatusClick('SUBMIT_FOR_REVIEW')">
+                    {{journalRunStatusesCount.submitForReviewCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalRunStatusClick('SUBMIT_FOR_REVIEW')">
+                    Submit for Review
+                </div>
+            </div>
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalRunStatusClick('RUN_ERROR')">
+                    {{journalRunStatusesCount.runErrorCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalRunStatusClick('RUN_ERROR')">
+                    Run Error
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalRunStatusClick('PENDING')">
+                    {{journalRunStatusesCount.pendingSignOffCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalRunStatusClick('PENDING')">
+                    Pending Sign Off
+                </div>
+            </div>
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalRunStatusClick('REJECTED')">
+                    {{journalRunStatusesCount.rejectedCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalRunStatusClick('REJECTED')">
+                    Rejected
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col p-2">
+                <div class="smr-icon-top-bx smr-gxu text-center smr-sml-box" (click)="onJournalRunStatusClick('APPROVED')">
+                    {{journalRunStatusesCount.readyToPostCount}}
+                </div>
+                <div class="smr-icon-btm-bx smr-gx text-center smr-lrg-box" (click)="onJournalRunStatusClick('APPROVED')">
+                    Ready to Post
+                </div>
+            </div>
+            <div class="col p-2"></div>
+        </div>
+    </div>
+    <div class="col-6">
+        <app-bar-chart title="" [labels]="journalRunStatusGraph.labels" *ngIf="journalRunStatusGraph.data.length > 0"
+            [data]="journalRunStatusGraph.data" [colors]="journalRunStatusGraph.colors" [isLegendShow]="false" 
+            [size]="'HOME1' | enumValueConverter : 'chartSizes'" [isTitleShow]="false"></app-bar-chart>
+    </div>
+</div>

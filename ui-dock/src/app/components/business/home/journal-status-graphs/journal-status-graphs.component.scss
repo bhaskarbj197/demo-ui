@@ -1,0 +1,100 @@
+@import '../../../../style/common';
+
+.border-smry{
+    border: solid 2px lightpink;
+}
+
+.sts-txt{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #97999E;
+}
+
+.sts-cnt{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #6782C4;
+}
+
+.smr-card{
+    border: solid 1px $control-border-color; 
+    width:98%; 
+    margin-left: 10px;
+}
+
+.smr-card-btm{
+    margin-top: 5px;
+}
+
+.smr-icon-cntnr{
+    height: 30vh; 
+}
+
+.smr-icon-cntnr-btm{
+    height: 42vh; 
+}
+
+.smr-icon-top-bx{
+    height:35px; 
+    width: 60px; 
+    position: absolute; 
+    top:12px;
+    border-radius: 7px;
+    left: 57px;
+    line-height: 35px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: $font-family;
+}
+.smr-icon-top-bx:hover{
+    cursor: pointer;
+}
+
+.smr-g5{
+    background-image: linear-gradient(to top, #8bdbff, #a2dcff, #b6ddff, #c7dfff, #d6e1ff);
+}
+
+.smr-g6{
+    background-image: linear-gradient(to top, #90ff8b, #a0ffa3, #b1ffb9, #c3ffcd, #d6ffdf);
+}
+
+.smr-g7{
+    background-image: linear-gradient(to top, #faff8b, #fbff9f, #fcffb1, #fcffc4, #fdffd6);
+}
+
+.smr-g8{
+    background-image: linear-gradient(to top, #f8a7ae, #fab5bd, #fcc2cb, #fed0d8, #ffdee5);
+}
+
+.smr-icon-btm-bx{
+    height: 55px; 
+    width: 160px; 
+    margin-top:20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    line-height: 75px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.18);
+    font-family: $font-family;
+}
+.smr-icon-btm-bx:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.45);
+}
+
+.smr-gx{
+    background-image: linear-gradient(to top, #a50d0d, #b21017, #bf1420, #cd172a, #da1b34);
+    color: #ffffff;
+}
+
+.smr-gxu{
+    background-image: linear-gradient(to top, #ffa154, #fdad5f, #fbb86c, #fac379, #f9cd88);
+}
+
+.status-cnt-heading{
+    font-weight: bold;
+    font-size: 0.9rem;
+    height: 30px;
+    line-height: 30px;
+}

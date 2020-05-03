@@ -1,0 +1,9 @@
+@import '../../../../style/common';
+@import '../../../../style/table';
+
+.table-area{
+    max-height: 70vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    width: 82vw;
+}

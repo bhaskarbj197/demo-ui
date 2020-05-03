@@ -1,0 +1,147 @@
+@import './defaultValues';
+@import './scrollbar';
+@import './tableCellColors';
+@import './boxShadow';
+
+.jcc-section-header {
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  font-weight: bold;
+  font-family: $font-family;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.cursor-not-allowed{
+  cursor: not-allowed;
+}
+
+.center-icon{
+  text-align: center;
+}
+
+.text-normal{
+  font-weight: normal;
+}
+
+.no-wrap{
+  white-space: nowrap;
+}
+
+.small-btn{
+  line-height: 10px;
+}
+
+.cntrl-any{
+  border-color: $control-border-color;
+}
+
+.master-span{
+  font-size: 0.7rem;
+}
+
+.master-text{
+  font-weight: bold;
+  color: $master-file-color;
+}
+
+.anomaly-tr{
+  background-color: $anomaly-tr-back-color;
+}
+
+.anomaly-text{
+  color: $anomaly-text-color;
+  font-family: $font-family;
+}
+
+.error-box{
+  background-color: $anomaly-tr-back-color;
+  color: $anomaly-text-color;
+}
+
+.success-box{
+  background-color: $success-box-back-color;
+  color: $success-box-text-color;
+}
+
+.anomaly-badge{
+  font-size: 1.2rem;
+}
+
+.padding-0{
+  padding: 0px;
+}
+
+.font-stndrd{
+  font-size: 0.9rem !important;
+  font-family: $font-family;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+input, button, select, textarea{
+  font-family: $font-family;
+}
+
+.spn-filter-sts{
+  border-radius: 4px;
+  background-color: #e4e6e8;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: .4em .5em;
+  line-height: 1px;
+  text-align: center;
+  margin-right: 10px;
+  margin-top: 2px;
+}
+
+.filter-close-sm {
+  font-size: 0.8rem;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-back-c{
+  border: solid 1px $tbl-border-color;
+  border-left: 0px;
+}
+
+.info-back{
+  color: #EB004A;
+  background-color: #ffffff;
+  border: 0px;
+}
+
+.invalid-icon {
+  color: $failure-color;
+}
+
+.valid-icon {
+  color: $success-color;
+}
+
+.max-wid-100{
+  max-width: 100%;
+}
+
+.jcc-container .jcc-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lbl-margin-0{
+  margin: 0px;
+}
+
+.has-role{
+  background-color: lime;
+}

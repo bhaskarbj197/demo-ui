@@ -1,0 +1,9 @@
+<div class="input-group mb-1" [hidden]="isHide" [ngStyle]="{width: getFixedWidth()}">
+    <div class="input-group-prepend" *ngIf="label.length>0">
+        <span class="input-group-text font-stndrd" [ngStyle]="{'min-width': minLabelLen}">
+            {{label}}
+        </span>
+    </div>
+    <textarea class="form-control custom cntrl-any font-stndrd show-box" [(ngModel)]="value" 
+        rows="3" [readonly]="true" [attr.aria-label]="ariaLabel"></textarea>
+</div>

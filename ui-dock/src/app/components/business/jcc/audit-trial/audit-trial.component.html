@@ -1,0 +1,32 @@
+<div class="px-2 py-1 jcc-section-header">
+    <app-main-area-header [headerName]="heading" [isHeaderActionShow]="false"></app-main-area-header>
+</div>
+<div class="p-3 row">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col container-fluid">
+        <div class="row content-div p-2">
+            <div class="col">
+                <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                <div class="tbl-area">
+                    <app-table-no-records [list]="activityLogList"></app-table-no-records>
+                    <div class="table bg-white cu-tbl">
+                        <div  class="cu-tbody">
+                            <div class="cu-tr" *ngFor="let log of activityLogList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                <div class="cu-td w-10 text-center" scope="row">{{log.activityType}}</div>
+                                <div class="cu-td w-10 text-center">{{log.actionType}}</div>
+                                <div class="cu-td w-15 text-center">{{log.actionSubType}}</div>
+                                <div class="cu-td w-10 text-center">{{getLogParamKey(log)}}</div>
+                                <div class="cu-td w-20">{{log.objectDesc}}</div>
+                                <div class="cu-td w-20 text-center">{{getUser(log)}}</div>
+                                <div class="cu-td w-15 text-center">{{log.activityOn | dateConverter: true : true}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalCount" 
+                    [currentPageIndex]="tableConfigModel.pageIndex"
+                    (nextClicked)="onPageChangeClicked($event)" (prevClicked)="onPageChangeClicked($event)"></app-table-footer>
+            </div>
+        </div>
+    </div>
+</div>

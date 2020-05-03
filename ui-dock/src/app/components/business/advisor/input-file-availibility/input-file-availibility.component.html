@@ -1,0 +1,47 @@
+<div class="row px-2 py-1 jcc-section-header">
+    Input Files Availibility
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <app-navbar ctrlId="anomalyInputFileAvailibilityTab" [tabList]="tabList" [activeTab]="activeTab"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="row p-2">
+                    <app-loader [isLoading]="isLoading"></app-loader>
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-10 no-border text-center" scope="col">Journal Id</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Run Date</div>
+                                <div class="cu-th w-30 no-border" scope="col">Journal Name</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Status</div>
+                                <div class="cu-th w-40 no-border" scope="col">Message</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-area">
+                        <app-table-no-records [list]="inputFiles"></app-table-no-records>
+                        <div class="table bg-white cu-tbl">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let item of inputFiles; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                    <div class="cu-th w-10 text-center" scope="row">{{item.journalId}}</div>
+                                    <div class="cu-th w-10 text-center">{{item.runDate |dateConverter: false: true}}</div>
+                                    <div class="cu-td w-30">{{item.journalName}}</div>
+                                    <div class="cu-td w-10 text-center" (click)="onInputFileItemClick(item, 'inputSources')">
+                                        <div [ngClass]="{'inner-div-bck-clr': item.status.toLowerCase().trim()==='rejected',
+                                            'inner-div-bck-sc': item.status.toLowerCase().trim()==='approved',
+                                            'inner-div-bck-pr': item.status.toLowerCase().trim()==='pending for approval',
+                                            'inner-div-bck-gr': item.status.toLowerCase().trim()==='run error'}" class="pointer">
+                                            {{item.status}}
+                                        </div>
+                                    </div>
+                                    <div class="cu-td w-40">{{item.message}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

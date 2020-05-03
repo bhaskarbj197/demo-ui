@@ -1,0 +1,128 @@
+<div *ngIf="isStepsShow">
+    <div class="px-2 py-1 jcc-section-header">
+        <app-main-area-header [headerName]="heading" [isSaveHide]="true"
+            (headerActionRunClick)="onHeaderActionRunClick()"></app-main-area-header>
+    </div>
+    <div class="p-3 font-stndrd">
+        <span class="total-step-count-span">Total Steps: {{processSteps.length}}</span>
+        <app-button value="New Step" faIcon="fa-external-link-square" type="FACEBOOK" isFloatRight="true" marginBottom='5px'
+            (btnClick)="onNewStepClick()" [isDisabled]="!isNewStepButtonShow" ariaLabel="New step"
+            [isBlocked]="'jcc' | roleAction: 'processSteps' : 'add'"></app-button>
+        <app-icon-button faIcon="fa-list" (btnClick)="onStepViewModeChangeClick()" class="float-right step-view-btn" tooltipText="List View"
+            *ngIf="(viewMode === ('QUERY' | enumValueConverter : 'stepListViewModes')) && processSteps.length>0" ariaLabel="List view"></app-icon-button>
+        <app-icon-button faIcon="fa-th-large" (btnClick)="onStepViewModeChangeClick()" class="float-right step-view-btn" ariaLabel="Card view"
+            *ngIf="(viewMode === ('LIST' | enumValueConverter : 'stepListViewModes')) && processSteps.length>0" tooltipText="Card View"></app-icon-button>
+        <app-icon-button faIcon="fa-code" (btnClick)="onStepViewModeChangeClick()" class="float-right step-view-btn" tooltipText="Query View"
+            *ngIf="(viewMode === ('CARD' | enumValueConverter : 'stepListViewModes')) && processSteps.length>0" ariaLabel="Query view"></app-icon-button>
+        <div class="card-deck p-0 card-holder-div" 
+            *ngIf="viewMode === ('CARD' | enumValueConverter : 'stepListViewModes') ||  viewMode === ('QUERY' | enumValueConverter : 'stepListViewModes')">
+            <div class="card card-div" *ngFor="let step of processSteps" [ngClass]="{'text-white bg-danger': (stepDeleteClickId === step.id)}">
+                <div class="card-header">
+                    <span class="card-header-text">Step&nbsp;{{step.id}}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{{getFunctionName(step.operation.func)}}</span>
+                    <div class="float-right card-action-div font-stndrd" *ngIf="(stepDeleteClickId !== step.id) && (stepCopingId !== step.id)">
+                        <app-icon-button faIcon="fa-eye" (btnClick)="onStepViewDetailsClick(step.id)" tooltipText="Step View" ariaLabel="Step view"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-file-text" (btnClick)="onStepDataViewClick(step.id)" tooltipText="Step data" ariaLabel="Step data"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-edit" (btnClick)="onEditJournalStepClick(step.id)" 
+                            [isDisabled]="!isNewStepButtonShow" tooltipText="Edit Step" ariaLabel="Edit step"
+                            [isBlocked]="'jcc' | roleAction: 'processSteps' : 'edit'"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-clone" (btnClick)="onCopyJournalStepClick(step.id)" tooltipText="Copy Step"
+                            [isBlocked]="'jcc' | roleAction: 'processSteps' : 'copy'" ariaLabel="Copy step"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteJournalStepClick(step.id)" 
+                            [isDisabled]="isDeleteDisabled(step)" tooltipText="Delete Step" ariaLabel="Delete step"
+                            [isBlocked]="'jcc' | roleAction: 'processSteps' : 'delete'"></app-icon-button>
+                    </div>
+                    <div class="float-right card-action-div font-stndrd" *ngIf="stepDeleteClickId === step.id">
+                        Delete?&nbsp;&nbsp;&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-check" (btnClick)="onDeleteJournalStepClick(step.id, true)" 
+                            [isDisabled]="isDeleteDisabled(step)" tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-times" (btnClick)="onDeleteJournalStepClick(step.id, false)" 
+                            [isDisabled]="isDeleteDisabled(step)" tooltipText="Cancel Delete" ariaLabel="Cancel Delete"></app-icon-button>
+                    </div>
+                    <div class="float-right card-action-div font-stndrd" *ngIf="stepCopingId === step.id">
+                        Where?&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-fast-forward" (btnClick)="onCopyJournalStepClick(step.id, true)" 
+                            tooltipText="Copy to the end" ariaLabel="Copy to the end"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-step-forward" (btnClick)="onCopyJournalStepClick(step.id, false)" 
+                            tooltipText="Copy to next" ariaLabel="Copy to next"></app-icon-button>&nbsp;&nbsp;
+                        <app-icon-button faIcon="fa-times" (btnClick)="onCopyJournalStepClick(0, false)" 
+                            tooltipText="Cencel copy" ariaLabel="Cancel copy"></app-icon-button>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="viewMode === ('CARD' | enumValueConverter : 'stepListViewModes')">
+                    <div class="card-title">{{step.comment}}</div>
+                    <div class="card-text">Input Table(s): 
+                        <span class="input-span" *ngFor="let inpt of step.inputTab; let i = index;">
+                            <span *ngIf="i > 0">,&nbsp;</span>
+                            {{inpt}}
+                        </span>
+                    </div>
+                    <div class="card-text">Output Table: 
+                        <span class="input-span">
+                            {{step.resultTab.tabName}}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="viewMode === ('QUERY' | enumValueConverter : 'stepListViewModes')">
+                    <div class="row" *ngFor="let cmnd of step.command">
+                        <div class="col-3">{{cmnd.name}}</div>
+                        <div class="col qury-div">{{cmnd.value | stepValueConverter}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-0" *ngIf="viewMode === ('LIST' | enumValueConverter : 'stepListViewModes')">
+            <div class="table table-bordered bg-white cu-tbl only-head">
+                <div class="cu-thead">
+                    <div class="cu-tr">
+                        <div class="cu-th w-10 no-border" scope="col">Sequence</div>
+                        <div class="cu-th w-15 no-border text-center" scope="col">Function Used</div>
+                        <div class="cu-th w-60 no-border" scope="col">Name</div>
+                        <div class="cu-th w-15 text-center no-border" scope="col">Actions</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tbl-area">
+                <div class="table table-bordered bg-white cu-tbl">
+                    <div class="cu-tbody">
+                        <div class="cu-tr" *ngFor="let step of processSteps; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                            <div class="cu-td w-10" scope="row">Step&nbsp;{{step.id}}</div>
+                            <div class="cu-td w-15 text-center" scope="row">{{getFunctionName(step.operation.func)}}</div>
+                            <div class="cu-td w-60">{{step.comment}}</div>
+                            <div class="cu-td w-15 center-icon" *ngIf="(stepDeleteClickId !== step.id) && (stepCopingId !== step.id)">
+                                <app-icon-button faIcon="fa-eye" (btnClick)="onStepViewDetailsClick(step.id)" 
+                                    tooltipText="Step View" ariaLabel="Step view"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-file-text" (btnClick)="onStepDataViewClick(step.id)" 
+                                    tooltipText="Step data" ariaLabel="Step data"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-edit" (btnClick)="onEditJournalStepClick(step.id)" 
+                                    [isBlocked]="'jcc' | roleAction: 'processSteps' : 'edit'" ariaLabel="Edit step"
+                                    [isDisabled]="!isNewStepButtonShow" tooltipText="Edit Step"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-clone" (btnClick)="onCopyJournalStepClick(step.id, null)" tooltipText="Copy Step"
+                                    [isBlocked]="'jcc' | roleAction: 'processSteps' : 'copy'" ariaLabel="Copy step"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteJournalStepClick(step.id)" 
+                                    [isDisabled]="isDeleteDisabled(step)" tooltipText="Delete Step" ariaLabel="Delete step"></app-icon-button>
+                            </div>
+                            <div class="cu-td w-10 center-icon del-row" *ngIf="stepDeleteClickId === step.id">
+                                Delete?&nbsp;&nbsp;&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-check" (btnClick)="onDeleteJournalStepClick(step.id, true)" 
+                                    [isDisabled]="isDeleteDisabled(step)" tooltipText="Confirm Delete" ariaLabel="Confirm Delete"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-times" (btnClick)="onDeleteJournalStepClick(step.id, false)" 
+                                    [isDisabled]="isDeleteDisabled(step)" tooltipText="Cancel Delete" ariaLabel="Cancel delete"></app-icon-button>
+                            </div>
+                            <div class="cu-td w-10 center-icon success-row" *ngIf="stepCopingId === step.id">
+                                Where?&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-fast-forward" (btnClick)="onCopyJournalStepClick(step.id, true)" 
+                                    tooltipText="Copy to the end" ariaLabel="Copy to the end"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-step-forward" (btnClick)="onCopyJournalStepClick(step.id, false)" 
+                                    tooltipText="Copy to next" ariaLabel="Copy to next"></app-icon-button>&nbsp;&nbsp;
+                                <app-icon-button faIcon="fa-times" (btnClick)="onCopyJournalStepClick(0, false)" 
+                                    tooltipText="Cencel copy" ariaLabel="Cancel copy"></app-icon-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-data-processing *ngIf="!isStepsShow" [treeNodes]="treeNodes" [stepId]="selectedProcessStepForDetails" (backHeaderActionClick)="onBackActionButtonClick()"
+    [detailMode]="gotoDetailMode" (runHeaderActionClick)="onHeaderActionRunClick($event)" (columnSelect)="onColumnSelection()"></app-data-processing>

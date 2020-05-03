@@ -1,0 +1,135 @@
+<div class="row px-2 py-1 jcc-section-header">
+    {{heading}}
+</div>
+<div class="p-3">
+    <div class="container-fluid">
+        <app-loader [isLoading]="isLoading"></app-loader>
+        <div class="row">
+            <div class="col">
+                <app-textbox ctrlId="txtJournalName" label="Journal Name" placeholder="Journal Name" ariaLabel="Journal Name"                
+                    [(model)]="newAdhocJournal.name" minLabelLen="140px" [isRequired]="true" [isSubmit]="isSubmit"></app-textbox>
+            </div>
+            <div class="col">
+                <app-showbox label="Frequency" [(value)]="newAdhocJournal.frequency" minLabelLen="140px" ariaLabel="Frequency"></app-showbox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <app-textarea ctrlId="txtJournalDesc" label="Description" placeholder="Description" 
+                    [(model)]="newAdhocJournal.description" minLabelLen="140px" ariaLabel="Description"></app-textarea>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <app-combobox ctrlId="cmbTemplate" label="Template" placeholder="Select template" isRequired="true" 
+                            keyInNumber="true"  [(model)]="newAdhocJournal.template.id" minLabelLen="140px" [list]="templateList" 
+                            key="id" value="name" [isRequired]="true" [isSubmit]="isSubmit" ariaLabel="Select template"
+                            (valueChange)="onTemplateChange($event)"></app-combobox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <app-combobox ctrlId="cmbBusinessRule" label="Business Rule" placeholder="Select business rule" 
+                            [isDisabled]="!isBusinessDropdownEnabled" [list]="businessRuleList" key="id" value="name" 
+                            [(model)]="newAdhocJournal.businessRule.id" minLabelLen="140px"
+                            (valueChange)="onBusinessRuleChanged($event)" ariaLabel="Business rule"
+                            isRequired="true" [isSubmit]="isSubmit" keyInNumber="true"></app-combobox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <app-combobox ctrlId="cmbSuperuser" label="Admin" placeholder="Select admin"
+                    [isDisabled]="" [list]="superUserList" key="id" value="nameEmail" 
+                    [(model)]="newAdhocJournal.superUser.id" minLabelLen="140px" keyCustomType="true"
+                    (valueChange)="onUserChangedByRole($event, 'superUser')" ariaLabel="Select admin"
+                    isRequired="true" [isSubmit]="isSubmit"></app-combobox>
+            </div>
+            <div class="col">
+                <app-combobox ctrlId="cmbReviewer" label="Reviewer" placeholder="Select reviewer" 
+                    [isDisabled]="" [list]="reviewerList" key="id" value="nameEmail" 
+                    [(model)]="newAdhocJournal.reviewer.id" minLabelLen="140px" keyCustomType="true"
+                    (valueChange)="onUserChangedByRole($event, 'reviewer')" ariaLabel="Select reviewer"
+                    isRequired="true" [isSubmit]="isSubmit"></app-combobox>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <app-combobox ctrlId="cmbDataEntryType" label="Data Entry Type" placeholder="Select data entry type" 
+                    [list]="dataEntryTypeList" [(model)]="newAdhocJournal.dataEntryType" minLabelLen="140px"
+                    (valueChange)="onDataEntryTypeChanged($event)" ariaLabel="Select data entry type"
+                    isRequired="true" [isSubmit]="isSubmit"></app-combobox>
+            </div>
+            <div class="col">
+                <app-textbox ctrlId="txtEmail" label="Requester" placeholder="Requester email" ariaLabel="Requester"
+                    [(model)]="newAdhocJournal.requesterEmail" minLabelLen="140px" [isSubmit]="isSubmit"
+                    [pattern]="'EMAIL' | defaultConstantValueConverter: 'regexPatternService'"></app-textbox>
+            </div>
+        </div>
+        <div class="row" *ngIf="newAdhocJournal.dataEntryType === ('FILE_UPLOAD' | enumValueConverter: 'adhocDataEntryTypes')">
+            <div class="col">
+                <app-file-uploader ctrlId="txtFileUpload_outputFile" label="Upload File"
+                    (uploadFile)="onUploadFile($event)" isRequired="true" minLabelLen="140px"></app-file-uploader>
+            </div>
+            <div class="col"><span class="anomaly-text" *ngIf="uploadErrMsg.length>0">{{uploadErrMsg}}</span></div>
+        </div>
+        <div class="row mt-2" *ngIf="(newAdhocJournal.dataEntryType === ('MANUAL_ENTRY' | enumValueConverter: 'adhocDataEntryTypes')
+            && newAdhocJournal.template.name !== '')">
+            <div class="col">
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="table-area">
+                            <div class="table bg-white cu-tbl">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th text-center" [ngStyle]="{'width': getColumnWidth()}" scope="col" 
+                                            *ngFor="let col of manualDataColumns">
+                                            {{col.col}}
+                                            <span class="manl-col-typ-span">({{col.typ}})</span>
+                                        </div>
+                                        <div class="cu-th w-10" scope="col"></div>
+                                    </div>
+                                </div>
+                                <div  class="cu-tbody">
+                                    <div class="cu-tr" *ngFor="let tpl of manualData; let index=index; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                        <div class="cu-td text-center" [ngStyle]="{'width': getColumnWidth()}" scope="row" *ngFor="let val of tpl">{{val}}</div>
+                                        <div class="cu-td w-10 center-icon">
+                                            <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteManualDataRow(index)" 
+                                                tooltipText="Delete" ariaLabel="Delete"></app-icon-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="table bg-white cu-tbl">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr">
+                                    <div class="cu-td text-center" [ngStyle]="{'width': getColumnWidth()}" scope="row" 
+                                        *ngFor="let newVal of newManualData; let index=index;trackBy:trackByIndex;">
+                                        <app-textbox ctrlId="txtNewVal_{{index}}" label="" placeholder="Value" 
+                                            [(model)]="newManualData[index]" ariaLabel="Value" ></app-textbox>
+                                    </div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-button value="Add" faIcon="fa-plus" type="FACEBOOK" (btnClick)="onAddManualDataClick()"
+                                            ariaLabel="Add manual data"></app-button>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-3">
+                <app-button value="Submit" faIcon="fa-external-link" type="FACEBOOK" isFloatRight="true" (btnClick)="onSubmitClick()" ariaLabel="Submit" 
+                    [isDisabled]="newAdhocJournal.dataEntryType === ('FILE_UPLOAD' | enumValueConverter: 'adhocDataEntryTypes') && newAdhocJournal.fileInfo === null"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

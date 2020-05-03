@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col">{{headerName}}</div>
+    <div class="col-7">
+        <app-status-action (activeStatusClick)="onActiveStatusClick()"></app-status-action>
+    </div>
+    <div class="col-1">
+        <app-header-action (saveClick)="onHeaderActionSaveClick()" [isRunHide]="isRunHide"
+            [isBackShow]="isBackShow" (backClick)="onHeaderActionBackClick()" [isSaveHide]="isSaveHide"
+            (runClick)="onHeaderActionRunClick()" *ngIf="isHeaderActionShow"></app-header-action>
+    </div>
+</div>
+<div class="row pt-2 shadow-effect1 action-div" *ngIf="isStatusActionShow" (clickOutside)="onClickedOutsideOfStatusAction()">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div class="col">
+        <app-textarea ctrlId="txtCommentsPendingApproval" label="Comment" placeholder="Comment" 
+            [(model)]="newComment.comment" maxLength="240" ariaLabel="Comment"></app-textarea>
+    </div>
+    <div class="col pt-3 action-div-col center-icon" *ngIf="isStatusActionButtonShow('PENDING_APPROVAL')">
+        <app-button value="Approve" faIcon="fa-check" type="SPOTIFY" 
+            (btnClick)="onApprovedClick('APPROVED')" ariaLabel="Approve"></app-button>&nbsp;&nbsp;
+        <app-button value="Return" faIcon="fa-repeat" type="YOUTUBE" 
+            (btnClick)="onReturnClick('RETURNED')" ariaLabel="Return"></app-button>
+    </div>
+    <div class="col pt-3 action-div-col center-icon" *ngIf="isStatusActionButtonShow('IN_PROGRESS')">
+        <app-button value="Submit for Approval" faIcon="fa-bookmark" type="LINKEDIN" 
+            (btnClick)="onSubmitForApprovalClick('PENDING_APPROVAL')" ariaLabel="Submit for Approval"></app-button>
+    </div>
+    <div class="col pt-3 action-div-col center-icon" *ngIf="isStatusActionButtonShow('RETURNED')">
+        <app-button value="Submit for Approval" faIcon="fa-bookmark" type="LINKEDIN" 
+            (btnClick)="onSubmitForApprovalClick('PENDING_APPROVAL')" ariaLabel="Submit for Approval"></app-button>
+    </div>
+</div>

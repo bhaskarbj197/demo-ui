@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col">
+        <div class="row pt-2">
+            <div class="col justify-content-center font-stndrd">
+                Records: {{getStartRecordNumber()}} to {{getLastRecordNumber()}} of <strong>{{totalRecords}}</strong>
+            </div>
+            <div class="col-3 m-btn-div" *ngIf="mBtnLabel.length>0 && isMBtnShow">
+                <app-button [value]="mBtnLabel" [faIcon]="mBtnIcon" [type]="mBtnType" [ariaLabel]="mBtnAreaLabel"
+                    (btnClick)="onMBtnClick()"></app-button>
+            </div>
+            <div class="col">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm justify-content-end font-stndrd">
+                        <li class="page-item" 
+                            [ngClass]="{'pointer': (currentPageIndex>0), 'disabled': (currentPageIndex===0)}">
+                            <span class="page-link p-link" (click)="onFirstPageClick()">
+                                <app-icon-only faIcon="fa-step-backward"></app-icon-only>
+                            </span>
+                        </li>
+                        <li class="page-item" 
+                            [ngClass]="{'pointer': (currentPageIndex>0), 'disabled': (currentPageIndex===0)}">
+                            <span class="page-link p-link" (click)="onPreviousClick()">Prev</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link p-link">{{getFirstPageNumber()}} of {{getTotalPageCount()}}</span>
+                        </li>
+                        <li class="page-item" 
+                            [ngClass]="{'pointer': ((currentPageIndex+1)<getTotalPageCount()), 'disabled': ((currentPageIndex+1)===getTotalPageCount())}">
+                            <span class="page-link p-link" (click)="onNextClick()">Next</span>
+                        </li>
+                        <li class="page-item" 
+                            [ngClass]="{'pointer': ((currentPageIndex+1)<getTotalPageCount()), 'disabled': ((currentPageIndex+1)===getTotalPageCount())}">
+                            <span class="page-link p-link" (click)="onLastPageClick()">
+                                <app-icon-only faIcon="fa-step-forward"></app-icon-only>
+                            </span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

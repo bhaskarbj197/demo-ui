@@ -1,0 +1,16 @@
+<div class="title-div text-center" *ngIf="isTitleShow">
+    {{title}}
+</div>
+<div class="chart">
+    <canvas baseChart
+        width="220"
+        height="220"
+        [data]="data"
+        [labels]="labels"
+        [chartType]="polarChartType"
+        [options]="polarChartOptions"
+        [plugins]="polarChartPlugins"
+        [colors]="polarChartColors"
+        [legend]="isLegendShow">
+    </canvas>
+</div>

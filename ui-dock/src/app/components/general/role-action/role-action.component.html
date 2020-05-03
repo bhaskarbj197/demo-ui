@@ -1,0 +1,232 @@
+<div class="row content-div p-1">
+    <div class="col">
+        <div class="row" *ngIf="roleDetails">
+            <div class="font-stndrd w-100">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>Home Menu</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.menu.jcc)"></app-icon-only>&nbsp;JCC
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.menu.jeva)"></app-icon-only>&nbsp;JEH
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.menu.jevan)"></app-icon-only>&nbsp;JEVA
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.menu.advisor)"></app-icon-only>&nbsp;Advisor
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.menu.report)"></app-icon-only>&nbsp;Report
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.menu.admin)"></app-icon-only>&nbsp;Admin
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.boto)"></app-icon-only>&nbsp;Live chat
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>Home Table Action</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row  p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.homeAction.journalAdd)"></app-icon-only>&nbsp;Add New Journal
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.homeAction.journalEdit)"></app-icon-only>&nbsp;Edit Journal
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.homeAction.journalCopy)"></app-icon-only>&nbsp;Copy Journal
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.homeAction.journalDownload)"></app-icon-only>&nbsp;Download Journal Info
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.homeAction.journalDelete)"></app-icon-only>&nbsp;Delete Journal
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>JCC - Input Source</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.inputSource.view)"></app-icon-only>&nbsp;View
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.inputSource.fileUpload)"></app-icon-only>&nbsp;File Upload
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.inputSource.fileDelete)"></app-icon-only>&nbsp;File Delete
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.inputSource.dataCleanUp)"></app-icon-only>&nbsp;Data Cleanup
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>JCC - Process Steps</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.processSteps.view)"></app-icon-only>&nbsp;View Step
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.processSteps.add)"></app-icon-only>&nbsp;Add Step
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.processSteps.edit)"></app-icon-only>&nbsp;Edit Step
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.processSteps.copy)"></app-icon-only>&nbsp;Copy Step
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.processSteps.delete)"></app-icon-only>&nbsp;Delete Step
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>JCC - Output Mapping</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.outputMapping.view)"></app-icon-only>&nbsp;View Mapping
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.outputMapping.add)"></app-icon-only>&nbsp;Add Mapping
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.outputMapping.delete)"></app-icon-only>&nbsp;Delete Mapping
+                            </div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>JCC - Supporting Documents</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.supportingDocs.view)"></app-icon-only>&nbsp;View Documents
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.supportingDocs.add)"></app-icon-only>&nbsp;Add Document
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.supportingDocs.edit)"></app-icon-only>&nbsp;Edit Document
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.supportingDocs.delete)"></app-icon-only>&nbsp;Delete Document
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>JCC - Advisor config</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.advisorConfig.view)"></app-icon-only>&nbsp;View Configs
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.advisorConfig.add)"></app-icon-only>&nbsp;Add Config
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.advisorConfig.edit)"></app-icon-only>&nbsp;Edit Config
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.advisorConfig.delete)"></app-icon-only>&nbsp;Delete Config
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>JCC - Validation Rules</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.validationRules.view)"></app-icon-only>&nbsp;View Rules
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.validationRules.add)"></app-icon-only>&nbsp;Add Rule
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.validationRules.edit)"></app-icon-only>&nbsp;Edit Rule
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.jcc.validationRules.delete)"></app-icon-only>&nbsp;Delete Rule
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="font-stndrd w-100 mt-1">
+                <div class="card main-card cu-card">
+                    <div class="card-header px-2 py-0">
+                        <strong>Journal Workflow Actions</strong>
+                    </div>
+                    <div class="tab-body">
+                        <div class="row p-1 pl-2">
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.workflowAction.journalStatus.submitForApproval)"></app-icon-only>&nbsp;Config - Submit for Approval
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.workflowAction.journalStatus.pendingApproval)"></app-icon-only>&nbsp;Config - Pending Approval
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.workflowAction.runStatus.submitForReview)"></app-icon-only>&nbsp;Run - Submit for Review
+                            </div>
+                            <div class="col">
+                                <app-icon-only [dynamicClass]="getIcon(roleDetails.workflowAction.runStatus.pendingSignOff)"></app-icon-only>&nbsp;Run - Pending Sign Off
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="row px-2 py-1 jcc-section-header">
+    Data Anomalies
+</div>
+<div class="row p-2 justify-content-center">
+    <div class="col">
+        <app-navbar ctrlId="dataAnomaliesTab" [tabList]="tabList" (activeTabChanged)="onChangedActiveTab($event)"
+            comboLable="Anomaly Type" [comboList]="anomalyTypeList" [comboModel]="anomalyTypeSelected" comboAreaLabel="Anomaly Type"
+            [isComboHidden]="activeTab === tabList[2]" (comboValueChanged)="onAnnamalyTypeChanged($event)"></app-navbar>
+        <div class="row content-div" *ngIf="activeTab === tabList[0]">
+            <div class="col">
+                <div class="row p-2">
+                    <app-loader [isLoading]="isLoading"></app-loader>
+                    <div class="table bg-white cu-tbl only-head">
+                        <div class="cu-thead">
+                            <div class="cu-tr">
+                                <div class="cu-th w-10 no-border text-center" scope="col">Journal Id</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Run Date</div>
+                                <div class="cu-th w-50 no-border" scope="col">Journal Name</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Status</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Type</div>
+                                <div class="cu-th w-10 no-border text-center" scope="col">Action</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-area">
+                        <app-table-no-records [list]="dataAnomalies | filterListWithColumn: 'typ': anomalyTypeSelected"></app-table-no-records>
+                        <div class="table bg-white cu-tbl">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let item of dataAnomalies | filterListWithColumn: 'typ': anomalyTypeSelected; let odd=odd;" 
+                                    [ngClass]="{'odd-row': odd}">
+                                    <div class="cu-th w-10 text-center" scope="row">{{item.journalId}}</div>
+                                    <div class="cu-th w-10 text-center">{{item.runDate |dateConverter: false: true}}</div>
+                                    <div class="cu-td w-50">{{item.journalName}}</div>
+                                    <div class="cu-td w-10 text-center" (click)="onDataAnomalyItemClick(item, 'inputLogs')">
+                                        <div [ngClass]="{'inner-div-bck-clr': item.anomalyStatus.toLowerCase().trim()==='fail',
+                                            'inner-div-bck-sc': item.anomalyStatus.toLowerCase().trim()==='pass'}" class="pointer">
+                                            {{item.anomalyStatus}}
+                                        </div>
+                                    </div>
+                                    <div class="cu-td w-10 text-center">{{item.typ}}</div>
+                                    <div class="cu-td w-10 center-icon">
+                                        <app-icon-button faIcon="fa-bar-chart" tooltipText="Details View" ariaLabel="Details View"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content-div" *ngIf="activeTab === tabList[1]">
+            <div class="col">
+                <div class="row p-3 justify-content-center">
+                    <div class="graph-show">
+                        <app-pie-chart title="Journal Anomaly Status - {{anomalyTypeSelected}}" [labels]="graphData.labels" 
+                            *ngIf="graphData.data.length > 0" [isDataLabelsShow]="false" [colors]="graphData.colors"
+                            [data]="graphData.data" [size]="'LARGE' | enumValueConverter : 'chartSizes'"></app-pie-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
