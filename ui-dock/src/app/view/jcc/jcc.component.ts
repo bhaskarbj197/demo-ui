@@ -355,6 +355,7 @@ export class JccComponent implements OnInit {
         this.dataService.masterJson["outputMapping"] = this.dataService.outputMapping;
       }
       this.businessLoaderService.journalDetailsBusinessService.saveJournalAsync(reqJson).subscribe(res => {
+        this.dataService.isJournalCopy = false;
         this.resetInputFields();
         if(obj !== undefined && obj.log !== undefined) {
           if(obj.replaceText !== undefined){

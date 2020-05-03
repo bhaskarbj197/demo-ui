@@ -121,7 +121,7 @@
                                         </div>
                                         <div class="col" *ngIf="cond.typ==='Reviewer'">
                                             <app-combobox ctrlId="cmbReviewer" label="Reviewer" placeholder="Select reviewer" 
-                                                [list]="reviewerList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                                [list]="reviewerList" key="id" value="nameEmail" 
                                                 [(model)]="cond.reviewer" ariaLabel="Select Reviewer" keyCustomType="true"></app-combobox>
                                         </div>
                                         <div class="col-2">
@@ -155,7 +155,7 @@
                                         </div>
                                         <div class="col">
                                             <app-combobox ctrlId="cmbReviewer2" label="2nd Reviewer" placeholder="Select 2nd reviewer" 
-                                                [list]="reviewerList | orderBy: 'asc' : 'nameEmail'" key="id" value="nameEmail" 
+                                                [list]="reviewerList" key="id" value="nameEmail" 
                                                 *ngIf="this.ruleModel.action.isReview2ListShow"
                                                 [(model)]="ruleModel.actionReviewer2" ariaLabel="Select 2nd Reviewer" keyCustomType="true"></app-combobox>
                                         </div>
@@ -170,7 +170,7 @@
                         <div class="container accordion cu-accdn-cntn">
                             <div class="card main-card cu-card">
                                 <div class="card-header px-2 py-1">
-                                    <strong>Exception Area</strong>
+                                    <strong>Exception Area</strong>&nbsp;<span class="excep-help-txt">(any one group can be used)</span>
                                 </div>
                                 <div class="tab-body">
                                     <div class="row p-1 mt-2">

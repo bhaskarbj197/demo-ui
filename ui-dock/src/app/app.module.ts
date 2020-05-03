@@ -140,7 +140,6 @@ import { LineChartComponent } from './components/ui/charts/line-chart/line-chart
 import { PolarAreaComponent } from './components/ui/charts/polar-area-chart/polar-area-chart.component';
 
 import { SizeConverterPipe } from './pipes/size-converter.pipe';
-import { OrderByPipe } from './pipes/orderBy.pipe';
 import { DefaultConstantValueConverterPipe } from './pipes/defaultConstantValueConverter.pipe';
 import { EnumValueConverterPipe } from './pipes/enumValueConverter.pipe';
 import { DateConverterPipe } from './pipes/date-converter.pipe';
@@ -220,7 +219,6 @@ export function configFactory(keycloakService: KeycloakService, appConfig: AppCo
     ListboxComponent,
     HeaderActionComponent,
     SizeConverterPipe,
-    OrderByPipe,
     DefaultConstantValueConverterPipe,
     EnumValueConverterPipe,
     DateConverterPipe,

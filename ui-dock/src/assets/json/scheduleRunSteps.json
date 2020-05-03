@@ -1,0 +1,47 @@
+[
+	{
+		"seq": 1,
+		"name": "Data Warehouse",
+		"code": "datawh"
+	},
+	{
+		"seq": 2,
+		"name": "Data Extractor",
+		"code": "extractor"
+	},
+	{
+		"seq": 3,
+		"name": "Data Combiner",
+		"code": "combiner"
+	},
+	{
+		"seq": 4,
+		"name": "Data Cleaner",
+		"code": "datacleaner"
+	},
+	{
+		"seq": 5,
+		"name": "Data Processor",
+		"code": "processor"
+	},
+	{
+		"seq": 6,
+		"name": "Data Validator",
+		"code": "validator"
+	},
+	{
+		"seq": 7,
+		"name": "Data Post Processor",
+		"code": "post_processor"
+	},
+	{
+		"seq": 8,
+		"name": "Data Input Log Anomaly Detector",
+		"code": "input_log_anomaly_detector"
+	},
+	{
+		"seq": 9,
+		"name": "Data Process Log Anomaly Detector",
+		"code": "process_log_anomaly_detector"
+	}
+]

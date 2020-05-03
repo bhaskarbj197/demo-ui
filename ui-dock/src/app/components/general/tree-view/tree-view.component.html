@@ -26,7 +26,7 @@
                 [(model)]="runDateSelectedForAdvisor" (valueChange)="onRunDateChanged($event)" ariaLabel="Select run date"></app-combobox>
         </div>
     </div>
-    <div class="tv-node" *ngFor="let node of nodes | orderBy: 'asc' : 'seq'" [hidden]="isTreeNodeHidden(node, true)">
+    <div class="tv-node" *ngFor="let node of nodes" [hidden]="isTreeNodeHidden(node, true)">
         <span [ngClass]="getArrowClass(node)" class="arrow-icon pointer" (click)="onNodeClick(node, $event)"></span>
         <span class="tv-node-text pointer" [ngClass]="{'active-menu': node.isSelected, 'disabled-span': node.isDisabled}" (click)="onNodeClick(node, $event)">
             {{node.name}}
@@ -38,7 +38,7 @@
         </span>
         <span *ngIf="node.actionBtnIcon" [ngClass]="node.actionBtnIcon" class="action-btn-text pointer" (click)="onActionBtnClick(node, $event)"></span>
         <div *ngIf="node.children.length > 0" [hidden]="!node.isExpanded">
-            <div class="tv-node tv-chld-div" *ngFor="let chld of node.children | orderBy: 'asc' : 'seq'" [hidden]="isTreeNodeHidden(chld)">
+            <div class="tv-node tv-chld-div" *ngFor="let chld of node.children" [hidden]="isTreeNodeHidden(chld)">
                 <span [ngClass]="getArrowClass(chld)" class="pointer"></span>
                 <span class="tv-node-text pointer" [ngClass]="{'active-menu': chld.isSelected, 'disabled-span': chld.isDisabled}" 
                     (click)="onNodeClick(chld, $event)">
@@ -53,7 +53,7 @@
                 </span>
                 <span *ngIf="chld.actionBtnIcon" [ngClass]="node.actionBtnIcon" class="action-btn-text pointer" (click)="onActionBtnClick(chld, $event)"></span>
                 <div *ngIf="chld.children !== undefined && chld.children.length > 0" [hidden]="!chld.isExpanded">
-                    <div class="tv-node tv-chld-div" *ngFor="let gChld of chld.children | orderBy: 'asc' : 'seq'" [hidden]="isTreeNodeHidden(gChld)">
+                    <div class="tv-node tv-chld-div" *ngFor="let gChld of chld.children" [hidden]="isTreeNodeHidden(gChld)">
                         <span [ngClass]="getArrowClass(gChld)" class="pointer"></span>
                         <span class="tv-node-text pointer" [ngClass]="{'active-menu': gChld.isSelected, 'disabled-span': gChld.isDisabled}" (click)="onNodeClick(gChld, $event)">
                             {{gChld.name}}

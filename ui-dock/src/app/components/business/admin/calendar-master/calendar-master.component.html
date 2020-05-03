@@ -92,12 +92,12 @@
                             ariaLabel="Calendar name"></app-textbox>
                     </div>
                     <div class="col-2">
-                        <app-combobox ctrlId="cmbYear" label="Year" placeholder="Select year"
+                        <app-combobox ctrlId="cmbYear" label="Year" placeholder="Select year" isRequired="true"
                             keyInNumber="true" (valueChange)="onYearChanged($event)" ariaLabel="Select year"
                             [list]="yearList" [(model)]="calendarInfo.year"></app-combobox>
                     </div>
                     <div class="col-3">
-                        <app-combobox ctrlId="cmbMonth" label="Month" placeholder="Select month" [markedKeyList]="monthMarkedKeyList"
+                        <app-combobox ctrlId="cmbMonth" label="Month" placeholder="Select month" [markedKeyList]="monthMarkedKeyList" isRequired="true"
                             keyInNumber="true" [list]="monthList" key="monthNumber" value="name" (valueChange)="onMonthChanged($event)"
                             [(model)]="calendarInfo.month.monthNumber" markedText="(added)" ariaLabel="Select month"></app-combobox>
                     </div>

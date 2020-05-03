@@ -10,13 +10,15 @@ import { Injectable } from '@angular/core';
 import { UiJsonDataService } from '../../services/data/ui-json-data.service';
 import { TreeNodeModel } from '../../models/treeNode.model';
 import { ValidationRuleCategoryModel } from 'src/app/models/validationRuleCategory.model';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminUiJsonBusinessService {
 
-  constructor(private uiJsonDataService: UiJsonDataService) { }
+  constructor(private uiJsonDataService: UiJsonDataService,
+    private generalUtility: GeneralUtility) { }
 
   private createTreeNode(jsonTree: any): TreeNodeModel{
     var node = new TreeNodeModel();
@@ -38,6 +40,7 @@ export class AdminUiJsonBusinessService {
     node.isAllChildrenOpenInSamePage = (jsonTree.isAllChildrenOpenInSamePage === undefined) ? false : jsonTree.isAllChildrenOpenInSamePage;
     node.isWithoutJournalId = true;
     node.roleCode = jsonTree.roleCode ? jsonTree.roleCode : "";
+    node.children = this.generalUtility.getSortedArray(node.children, "seq");
     return node;
   }
 
@@ -52,6 +55,7 @@ export class AdminUiJsonBusinessService {
         }
       }
     }
+    treeNodes = this.generalUtility.getSortedArray(treeNodes, "seq");
     return treeNodes;
   }
 

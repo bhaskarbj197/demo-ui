@@ -124,4 +124,58 @@ export class GeneralUtility {
     }
     return list;
   }
+
+  /**
+   * Moves an element of an array up or down by the value of @param moveIndexBy.
+   * @param inputList - The collection of element(s) where the element of its index is movedby.
+   * @param currentIndex - The current index of an element to be moved.
+   * @param moveIndexBy - The index where the element to be moved, 
+   * @example moveIndexBy = 1, the element moves up.
+   * moveIndexBy = -1, an elemet moves down.
+   * @param seqField - The name of the field in the collection, if any, that maintains the sequence 
+   */
+  move(inputList: any[], currentIndex: number, moveIndexBy: number, seqField: string) {
+    var newIndex = currentIndex + moveIndexBy;
+    if (newIndex < 0 || newIndex == inputList.length) {
+      return; 
+    }
+    var indexes = [currentIndex, newIndex].sort((a, b) => a - b); 
+    inputList.splice(indexes[0], 2, inputList[indexes[1]], inputList[indexes[0]]);
+    if(!this.isEmptyOrUndefined(seqField)) {
+      inputList[currentIndex][seqField] = currentIndex + 1;
+      inputList[newIndex][seqField] = newIndex + 1;
+    }
+    return inputList;
+  }
+
+  getSortedArray(list: Array<any>, prop: string = "", isAsc: boolean = true): Array<any>{
+    var result: Array<any> = Array<any>();
+    if(list === null || list === undefined || list.length === 0){
+      return list;
+    }
+    for(var index=0; index<list.length; index++){
+      if(index === 0){
+        result.push(list[index]);
+      } else {
+        for(var cnt=0; cnt<result.length; cnt++){
+          if(typeof list[index][prop] === "number"){
+            if(parseFloat(list[index][prop]) < parseFloat(result[cnt][prop])){
+              result.splice(cnt, 0, list[index]);
+              break;
+            }
+          } else {
+            if(list[index][prop].toString().toLowerCase() < result[cnt][prop].toString().toLowerCase()){
+              result.splice(cnt, 0, list[index]);
+              break;
+            }
+          }
+          if(cnt === result.length - 1){
+            result.push(list[index]);
+            break;
+          }
+        }
+      }
+    }
+    return result;
+  }
 }

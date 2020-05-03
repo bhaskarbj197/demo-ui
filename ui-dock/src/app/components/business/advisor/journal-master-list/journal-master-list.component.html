@@ -13,7 +13,7 @@
             <app-table-no-records [list]="journalList"></app-table-no-records>
             <div class="table bg-white cu-tbl">
                 <div class="cu-tbody">
-                    <div class="cu-tr" *ngFor="let journal of journalList | orderBy: 'asc' : 'id'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                    <div class="cu-tr" *ngFor="let journal of journalList; let odd=odd;" [ngClass]="{'odd-row': odd}">
                         <div class="cu-th w-7 text-center" scope="row">{{journal.id}}</div>
                         <div class="cu-th w-7 text-center" scope="row">{{journal.runDate | dateConverter: false : true}}</div>
                         <div class="cu-td w-25">{{journal.name}}</div>

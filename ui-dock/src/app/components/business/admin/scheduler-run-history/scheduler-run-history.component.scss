@@ -1,2 +1,41 @@
 @import '../../../../style/common';
 @import '../../../../style/table';
+
+.table-area{
+    height: 48vh;
+    max-height: 48vh;
+    @extend .table-data-area;
+}
+
+.tbl-area{
+    height: 37vh;
+    max-height: 37vh;
+    @extend .table-data-area;
+}
+
+.cu-card{
+    margin-bottom: 3px;
+    min-height: 80px;
+    height: auto;
+    border-bottom: solid 1px lightgray !important;
+}
+
+.fail-sts-txt{
+    @extend .anomaly-text;
+    font-weight: bold;
+}
+
+.pass-sts-txt{
+    @extend .success-text;
+    font-weight: bold;
+}
+
+.graph-show{
+    width: 90%;
+    height: 500px;
+    padding-top: 10px;
+    border: solid 1px $tbl-border-color;
+    box-shadow: 8px 8px 5px $box-shadow-color;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+}

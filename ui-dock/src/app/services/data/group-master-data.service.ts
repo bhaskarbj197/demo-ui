@@ -21,11 +21,11 @@ export class GroupMasterDataService {
   constructor(private dataAccessService: DataAccessService,
     private constantLoaderService: ConstantLoaderService) { }
 
-  addNewGroupMasterAsync(requestBody): Observable<HttpResponse<any>> {
+  addNewGroupMasterAsync(requestBody: any): Observable<HttpResponse<any>> {
     return this.dataAccessService.postAsync(this.constantLoaderService.relativeUrlsService.ADD_GROUP_MASTER, requestBody);
   }
 
-  updateGroupMasterAsync(requestBody): Observable<HttpResponse<any>> {
+  updateGroupMasterAsync(requestBody: any): Observable<HttpResponse<any>> {
     return this.dataAccessService.putAsync(this.constantLoaderService.relativeUrlsService.UPDATE_GROUP_MASTER, requestBody);
   }
 
@@ -36,5 +36,9 @@ export class GroupMasterDataService {
 
   deleteGroupMasterAsync(request: any): Observable<HttpResponse<any>> {
     return this.dataAccessService.putAsync(this.constantLoaderService.relativeUrlsService.DELETE_GROUP_MASTER, request);
+  }
+
+  updateGroupActivenessAsync(request: any): Observable<HttpResponse<any>> {
+    return this.dataAccessService.putAsync(this.constantLoaderService.relativeUrlsService.UPDATE_GROUP_ACTIVENESS, request);
   }
 }

@@ -14,7 +14,7 @@
             </div>
             <div class="col-xs">
                 <app-combobox ctrlId="cmbStepFunction" label="Function" placeholder="Select function" [model]="processStepDetails.operation.func"
-                    [list]="functionList | orderBy: 'asc' : 'name'" key="code" value="name" ariaLabel="Select function" 
+                    [list]="functionList" key="code" value="name" ariaLabel="Select function" 
                     (valueChange)="onFunctionChanged($event)" [isDisabled]="isEditablCtrlDisabled"></app-combobox>
             </div>
             <div class="col-sm-3">
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="card-body list-group list-group-flush p-0 jcc-card-body">
                                     <app-listbox ctrlId="lstFunctions" key="code" val="name"
-                                        [list]="ruleList | orderBy: 'asc' : 'name' | filterListWithColumn: 'name' : ruleFilterText : false"
+                                        [list]="ruleList | filterListWithColumn: 'name' : ruleFilterText : false"
                                         (valueChange)="onRuleValueChanged($event)" helpText="helpText"></app-listbox>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="card-body list-group list-group-flush p-0 jcc-card-body">
                                     <app-listbox ctrlId="lstTables" key="name" val="name"
-                                        [list]="inputFiles | orderBy: 'asc' : 'name' | filterListWithColumn: 'name' : tableFilterText : false"
+                                        [list]="inputFiles | filterListWithColumn: 'name' : tableFilterText : false"
                                         (valueChange)="onTableListValueChanged($event)"></app-listbox>
                                 </div>
                             </div>

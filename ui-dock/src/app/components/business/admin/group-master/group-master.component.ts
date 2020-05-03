@@ -188,6 +188,28 @@ export class GroupMasterComponent implements OnInit {
     }
   }
 
+  onChangeActivenessClick(grp: GroupMasterModel){
+    if(grp){
+      this.isLoading = true;
+      this.businessLoaderService.groupMasterBusinessService.updateGroupActivenessAsync(grp.id, !grp.isActive).subscribe(res => {
+        if(res && res.body && res.body.isSuccess){
+          grp.isActive = !grp.isActive;
+        }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
+        this.handlerLoaderService.errorHandlerService.handleError(err);
+      });
+    }
+  }
+
+  isInactiveBtnDisabled(grp: GroupMasterModel): boolean{
+    if(!grp.isActive){
+      return (this.groupMasterList.filter(res => res.isActive).length >= this.maxActiveGroups);
+    }
+    return false;
+  }
+
   addElementToGroup() {
     this.isFormSubmitted = true;
     if((this.newGroup && this.newGroup.name === "") || !this.newElement || this.newElement.name === "") {

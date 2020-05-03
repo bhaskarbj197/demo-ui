@@ -42,7 +42,7 @@
                     </div>
                     <div class="table-area">
                         <app-table-no-records [list]="inputLogs.records"></app-table-no-records>
-                        <div class="table bg-white cu-tbl" *ngFor="let log of inputLogs.records | orderBy: 'asc' : 'inputNo'; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                        <div class="table bg-white cu-tbl" *ngFor="let log of inputLogs.records; let odd=odd;" [ngClass]="{'odd-row': odd}">
                             <div  class="cu-tbody">
                                 <div class="cu-tr" [ngClass]="{'anomaly-tr': log.isAnomaly}">
                                     <div class="cu-td w-20" scope="row">{{log.fileName}}</div>

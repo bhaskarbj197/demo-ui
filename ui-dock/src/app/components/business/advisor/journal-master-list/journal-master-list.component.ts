@@ -16,6 +16,7 @@ import { TableConfigModel } from 'src/app/models/tableConfig.model';
 import { AdhocJournalForAdvisorModel } from 'src/app/models/adhocJournal.model';
 import { JournalInfoPartial } from 'src/app/models/journalInfo.model';
 import { HandlerLoaderService } from 'src/app/loaders/handler-loader.service';
+import { GeneralUtility } from 'src/app/utility/general-utility';
 
 @Component({
   selector: 'app-journal-master-list',
@@ -29,7 +30,8 @@ export class JournalMasterListComponent implements OnInit {
     private dataService: DataService,
     private dateConverterPipe: DateConverterPipe,
     private constantLoaderService: ConstantLoaderService,
-    private handlerLoaderService: HandlerLoaderService) { }
+    private handlerLoaderService: HandlerLoaderService,
+    private generalUtility: GeneralUtility) { }
 
   totalJournalCount: number = 0;
   totalAdhocCount: number = 0;
@@ -67,7 +69,8 @@ export class JournalMasterListComponent implements OnInit {
         this.totalJournalCount = res.body.totalCount;
       }
       if(res.body && res.body.data){
-        this.journalList = this.businessLoaderService.advisorHomeBusinessService.getProcessedJournalDataList(res.body.data);
+        this.journalList = this.generalUtility.getSortedArray(
+          this.businessLoaderService.advisorHomeBusinessService.getProcessedJournalDataList(res.body.data), "id");
         this.isDataLoading = false;
       }
     }, err => {

@@ -71,6 +71,7 @@ export class RelativeUrlsService {
   public ADD_GROUP_MASTER: string = "/addGroupMaster";
   public UPDATE_GROUP_MASTER: string = "/updateGroupMaster";
   public DELETE_GROUP_MASTER: string = "/deleteGroupMaster";
+  public UPDATE_GROUP_ACTIVENESS: string = "/activateDeactivateGroupMaster";
   public ADD_TEMPLATE_MASTER: string = "/addTemplate";
   public GET_TEMPLATE_MASTER_INFO: string = "/getTemplateDetails";
   public UPDATE_TEMPLATE_CR_DR_COL: string = "/activateMandColForCrDr";
@@ -145,5 +146,11 @@ export class RelativeUrlsService {
   public SAVE_JOURNAL_AUTO_APPROVER_RULE_STATUS: string = "/updIsBlockedAutoApvRule";
   public KEYCLOAK_GET_USERS_BY_ROLE: string = "/kc/getUsersByRole";
   public KEYCLOAK_GET_USER_LIST: string = "/kc/getLoginDetails";
-  public GET_DOWNLOAD_JOURNAL_STEPS: string = "/downloadJournalStep/"
+  public GET_DOWNLOAD_JOURNAL_STEPS: string = "/downloadJournalStep/";
+  public GET_SCHEDULE_RUN_HISTORY: string = "/schedulerReport";
+  public GET_SCHEDULE_RUN_JOB_DETAILS: string = "/getJodIdDetails/{jobId}";
+  public GET_SCHEDULE_RUN_GRAPH: string = "/getWdWiseJobStatus";
+  public GET_HEADER_MAPPING_LIST: string = "/getHeaderMappingList";
+  public GET_HEADER_TEMPLATE_BY_TEMPLATEID: string = "/getTempHeader/{templateId}";
+  public POST_ADD_HEADER_TEMPLATE: string = "/addTempHeader";
 }

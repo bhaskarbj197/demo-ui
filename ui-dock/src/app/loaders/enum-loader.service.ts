@@ -29,6 +29,7 @@ import { OutputReqColTypes } from '../enums/outputReqColTypes';
 import { KeyCodes } from '../enums/keyCodes';
 import { BulkTemplateTypes, BulkTemplateFileNames } from '../enums/bulkTemplateTypes';
 import { JournalAutoApproverConditionTypes } from '../enums/journalAutoApproverConditionTypes';
+import { SchedulerRunHistoryStatuses } from '../enums/schedulerRunHistoryStatuses';
 
 @Injectable({
   providedIn: 'root'
@@ -69,4 +70,5 @@ export class EnumLoaderService {
   public journalAutoApproverConditionTypes = JournalAutoApproverConditionTypes;
   public journalPostingStatus = JournalPostingStatus;
   public documentIdStatus = DocumentIdStatus;
+  public schedulerRunHistoryStatuses = SchedulerRunHistoryStatuses;
 }

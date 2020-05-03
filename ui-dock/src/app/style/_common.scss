@@ -57,6 +57,11 @@
   font-family: $font-family;
 }
 
+.success-text{
+  color: $success-box-text-color;
+  font-family: $font-family;
+}
+
 .error-box{
   background-color: $anomaly-tr-back-color;
   color: $anomaly-text-color;
@@ -144,4 +149,8 @@ input, button, select, textarea{
 
 .has-role{
   background-color: lime;
+}
+
+.bck-thm{
+  background-color: ghostwhite;
 }

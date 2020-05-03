@@ -41,18 +41,18 @@
                                     <app-textbox ctrlId="txtLabel_{{i}}" label="" maxLength="50" [(model)]="item.label" ariaLabel="Label"></app-textbox>
                                 </div>
                                 <div class="cu-td w-25 text-center" scope="row">
-                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="code" value="value" ariaLabel="Select type"
-                                        [list]="headerTypes" [(model)]="item.typ" (valueChange)="onHeaderItemTypeChanged($event, item)"></app-combobox>
+                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="value" value="value" ariaLabel="Select type"
+                                        [list]="mappingTypes" [(model)]="item.typ" (valueChange)="onMappingTypeChanged($event, item)"></app-combobox>
                                 </div>
                                 <div class="cu-td w-30 text-center" scope="row">
-                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="code" value="value" ariaLabel="Select type"
-                                        [list]="headerTypes" [(model)]="item.typ" (valueChange)="onHeaderItemTypeChanged($event, item)"></app-combobox>
+                                    <app-combobox ctrlId="cmbType_{{i}}" label="" placeholder="Select type" key="colLabel" value="colLabel" ariaLabel="Select type"
+                                        [list]="getMappingColumns(item.typ)" [(model)]="item.colLabel" (valueChange)="onMappingColumnChanged($event, item)"></app-combobox>
                                 </div>
                                 <div class="cu-td w-10 center-icon" [hidden]="deletingIndex===i">
-                                    <app-icon-button faIcon="fa-arrow-down" (btnClick)="onSequenceChangedClick(item, 1, i)"
+                                    <app-icon-button faIcon="fa-arrow-down" (btnClick)="onSequenceChangedClick(i, 1)"
                                         [isDisabled]="item.seq === getMaxSequence()"
                                         tooltipText="Sequence down" ariaLabel="Sequence down"></app-icon-button>&nbsp;&nbsp;
-                                    <app-icon-button faIcon="fa-arrow-up" (btnClick)="onSequenceChangedClick(item, -1, i)"
+                                    <app-icon-button faIcon="fa-arrow-up" (btnClick)="onSequenceChangedClick(i, -1)"
                                         [isDisabled]="item.seq === 1"
                                         tooltipText="Sequence up" ariaLabel="Sequence up"></app-icon-button>&nbsp;&nbsp;
                                     <app-icon-button faIcon="fa-trash-o" (btnClick)="onDeleteFormatClick(item, null, i)" 

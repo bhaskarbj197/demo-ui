@@ -10,7 +10,6 @@ import { Broadcaster } from '../../../utility/broadcaster';
 import { ConstantLoaderService } from '../../../loaders/constant-loader.service';
 import { RunHistoryModel } from '../../../models/runHistory.model';
 import { JournalInfoPartial } from 'src/app/models/journalInfo.model';
-import { EnumLoaderService } from '../../../loaders/enum-loader.service';
 import { RunHistoryPartialModel } from '../../../models/runHistory.model';
 import { RoleActionConverterPipe } from '../../../pipes/role-action-converter.pipe';
 
@@ -46,7 +45,6 @@ export class TreeViewComponent implements OnInit, DoCheck {
 
   constructor(private broadcaster: Broadcaster,
     private constantLoaderService: ConstantLoaderService,
-    private enumLoaderService: EnumLoaderService,
     private roleActionConverterPipe: RoleActionConverterPipe) { }
 
   ngOnInit() {

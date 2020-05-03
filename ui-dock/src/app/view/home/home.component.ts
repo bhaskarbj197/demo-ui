@@ -69,6 +69,7 @@ export class HomeComponent implements OnInit {
     this.dataService.journalStatus = "";
     this.dataService.journalId = 0;
     this.dataService.journalViewMode = this.constantLoaderService.viewModesService.NONE;
+    this.dataService.isJournalCopy = false;
   }
 
   private initPageConfig() {
@@ -214,6 +215,7 @@ export class HomeComponent implements OnInit {
         requestBody[this.constantLoaderService.defaultValuesService.PARAM_JID] = journalId;
         this.businessLoaderService.homeBusinessService.copyToNewJournalAsync(requestBody).subscribe(res => {
           if(res.body && res.body.newJid) {
+            this.dataService.isJournalCopy = true;
             this.onEditJournalClick(res.body.newJid, this.enumLoaderService.journalStatuses.IN_PROGRESS);
           }
           this.journalCopyingId = 0;
@@ -329,5 +331,9 @@ export class HomeComponent implements OnInit {
         this.getAllJournals();
       }
     }
+  }
+
+  isEditBtnDisabled(journal:JournalInfoModel): boolean {
+    return !(journal && journal.journalStatus === this.enumLoaderService.journalStatuses.IN_PROGRESS);
   }
 }

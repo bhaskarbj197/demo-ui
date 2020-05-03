@@ -58,16 +58,16 @@
     </canvas>
 </div>
 <div class="chart" *ngIf="isCorrectSize('HOME1')">
-        <canvas baseChart
-            height="300"
-            width="190"
-            [datasets]="data"
-            [labels]="labels"
-            [options]="barChartOptions"
-            [plugins]="barChartPlugins"
-            [legend]="isLegendShow"
-            [colors]="barChartColors"
-            [chartType]="barChartType"
-            (chartClick)="onChartClicked($event)">
-        </canvas>
-    </div>
+    <canvas baseChart
+        height="300"
+        width="190"
+        [datasets]="data"
+        [labels]="labels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="isLegendShow"
+        [colors]="barChartColors"
+        [chartType]="barChartType"
+        (chartClick)="onChartClicked($event)">
+    </canvas>
+</div>

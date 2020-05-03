@@ -1,3 +1,158 @@
 <div class="row px-2 py-1 jcc-section-header">
     {{heading}}
 </div>
+<div class="p-1 mt-2">
+    <div class="row">
+        <div class="col">
+            <app-loader [isLoading]="isLoading"></app-loader>
+            <div class="row pb-1">
+                <div class="col">
+                    <h5>Schedule Run List</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="container accordion cu-cntr">
+                        <div class="card main-card cu-card">
+                            <div class="card-header px-1 py-1">
+                                <strong>Filter</strong>
+                            </div>
+                            <div class="tab-body">
+                                <div class="row p-1">
+                                    <div class="col">
+                                        <app-combobox ctrlId="cmbFilterMonth" label="By Month" [(model)]="filterObject.monthNumber"
+                                            [list]="monthList" key="key" value="value"
+                                            ariaLabel="By Month Filter" keyInNumber="true"></app-combobox>
+                                    </div>
+                                    <div class="col">
+                                        <app-number-textbox ctrlId="txtFilterJournalId" label="Journal Id" ariaLabel="Journal Id"
+                                            [(model)]="filterObject.journalId"></app-number-textbox>
+                                    </div>
+                                </div>
+                                <div class="row p-1">
+                                    <div class="col">
+                                        <app-combobox ctrlId="cmbFilterStatus" label="By Status" [(model)]="filterObject.status"
+                                            [list]="statusList" ariaLabel="By Status Filter" placeholder="Select Status"></app-combobox>
+                                    </div>
+                                    <div class="col">
+                                        <app-button value="Filter" faIcon="fa-search" type="FACEBOOK" isFloatRight="true" 
+                                            (btnClick)="onFilterClick()" ariaLabel="Filter"></app-button>
+                                        <app-button faIcon="fa fa-repeat" type="XING" (btnClick)="onResetClick()" isFloatRight="true"
+                                            value="Reset" ariaLabel="Reset" marginRight="5px"></app-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <app-table-header [columns]="tableHeaders" (sortingClicked)="onSortingClick($event)"></app-table-header>
+                    <div class="table-area">
+                        <app-table-no-records [list]="runHistoryList"></app-table-no-records>
+                        <div class="table bg-white cu-tbl">
+                            <div  class="cu-tbody">
+                                <div class="cu-tr" *ngFor="let run of runHistoryList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                    <div class="cu-td w-20 text-center" scope="row">{{run.journalId}}</div>
+                                    <div class="cu-td w-20 text-center">{{run.rundate | dateConverter: false: true}}</div>
+                                    <div class="cu-td w-20 text-center">{{run.startTime | dateConverter: true: true: true}}</div>
+                                    <div class="cu-td w-20 text-center">{{run.endTime | dateConverter: true: true: true}}</div>
+                                    <div class="cu-td w-15 text-center" [ngClass]="getStatusCss(run.status)">{{run.status}}</div>
+                                    <div class="cu-td w-5 center-icon">
+                                        <app-icon-button faIcon="fa-eye" (btnClick)="onViewRunHistoryDetails(run)" tooltipText="Run history details"
+                                            [isDisabled]="run.jobId === runHistoryDetails.jobId" ariaLabel="Run history details"></app-icon-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <app-table-footer [itemPerPage]="tableConfigModel.pageCount" [totalRecords]="totalScheduleRunCount" 
+                        [currentPageIndex]="tableConfigModel.pageIndex"
+                        (nextClicked)="onPageChangeClicked($event)" (prevClicked)="onPageChangeClicked($event)"></app-table-footer>
+                </div>
+            </div>
+        </div>
+        <div class="col bck-thm">
+            <div class="row" *ngIf="this.runHistoryDetails.jobId === 0">
+                <div class="col container-fluid">
+                    <app-navbar ctrlId="schedulerRunGraphTab" [tabList]="tabList" [activeTab]="activeTab" (activeTabChanged)="onChangedActiveTab($event)"
+                        [isBtnBoxShow]="false"></app-navbar>
+                    <app-loader [isLoading]="isGraphLoading"></app-loader>
+                    <div class="row p-2 justify-content-center" *ngIf="activeTab === tabList[0]">
+                        <div class="col">
+                            <div class="graph-show">
+                                <app-pie-chart [title]="tabList[0]" [labels]="statusCountGraphData.labels" [data]="statusCountGraphData.data" 
+                                    *ngIf="statusCountGraphData.data.length > 0"
+                                    [colors]="statusCountGraphData.colors" [size]="'LARGE' | enumValueConverter: 'chartSizes'"></app-pie-chart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 justify-content-center" *ngIf="activeTab === tabList[1]">
+                        <div class="col">
+                            <div class="graph-show">
+                                <app-bar-chart [title]="tabList[1]" [labels]="wdStatusCountGraphData.labels" [data]="wdStatusCountGraphData.data" 
+                                    [isLegendShow]="true" *ngIf="wdStatusCountGraphData.data.length > 0"
+                                    [size]="'LARGE' | enumValueConverter : 'chartSizes'" [colors]="wdStatusCountGraphData.colors"></app-bar-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.runHistoryDetails.jobId > 0">
+                <div class="col">
+                    <app-loader [isLoading]="isJobLoading"></app-loader>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Schedule Run Details</h5>
+                        </div>
+                        <div class="col">
+                            <app-button value="Close Details" faIcon="fa-times" type="FACEBOOK" isFloatRight="true" isSmall="true"
+                                (btnClick)="onCloseScheduleRunDetailClick()" ariaLabel="Close Details"></app-button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <app-showbox label="Journal Id" [(value)]="runHistoryDetails.journalId" minLabelLen="120px" ariaLabel="Journal id"></app-showbox>
+                            <app-showbox label="Run Date" value="{{runHistoryDetails.rundate | dateConverter: true: true}}" 
+                                minLabelLen="120px" ariaLabel="Run date"></app-showbox>
+                            <app-showbox label="Start Time" value="{{runHistoryDetails.startTime | dateConverter: true: true}}" 
+                                minLabelLen="120px" ariaLabel="Start Time"></app-showbox>
+                            <app-showbox label="End Time" value="{{runHistoryDetails.endTime | dateConverter: true: true}}" 
+                                minLabelLen="120px" ariaLabel="End Time"></app-showbox>
+                            <app-showbox label="Status" [(value)]="runHistoryDetails.status" minLabelLen="120px" ariaLabel="Status"></app-showbox>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            <div class="table bg-white cu-tbl only-head">
+                                <div class="cu-thead">
+                                    <div class="cu-tr">
+                                        <div class="cu-th w-10 no-border text-center" scope="col">Seq</div>
+                                        <div class="cu-th w-40 no-border" scope="col">Step</div>
+                                        <div class="cu-th w-20 no-border text-center" scope="col">Start</div>
+                                        <div class="cu-th w-20 no-border text-center" scope="col">End</div>
+                                        <div class="cu-th w-10 no-border text-center" scope="col">Status</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tbl-area">
+                                <div class="table bg-white cu-tbl">
+                                    <div  class="cu-tbody">
+                                        <div class="cu-tr" *ngFor="let step of runHistoryDetails.stepList; let odd=odd;" [ngClass]="{'odd-row': odd}">
+                                            <div class="cu-td w-10 text-center" scope="row">{{step.seq}}</div>
+                                            <div class="cu-td w-40" scope="row">{{step.stepValue}}</div>
+                                            <div class="cu-td w-20 text-center" scope="row">{{step.startTime | dateConverter: true: true: true}}</div>
+                                            <div class="cu-td w-20 text-center" scope="row">{{step.endTime | dateConverter: true: true: true}}</div>
+                                            <div class="cu-td w-10 text-center" [ngClass]="getStatusCss(step.status)" scope="row">{{step.status}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

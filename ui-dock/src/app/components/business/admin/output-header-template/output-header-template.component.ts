@@ -3,7 +3,9 @@ import { BusinessLoaderService } from 'src/app/loaders/business-loader.service';
 import { ConstantLoaderService } from 'src/app/loaders/constant-loader.service';
 import { HandlerLoaderService } from 'src/app/loaders/handler-loader.service';
 import { TemplateMasterPartialModel } from 'src/app/models/templateMaster.model';
-import { OutputHeaderTemplateModel, OutputHeaderTemplateTypeModel } from 'src/app/models/outputHeaderTemplate.model';
+import { OutputHeaderTemplateModel, OutputHeaderTemplateTypeModel, OutputHeaderMappingColumnmsModel } from 'src/app/models/outputHeaderTemplate.model';
+import { GeneralUtility } from 'src/app/utility/general-utility';
+import { templateIdType } from 'src/app/services/types';
 
 @Component({
   selector: 'app-output-header-template',
@@ -15,14 +17,16 @@ export class OutputHeaderTemplateComponent implements OnInit {
   @Input() heading: string = "";
   
   constructor(private businessLoaderService: BusinessLoaderService,
-    private constantLoaderService: ConstantLoaderService,
+    private utility: GeneralUtility,
     private handlerLoaderService: HandlerLoaderService) { }
 
   isLoading: boolean = false;
   templateList: Array<TemplateMasterPartialModel> = new Array<TemplateMasterPartialModel>();
   outputHeaders: Array<OutputHeaderTemplateModel> = new Array<OutputHeaderTemplateModel>();
-  headerTypes: Array<OutputHeaderTemplateTypeModel> = new Array<OutputHeaderTemplateTypeModel>();
-  templateId: number = 0;
+  mappingTypes: Array<OutputHeaderTemplateTypeModel> = new Array<OutputHeaderTemplateTypeModel>();
+  allMappingColumns: Array<OutputHeaderMappingColumnmsModel> = new Array<OutputHeaderMappingColumnmsModel>();
+  mappingColumns: Array<OutputHeaderMappingColumnmsModel> = new Array<OutputHeaderMappingColumnmsModel>();
+  templateId: templateIdType = 0;
   deletingIndex: number = -1;
 
   ngOnInit() {
@@ -31,7 +35,23 @@ export class OutputHeaderTemplateComponent implements OnInit {
   }
 
   private loadHeaderTypes(){
-
+    var mappingType = new OutputHeaderTemplateTypeModel();
+    this.mappingTypes = [];
+    this.businessLoaderService.outputHeaderTemplateBusinessService.getHeaderMappingListAsync().subscribe(res => {
+      if(res.body.mappingColumns && res.body.mappingColumns.length > 0) {
+        this.allMappingColumns = res.body.mappingColumns.map(data => new OutputHeaderMappingColumnmsModel(data.colLabel, data.mappingCol, data.mappingType));        
+      }
+      if(res.body && res.body.mappingTypes && res.body.mappingTypes.length > 0) {
+        this.mappingTypes = res.body.mappingTypes.map(item => {
+          let tmpMappingColumns: Array<any> =[];
+          if(this.allMappingColumns && this.allMappingColumns.length > 0) {
+            tmpMappingColumns = this.allMappingColumns.filter(data => data.mappingType === item);
+          }          
+          mappingType = new OutputHeaderTemplateTypeModel(item.replace(/\s+/g,''), item, tmpMappingColumns);
+          return mappingType;
+        });
+      }      
+    })
   }
 
   private loadTemplateList(){
@@ -51,13 +71,36 @@ export class OutputHeaderTemplateComponent implements OnInit {
   }
 
   private loadOutputHeaderTemplate(){
-
+    this.isLoading = true;
+    this.businessLoaderService.outputHeaderTemplateBusinessService.getHeaderTemplateByTemplateIdAsync(this.templateId).subscribe(res => {
+      this.isLoading = false;
+      this.outputHeaders = this.businessLoaderService.outputHeaderTemplateBusinessService.transformResponseToModel(res);
+      console.log(this.outputHeaders);
+    }, err => {
+      this.isLoading = false;
+      this.handlerLoaderService.errorHandlerService.handleError(err);
+    })
   }
 
   onTemplateChanged(obj: any){
     if(obj){
       this.templateId = obj.item.id;
       this.loadOutputHeaderTemplate();
+    }
+  }
+
+  getMappingColumns(mappingType: string) {
+    let tmpMappingType: OutputHeaderTemplateTypeModel;
+    let returnData: Array<any> = [];
+    if(this.mappingTypes && this.mappingTypes.length > 0) {
+      tmpMappingType = this.mappingTypes.find(data => data.value === mappingType);
+      if(tmpMappingType && tmpMappingType.mappingColumns && tmpMappingType.mappingColumns.length > 0) {
+        return this.mappingTypes.find(data => data.value === mappingType).mappingColumns;
+      } else {
+        return returnData;
+      }
+    } else {
+      return returnData;
     }
   }
 
@@ -71,15 +114,26 @@ export class OutputHeaderTemplateComponent implements OnInit {
   }
 
   onSubmitHeaderTemplate(){
-
+    this.isLoading = true;
+    this.businessLoaderService.outputHeaderTemplateBusinessService.saveHeaderTemplateAsync(this.templateId, this.outputHeaders).subscribe(res => {
+      this.isLoading = false;
+    }, err => {
+      this.isLoading = false;
+    })
   }
 
   onResetAll(){
 
   }
 
-  onHeaderItemTypeChanged(obj: any, item: OutputHeaderTemplateModel){
+  onMappingTypeChanged(event: any, item: OutputHeaderTemplateModel){
+    
+  }
 
+  onMappingColumnChanged(event: any, item: OutputHeaderTemplateModel){
+    if(event.item) {
+      item.mappingCol = event.item.mappingCol;
+    }
   }
 
   onDeleteFormatClick(item: OutputHeaderTemplateModel, isConfirm: boolean, index: number){
@@ -93,15 +147,9 @@ export class OutputHeaderTemplateComponent implements OnInit {
     }
   }
 
-  onSequenceChangedClick(item: OutputHeaderTemplateModel, updateSeq: number){
-    if(item && updateSeq !== null){
-      if(item.seq === 1 && updateSeq < 0){
-        return;
-      } else if(item.seq === this.getMaxSequence() && updateSeq > 0){
-        return;
-      } else {
-        //seq logic
+  onSequenceChangedClick(currentIndex: number, updateSeq: number){
+    if(this.outputHeaders && this.outputHeaders.length > 1 && updateSeq !== null){
+        this.utility.move(this.outputHeaders, currentIndex, updateSeq, "seq");
       }
     }
-  }
 }

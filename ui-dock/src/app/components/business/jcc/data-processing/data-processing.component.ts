@@ -217,7 +217,8 @@ export class DataProcessingComponent implements OnInit, OnDestroy {
   }
 
   private getFunctionList(){
-    this.functionList = this.businessLoaderService.functionsUiJsonBusinessService.getfunctionList();
+    this.functionList = this.generalUtility.getSortedArray(
+      this.businessLoaderService.functionsUiJsonBusinessService.getfunctionList(), "name");
   }
 
   private getInputTables(){
@@ -240,11 +241,12 @@ export class DataProcessingComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.inputFiles = this.generalUtility.getSortedArray(this.inputFiles, "name");
   }
 
   private getRules(){
     this.ruleList = null;
-    this.ruleList = this.businessLoaderService.ruleJsonBusinessService.getRuleList();
+    this.ruleList = this.generalUtility.getSortedArray(this.businessLoaderService.ruleJsonBusinessService.getRuleList(), "name");
   }
 
   private cleanData(){
