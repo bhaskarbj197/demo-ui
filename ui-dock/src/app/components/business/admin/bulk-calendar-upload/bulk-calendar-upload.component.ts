@@ -12,8 +12,10 @@ import { GeneralUtility } from 'src/app/utility/general-utility';
 import { BulkCalendarMasterModel } from 'src/app/models/calendar.model';
 import { HandlerLoaderService } from 'src/app/loaders/handler-loader.service';
 
+
 @Component({
   selector: 'app-bulk-calendar-upload',
+  
   templateUrl: './bulk-calendar-upload.component.html',
   styleUrls: ['./bulk-calendar-upload.component.scss']
 })
@@ -67,6 +69,7 @@ export class BulkCalendarUploadComponent implements OnInit {
 
   private processBulkCalendarMaster() {
     var request: any = {};
+	var test_new: any = {};
     this.isLoading = true;
     if(!this.generalUtility.isEmptyOrUndefined(this.uploadedFile)) {
       request.fileName = this.uploadedFile;
